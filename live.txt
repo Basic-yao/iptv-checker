@@ -85,7 +85,6 @@ https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m
 https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808226.m3u
 https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808384.m3u
 https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
-https://raw.githubusercontent.com/asdjkl6/tv/tv/.m3u/%E6%95%B4%E5%A5%97%E7%9B%B4%E6%92%AD%E6%BA%90/%E6%B5%8B%E8%AF%95/%E6%95%B4%E5%A5%97%E7%9B%B4%E6%92%AD%E6%BA%90/kk.txt
 https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
 
 # ---- 咪咕/移动 ----
