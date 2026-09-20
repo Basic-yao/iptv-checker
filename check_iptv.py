@@ -11,7 +11,6 @@ IPTV 直播源检测 → 纯 TXT 输出
 import sys
 import os
 import re
-import time
 import csv
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -49,6 +48,7 @@ CAT_MAP = {
 }
 
 SKIP_CATS = {"跳过"}
+
 
 # ━━━ 检测函数 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def check_url(url, timeout=8):
@@ -113,7 +113,7 @@ def parse_file(filepath):
 # ━━━ 同源仓库提取 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def repo_key(url):
     """提取 raw.githubusercontent.com/owner/repo 作为同源判定键"""
-    # 去掉可能的代理前缀
+    # 去掉可能的代理前缀（形如 https://代理/https://raw...）
     clean = url
     proxy_match = re.match(r'https?://[^/]+/https?://(.+)', url)
     if proxy_match:
@@ -189,7 +189,7 @@ def main():
         if u not in seen_url:
             seen_url[u] = item
     ok_url_dedup = list(seen_url.values())
-    url_dup_count = len(ok_raw) - len(ok_url_dedup
+    url_dup_count = len(ok_raw) - len(ok_url_dedup)
 
     # ━━━ 去重：第二层 同源仓库（owner/repo 相同）━━━
     seen_repo = {}
@@ -217,12 +217,16 @@ def main():
         by_broad[broad].sort(key=lambda x: x[1])  # 响应快→慢
 
     total_ok = sum(len(v) for v in by_broad.values())
+
+    # 统计日志
     print(f"\n{'='*50}")
     print(f"📊 检测完成")
     print(f"{'='*50}")
     print(f"   原始可用:   {len(ok_raw)}")
-    print(f"   URL去重:    {url_dup_count}")
-    print(f"   同源合并:   {repo_dup_count}")
+    if url_dup_count:
+        print(f"   URL去重:    {url_dup_count}")
+    if repo_dup_count:
+        print(f"   同源合并:   {repo_dup_count}")
     print(f"   最终保留:   {total_ok}")
     for broad in CAT_ORDER:
         urls = by_broad[broad]
