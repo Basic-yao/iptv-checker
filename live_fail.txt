@@ -1,15 +1,16 @@
 # 国内源
-https://gh-proxy.com/https://raw.githubusercontent.com/PizazzGY/TV/master/output/user_result.txt  #HTTP404
-https://gh-proxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/m3u/IPTV.m3u  #HTTP404
-https://gh-proxy.com/https://raw.githubusercontent.com/rad168/iptv/main/live.m3u  #HTTP404
 https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/IPTV/master/output/user_result.m3u  #HTTP404
 https://gh-proxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/refs/heads/main/txt/IPTV.txt  #HTTP404
+https://gh-proxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/m3u/IPTV.m3u  #HTTP404
+https://gh-proxy.com/https://raw.githubusercontent.com/rad168/iptv/main/live.m3u  #HTTP404
+https://gh-proxy.com/https://raw.githubusercontent.com/PizazzGY/TV/master/output/user_result.txt  #HTTP404
 https://gh-proxy.com/https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/dianshijia_10.1.txt  #HTTP404
 http://rihou.cc:88/zb/migu720plist.txt  #HTTP404
-https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #HTTP403
 https://gitee.com/sk0yang/tv/raw/master/output/result.txt  #HTTP403
-https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #HTTP403
+https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #HTTP403
 https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt  #HTTP403
+https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #HTTP403
+http://www.52top.com.cn:678/downloads/migu.txt  #0 CONN_ERR
 
 # 4K高清
 https://live.zbds.org/tv/iptv4.txt  #0 CONN_ERR
@@ -19,20 +20,20 @@ https://t.freetv.fun/m3u/china_original.txt  #0 TIMEOUT
 http://xn--x6qx76b.top/ZB  #0 CONN_ERR
 https://gh-proxy.com/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1  #HTTP404
 https://gh-proxy.com/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u  #HTTP404
+https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #HTTP423
 https://gitee.com/yu_shan_fei/vvvzhy/raw/zby/yu/yqk3.m3u  #HTTP404
 https://gitee.com/jin-xueling/lingl/raw/master/hu.txt  #HTTP423
-https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #HTTP423
 
 # 其他
 https://d.kstore.dev/download/15366/6988.txt  #HTTP404
 https://d.kstore.dev/download/11344/yunduan.txt  #HTTP404
-http://iptv.4666888.xyz/FYTV.txt  #0 CONN_ERR
 https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt  #HTTP403
-https://9730.kstore.space/%E9%A3%9B%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #HTTP404
-https://iptv.catvod.com/catvod_com?token=af8c376298c8d34b9c5a33b758c96db91aefffd1237d8bba1b8c6e16e39f98d4  #HTTP403
-https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1  #HTTP403
 https://7337.kstore.vip/lib/kjtwzb.txt  #HTTP404
+https://9730.kstore.space/%E9%A3%9B%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #HTTP404
+https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1  #HTTP403
+https://iptv.catvod.com/catvod_com?token=af8c376298c8d34b9c5a33b758c96db91aefffd1237d8bba1b8c6e16e39f98d4  #HTTP403
 https://ds65.tv1288.xyz  #HTTP403
 https://php.946985.filegear-sg.me/jackTV.m3u  #HTTP403
 https://d.h6room.com/frjzb.txt  #HTTP404
+http://iptv.4666888.xyz/FYTV.txt  #0 TIMEOUT
 
