@@ -134,7 +134,6 @@ https://gh-proxy.com/https://raw.githubusercontent.com/wudongdefeng/groceries/re
 https://gh-proxy.com/https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
 https://gh-proxy.com/https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
 https://gh-proxy.com/https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
-https://live.264788.xyz/sub/02RsVgdYgMdzVH6DBRKGmdBwFOmOqH/txt
 https://php.946985.filegear-sg.me/jackTV.m3u
 https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1
 https://iptv.catvod.com/catvod_com?token=af8c376298c8d34b9c5a33b758c96db91aefffd1237d8bba1b8c6e16e39f98d4
