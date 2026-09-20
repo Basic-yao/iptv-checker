@@ -55,7 +55,7 @@ https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
 
 # ---- iptv-org 分类 ----
 # cn
-https://gh-proxy.com/https://raw.githubusercontent.com/iptv-org/iptv/master/streams/cn.m3u
+https://iptv-org.github.io/iptv/countries/cn.m3u
 
 # ---- 国内地方/个人源 ----
 # cnTV_AutoUpdate
@@ -90,14 +90,12 @@ https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/h
 # ---- 未分类 ----
 # interface
 https://gh-proxy.com/https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt
+# iptv
+https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u
 
 # ---- 中文综合聚合 ----
 # iptv
 https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
-
-# ---- 未分类 ----
-# iptv
-https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u
 
 # ---- 综合/其他聚合 ----
 # iptv
@@ -109,9 +107,9 @@ https://gh-proxy.com/https://github.com/alantang1977/cluntop/blob/main/lib/iptv.
 
 # ---- 国内地方/个人源 ----
 # iptv
-https://gitee.com/lwr851/live/raw/master/iptv.m3u
+https://gitee.com/hw2837/iptv/raw/master/iptv
 
-# ---- vbskycn 镜像 ----
+# ---- 中文综合聚合 ----
 # iptv4
 https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/master/tv/iptv4.txt
 
@@ -155,7 +153,7 @@ https://gh-proxy.com/https://raw.githubusercontent.com/Basic-yao/TVBox/refs/head
 
 # ---- 国内地方/个人源 ----
 # live
-https://gh-proxy.com/https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
+https://gh-proxy.com/https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
 
 # ---- TVBox/盒子 ----
 # live
@@ -191,7 +189,7 @@ https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-tx
 
 # ---- 国内地方/个人源 ----
 # pllive
-https://gh-proxy.com/https://raw.githubusercontent.com/jn950/live/refs/heads/main/tv/pllive.txt
+https://gh-proxy.com/https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
 
 # ---- 未分类 ----
 # result
@@ -199,7 +197,7 @@ https://gh-proxy.com/https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/he
 
 # ---- 综合/其他聚合 ----
 # result
-https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
+https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
 
 # ---- 国内地方/个人源 ----
 # result
@@ -213,13 +211,13 @@ https://tmxk.pp.ua/smart-cn.m3u
 # sports
 https://iptv-org.github.io/iptv/categories/sports.m3u
 
-# ---- 国内地方/个人源 ----
-# tv
-https://gh-proxy.com/https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
-
 # ---- 综合/其他聚合 ----
 # tv
 http://47.94.6.170/TV/tv.m3u
+
+# ---- 国内地方/个人源 ----
+# tv
+https://gh-proxy.com/https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
 
 # ---- 其他新增 ----
 # tv
