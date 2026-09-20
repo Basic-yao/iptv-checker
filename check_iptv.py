@@ -1,382 +1,295 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""IPTV 直播源检测脚本。
-
-功能：
-- 检测直播源是否可用，按响应速度排序
-- 按大类分组输出，标题格式为 # ---- 分类 ----
-- URL 级去重 + 同源仓库去重（owner/repo 相同只保留最快）
-- 代理/加密类自动跳过
 """
-
-import sys
+IPTV 源检测脚本 (方案A：完整路径去重 + 诊断日志)
+移除 gh-proxy 逻辑，直连检测。
+"""
 import os
 import re
+import sys
 import csv
-import argparse
 import time
+import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlparse
-
-try:
-    import requests
-except ImportError:
-    print("请先安装依赖: pip install requests")
-    sys.exit(1)
+from collections import defaultdict
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# ━━━ 配置 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TIMEOUT = 10
+THREADS = 10
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 
-# ━━━ 配置 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DEFAULT_THREADS = 20
-DEFAULT_TIMEOUT = 10
-USER_AGENT = (
-    "Mozilla/5.0 (Linux; Android 10; TV) "
-    "AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
-)
-
-# 大类输出顺序（固定）
-CAT_ORDER = ["国内源", "国际源", "4K高清", "TVBox", "其他"]
-
-# 细分类 → 大类
-CAT_MAP = {
-    "中文综合聚合": "国内源",
-    "国内地方/个人源": "国内源",
-    "vbskycn 镜像": "国内源",
-    "咪咕/移动": "国内源",
-    "综合/其他聚合": "国内源",
-    "iptv-org 分类": "国际源",
-    "iptv": "国际源",
-    "TVBox/盒子": "TVBox",
-    "4K/高清": "4K高清",
-    "代理/中转/加密": "跳过",
-    "KStore/网盘分享": "其他",
-    "其他新增": "其他",
-    "未分类": "其他",
-}
-
-SKIP_CATS = {"跳过"}
-
-# 需要跳过的 URL 关键词（含这些的直接跳过不检测）
 SKIP_URL_KEYWORDS = [
-    ".php?sub=",
-    "/encrypt/",
-    "/api/decrypt",
-    "password=",
-    "token=",
-    "secret=",
+    ".php?sub=", "/encrypt/", "/api/decrypt",
+    "password=", "token=", "secret=",
 ]
 
+CAT_MAP = {
+    "CCTV": "央视", "卫视": "国内源", "国内": "国内源",
+    "港澳台": "港澳台", "香港": "港澳台", "台湾": "港澳台",
+    "体育": "体育", "电影": "电影", "4K": "4K/高清", "高清": "4K/高清",
+    "海外": "海外", "国外": "海外",
+}
+CAT_ORDER = ["央视", "国内源", "港澳台", "体育", "电影", "4K/高清", "海外", "其他"]
 
-# ━━━ 检测函数 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def check_url(url, timeout=DEFAULT_TIMEOUT):
-    """检测单个 URL 是否可用，返回 (url, status, elapsed_ms, error)"""
-    headers = {
-        "User-Agent": USER_AGENT,
-        "Accept": "*/*",
-    }
-    parsed = urlparse(url)
-    if "migu" in parsed.netloc.lower():
-        headers["Referer"] = "https://www.miguvideo.com/"
+# ━━━ 工具函数 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def classify(orig_cat):
+    if not orig_cat:
+        return "其他"
+    for k, v in CAT_MAP.items():
+        if k in orig_cat:
+            return v
+    return "其他"
 
-    start = time.time()
-    try:
-        # 先试 HEAD
-        try:
-            r = requests.head(
-                url, headers=headers, timeout=timeout,
-                allow_redirects=True, verify=False,
-            )
-            elapsed = int((time.time() - start) * 1000)
-            if r.status_code in (200, 206):
-                return url, r.status_code, elapsed, ""
-            if r.status_code == 405:
-                raise requests.exceptions.RequestException("fallback to GET")
-        except requests.exceptions.RequestException:
-            pass
+def is_skip(url):
+    low = url.lower()
+    return any(k.lower() in low for k in SKIP_URL_KEYWORDS)
 
-        # HEAD 不行就 GET（stream 模式，不下载正文）
-        start = time.time()
-        r = requests.get(
-            url, headers=headers, timeout=timeout,
-            allow_redirects=True, verify=False, stream=True,
-        )
-        elapsed = int((time.time() - start) * 1000)
-        r.close()
-        return url, r.status_code, elapsed, ""
+def normalize_url(url):
+    """基础标准化：去查询参数，统一 master 路径"""
+    url = url.strip()
+    url = url.split('?')[0]
+    url = re.sub(r'/refs/heads/', '/', url)
+    return url
 
-    except requests.exceptions.Timeout:
-        return url, 0, int((time.time() - start) * 1000), "TIMEOUT"
-    except requests.exceptions.ConnectionError:
-        return url, 0, int((time.time() - start) * 1000), "CONN_ERR"
-    except Exception as e:
-        return url, 0, int((time.time() - start) * 1000), str(e)[:50]
+def repo_key(url):
+    """
+    方案A核心：完整路径去重。
+    只合并真正的重复文件（如 master vs refs/heads/master），
+    不再把同仓库不同文件合并。
+    """
+    clean = normalize_url(url)
+    # 提取 github raw 路径
+    m = re.match(r'https?://raw\.githubusercontent\.com/([^/]+/[^/]+/.+)', clean)
+    if m:
+        return m.group(1).lower()
+    # 其他域名也走完整路径
+    parsed = urlparse(clean)
+    path = parsed.path.lstrip('/')
+    return (parsed.netloc + '/' + path).lower()
 
-
-# ━━━ 解析输入文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def parse_file(filepath):
-    """解析 live.txt，返回 [(分类, url), ...]"""
+# ━━━ 解析 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def parse_file(path):
     entries = []
-    current_cat = "未分类"
-    with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+    cur_cat = "未分类"
+    with open(path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
-            line = line.strip()
-            if not line:
+            s = line.strip()
+            if not s:
                 continue
-            if line.startswith("#EXTM3U"):
-                continue
-            # 分类标题行
-            if line.startswith("#") and "http" not in line:
-                if line.startswith("#EXTINF"):
-                    m = re.search(r'group-title="([^"]+)"', line)
-                    if m:
-                        current_cat = m.group(1).strip()
-                    continue
-                if line.startswith("#EXTGRP"):
-                    continue
-                # # ---- 分类名 ---- 格式
-                m = re.match(r"#\s*-+\s*(.+?)\s*-+\s*$", line)
+            if s.startswith('#'):
+                # 兼容 # 分类, # ---- 分类 ----, #EXTINF
+                m = re.search(r'#\s*(?:----)?\s*(.*?)(?:\s*----)?$', s)
                 if m:
-                    current_cat = m.group(1).strip()
-                    continue
-                # # 分类名 格式
-                candidate = line.lstrip("#").strip()
-                if candidate and not candidate.startswith("EXT"):
-                    current_cat = candidate
+                    cur_cat = m.group(1).strip() or cur_cat
                 continue
-            # URL 行
-            if line.startswith("http"):
-                entries.append((current_cat, line))
+            if re.match(r'^https?://', s):
+                entries.append((cur_cat, s))
     return entries
 
+# ━━━ 检测 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def check_url(url, timeout=TIMEOUT):
+    try:
+        session = requests.Session()
+        retries = Retry(total=0)
+        session.mount('https://', HTTPAdapter(max_retries=retries))
+        session.mount('http://', HTTPAdapter(max_retries=retries))
+        
+        headers = {"User-Agent": USER_AGENT}
+        # 支持 HLS (m3u8) 头检测，允许重定向
+        r = session.get(
+            url, headers=headers, timeout=timeout,
+            allow_redirects=True, verify=False, stream=True
+        )
+        status = r.status_code
+        elapsed = int(r.elapsed.total_seconds() * 1000)
+        # 读一点内容确认不是空响应
+        content = next(r.iter_content(1024), b'')
+        r.close()
+        
+        if status in (200, 206) and len(content) > 10:
+            return status, elapsed, None
+        return status, elapsed, "empty" if len(content) <= 10 else None
+    except requests.exceptions.Timeout:
+        return 0, timeout * 1000, "TIMEOUT"
+    except requests.exceptions.ConnectionError as e:
+        return 0, 0, "CONN_ERR"
+    except Exception as e:
+        return 0, 0, str(e)[:20]
 
-# ━━━ 同源仓库提取 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def repo_key(url):
-    """提取 raw.githubusercontent.com/owner/repo 作为同源判定键"""
-    m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)", url)
-    if m:
-        return m.group(1).lower() + "/" + m.group(2).lower()
-    return None
-
-
-# ━━━ 判断是否需要跳过 ━━━━━━━━━━━━━━━━━━━━━━━━━━
-def should_skip_url(url):
-    url_lower = url.lower()
-    for kw in SKIP_URL_KEYWORDS:
-        if kw.lower() in url_lower:
-            return True
-    return False
-
-
-# ━━━ 主流程 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━ 主流程 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def main():
-    parser = argparse.ArgumentParser(description="IPTV 直播源检测")
-    parser.add_argument("file", nargs="?", default="live.txt")
-    parser.add_argument("--threads", type=int, default=DEFAULT_THREADS)
-    parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    global THREADS, TIMEOUT
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input', nargs='?', default='live.txt')
+    parser.add_argument('--threads', type=int, default=THREADS)
+    parser.add_argument('--timeout', type=int, default=TIMEOUT)
     args = parser.parse_args()
+    THREADS = args.threads
+    TIMEOUT = args.timeout
 
-    if not os.path.exists(args.file):
-        print("文件不存在: " + args.file)
+    if not os.path.exists(args.input):
+        print(f"❌ 文件不存在: {args.input}")
         sys.exit(1)
 
-    print("读取 " + args.file + " ...")
-    entries = parse_file(args.file)
-    print("解析到 " + str(len(entries)) + " 个链接")
+    entries = parse_file(args.input)
+    print(f"📖 解析到 {len(entries)} 条链接")
 
-    if len(entries) == 0:
-        print("未解析到任何链接！检查 live.txt 格式")
-        print("前 10 行原始内容:")
-        with open(args.file, "r", encoding="utf-8", errors="ignore") as f:
-            for i, line in enumerate(f):
-                if i >= 10:
-                    break
-                print("  L" + str(i + 1) + ": " + line.rstrip())
-        sys.exit(1)
-
-    # 分离跳过类
     to_check = []
     skipped = []
     for cat, url in entries:
-        if should_skip_url(url):
+        if is_skip(url):
             skipped.append(url)
             continue
-        broad = CAT_MAP.get(cat, "其他")
-        if broad in SKIP_CATS:
-            skipped.append(url)
-        else:
-            to_check.append((broad, cat, url))
+        to_check.append((cat, url))
 
-    if skipped:
-        print("跳过 " + str(len(skipped)) + " 个（加密/关键词）\n")
+    print(f"🔍 待检测: {len(to_check)}, 跳过: {len(skipped)}")
 
-    if not to_check:
-        print("没有需要检测的链接！全部被跳过或解析为空")
-        sys.exit(1)
-
-    print("开始检测 (" + str(len(to_check)) + " 个, "
-          + str(args.threads) + " 线程, "
-          + str(args.timeout) + "s 超时)...\n")
-
-    # 并发检测
     results = []
-    completed = 0
-    total = len(to_check)
+    print(f"⏳ 开始检测 (threads={THREADS}, timeout={TIMEOUT}s)...")
+    with ThreadPoolExecutor(max_workers=THREADS) as ex:
+        future_map = {ex.submit(check_url, u): (c, u) for c, u in to_check}
+        done = 0
+        for fut in as_completed(future_map):
+            cat, url = future_map[fut]
+            status, elapsed, err = fut.result()
+            results.append((classify(cat), cat, url, status, elapsed, err))
+            done += 1
+            mark = "✅" if status in (200, 206) else ("⏱" if err == "TIMEOUT" else "❌")
+            print(f"  {mark} [{elapsed}ms] {url[:70]} ({status})")
+            if done % 10 == 0:
+                print(f"    进度: {done}/{len(to_check)}")
 
-    with ThreadPoolExecutor(max_workers=args.threads) as executor:
-        futures = {
-            executor.submit(check_url, url, args.timeout): (broad, orig_cat, url)
-            for broad, orig_cat, url in to_check
-        }
-        for future in as_completed(futures):
-            broad, orig_cat, url = futures[future]
-            completed += 1
-            try:
-                url_r, status, elapsed, error = future.result()
-            except Exception as e:
-                url_r, status, elapsed, error = url, 0, 0, str(e)[:50]
-            results.append((broad, orig_cat, url_r, status, elapsed, error))
-
-            icon = "OK" if status in (200, 206) else "TMO" if "TIMEOUT" in error else "FAIL"
-            short = url_r if len(url_r) <= 55 else url_r[:52] + "..."
-            print("  [" + str(completed) + "/" + str(total) + "] "
-                  + icon + " " + str(status) + " | "
-                  + str(elapsed) + "ms | " + short)
-
-    # 可用结果
-    ok_raw = [
-        (b, oc, u, s, e_ms, e)
-        for b, oc, u, s, e_ms, e in results
-        if s in (200, 206)
-    ]
-
-    # 去重：第一层 URL 完全相同
+    # ━━━ 去重：第一层 URL 去重 ━━━
+    ok_raw = [r for r in results if r[3] in (200, 206)]
     seen_url = {}
+    url_dup_count = 0
     for item in ok_raw:
-        u = item[2]
-        if u not in seen_url:
-            seen_url[u] = item
+        broad, orig, url, st, el, er = item
+        norm = normalize_url(url)
+        if norm not in seen_url or el < seen_url[norm][4]:
+            seen_url[norm] = item
+        else:
+            url_dup_count += 1
     ok_url_dedup = list(seen_url.values())
-    url_dup_count = len(ok_raw) - len(ok_url_dedup)
 
-    # 去重：第二层 同源仓库（owner/repo 相同只保留最快）
+    # ━━━ 去重：第二层 完整路径去重（方案A）━━━
     seen_repo = {}
     repo_dup_count = 0
     for item in ok_url_dedup:
-        key = repo_key(item[2])
-        if key is None:
-            seen_repo[item[2]] = item
-        elif key not in seen_repo:
+        broad, orig, url, st, el, er = item
+        key = repo_key(url)
+        if key not in seen_repo or el < seen_repo[key][4]:
             seen_repo[key] = item
         else:
             repo_dup_count += 1
-            if item[4] < seen_repo[key][4]:
-                seen_repo[key] = item
     ok_dedup = list(seen_repo.values())
 
-    # 按大类分组，大类内按响应速度排序（快→慢）
-    by_broad = {broad: [] for broad in CAT_ORDER}
-    for broad, orig_cat, url, status, elapsed, error in ok_dedup:
-        by_broad.setdefault(broad, []).append((url, elapsed))
-
-    for broad in by_broad:
-        by_broad[broad].sort(key=lambda x: x[1])
+    # ━━━ 分类聚合 ━━━
+    by_broad = defaultdict(list)
+    for item in ok_dedup:
+        broad, orig, url, st, el, er = item
+        by_broad[broad].append((url, el))
 
     total_ok = sum(len(v) for v in by_broad.values())
 
-    # 统计日志
-    print("")
-    print("=" * 50)
-    print("检测完成")
-    print("=" * 50)
-    print("  解析总数: " + str(len(entries)))
-    print("  检测总数: " + str(len(to_check)))
-    print("  原始可用: " + str(len(ok_raw)))
-    if url_dup_count:
-        print("  URL去重:  " + str(url_dup_count))
-    if repo_dup_count:
-        print("  同源合并: " + str(repo_dup_count))
-    print("  最终保留: " + str(total_ok))
+    # ━━━ 诊断日志（方案A新增）━━━
+    print(f"\n🔍 同源去重详情 (完整路径级):")
+    from collections import Counter
+    key_counter = Counter(repo_key(i[2]) for i in ok_url_dedup)
+    merged = {k: c for k, c in key_counter.items() if c > 1}
+    if merged:
+        for k, c in list(merged.items())[:5]:
+            print(f"   📦 {k}: {c} 条 → 保留 1 条")
+    else:
+        print("   ✅ 无过度合并（同仓库不同文件均保留）")
+
+    print(f"\n🔍 分类分布:")
     for broad in CAT_ORDER:
-        urls = by_broad[broad]
+        urls = by_broad.get(broad, [])
         if urls:
-            print("  " + broad + ": " + str(len(urls)) + " 条")
-    print("=" * 50)
-    print("")
+            print(f"   {broad}: {len(urls)} 条")
+    other_count = len(by_broad.get("其他", []))
+    if other_count:
+        print(f"   ⚠️ '其他'类有 {other_count} 条，可能包含未匹配分类标题的源")
+
+    # ━━━ 统计日志 ━━━
+    print(f"\n{'='*50}")
+    print(f"📊 检测完成")
+    print(f"{'='*50}")
+    print(f"   解析总数:   {len(entries)}")
+    print(f"   检测总数:   {len(to_check)}")
+    print(f"   原始可用:   {len(ok_raw)}")
+    if url_dup_count:
+        print(f"   URL去重:    {url_dup_count}")
+    if repo_dup_count:
+        print(f"   完整路径去重:{repo_dup_count}")
+    print(f"   最终保留:   {total_ok}")
+    for broad in CAT_ORDER:
+        urls = by_broad.get(broad, [])
+        if urls:
+            print(f"   {broad}: {len(urls)} 条")
+    print(f"{'='*50}\n")
 
     if total_ok == 0:
-        print("没有可用源！检查上方日志中的状态码和错误信息")
-        print("可尝试加大超时时间: --timeout 15")
-        print("")
+        print("⚠️ 没有可用源！检查上方日志中的状态码和错误信息\n")
 
-    # 写 live_ok.txt
-    with open("live_ok.txt", "w", encoding="utf-8") as f:
+    # ━━━ 写 live_ok.txt ━━━
+    with open('live_ok.txt', 'w', encoding='utf-8') as f:
         for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
             if not urls:
                 continue
-            f.write("# ---- " + broad + " ----\n")
-            for url, elapsed in urls:
-                f.write(url + "\n")
+            f.write(f"# ---- {broad} ----\n")
+            for url, elapsed in sorted(urls, key=lambda x: x[1]):
+                f.write(f"{url}\n")
             f.write("\n")
 
-    # 写 skipped.txt
+    # ━━━ 写 skipped.txt ━━━
     if skipped:
-        with open("skipped.txt", "w", encoding="utf-8") as f:
+        with open('skipped.txt', 'w', encoding='utf-8') as f:
             for url in skipped:
-                f.write(url + "\n")
+                f.write(f"{url}\n")
 
-    # 写 live_fail.txt
-    fail_raw = [
-        (b, oc, u, s, e)
-        for b, oc, u, s, e_ms, e in results
-        if s not in (200, 206)
-    ]
+    # ━━━ 写 live_fail.txt ━━━
+    fail_raw = [r for r in results if r[3] not in (200, 206)]
     seen_f = {}
     for item in fail_raw:
         u = item[2]
         if u not in seen_f:
             seen_f[u] = item
-    with open("live_fail.txt", "w", encoding="utf-8") as f:
+    with open('live_fail.txt', 'w', encoding='utf-8') as f:
         for broad in CAT_ORDER:
-            items = [
-                (b, oc, u, s, e)
-                for b, oc, u, s, e in seen_f.values()
-                if b == broad
-            ]
+            items = [v for v in seen_f.values() if v[0] == broad]
             if not items:
                 continue
-            f.write("# ---- " + broad + " ----\n")
+            f.write(f"# ---- {broad} ----\n")
             for _, _, url, status, error in items:
-                if error:
-                    reason = "  #" + str(status) + " " + error
-                else:
-                    reason = "  #HTTP" + str(status)
-                f.write(url + reason + "\n")
+                reason = f"  #{status} {error}" if error else f"  #HTTP{status}"
+                f.write(f"{url}{reason}\n")
             f.write("\n")
 
-    # 写 CSV 报告
-    with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
+    # ━━━ 写 CSV 报告 ━━━
+    with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
-        w.writerow(["大类", "原始分类", "URL", "状态码", "响应时间(ms)", "错误"])
-        sorted_results = sorted(
-            results,
-            key=lambda x: (
-                CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99,
-                x[4],
-            ),
-        )
-        for broad, orig_cat, url, status, elapsed, error in sorted_results:
+        w.writerow(['大类', '原始分类', 'URL', '状态码', '响应时间(ms)', '错误'])
+        for broad, orig_cat, url, status, elapsed, error in sorted(
+            results, key=lambda x: (CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99, x[4])
+        ):
             w.writerow([broad, orig_cat, url, status, elapsed, error])
 
-    print("已生成:")
-    print("  live_ok.txt     <- " + str(total_ok) + " 条可用源")
-    print("  live_fail.txt   <- 失效列表")
+    print(f"💾 已生成:")
+    print(f"   live_ok.txt     ← {total_ok} 条可用源")
+    print(f"   live_fail.txt   ← 失效列表")
     if skipped:
-        print("  skipped.txt     <- " + str(len(skipped)) + " 个跳过的源")
-    print("  live_report.csv <- 检测报告")
+        print(f"   skipped.txt     ← {len(skipped)} 个跳过的源")
+    print(f"   live_report.csv ← 检测报告")
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
