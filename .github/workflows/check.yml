@@ -1,30 +1,29 @@
-name: IPTV Source Checker
+name: IPTV Check
 
 on:
+  schedule:
+    - cron: '0 18 * * *'   # 北京时间 02:00
   workflow_dispatch:
   push:
     paths:
       - 'live.txt'
       - 'check_iptv.py'
-      - '.github/workflows/check.yml'
-  schedule:
-    - cron: '0 18 * * *'   # UTC 18:00 = 北京时间 02:00
+      - 'check.yml'
 
 concurrency:
   group: iptv-check-${{ github.ref }}
   cancel-in-progress: false
 
-permissions:
-  contents: write
-
 jobs:
   check:
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # 拉取完整历史，rebase 需要
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,24 +31,28 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
       - name: Show input stats
         run: |
           if [ -f live.txt ]; then
-            total=$(grep -c '^http' live.txt || echo 0)
-            echo "📥 输入文件共 $total 个链接"
-            dupes=$(sort live.txt | grep '^http' | uniq -d | wc -l)
-            echo "🔍 其中重复行: $dupes 个"
+            total=$(wc -l < live.txt)
+            http_count=$(grep -c '^http' live.txt || echo 0)
+            echo "📥 live.txt: ${total} 行, ${http_count} 个 http 链接"
           else
             echo "❌ live.txt 不存在"
             exit 1
           fi
 
       - name: Run checker
-        run: python check_iptv.py
+        run: |
+          python check_iptv.py --threads 10 --timeout 10
+        continue-on-error: true
 
       - name: Show output stats
+        if: always()
         run: |
           echo "📤 生成文件统计:"
           for f in live_ok.txt live_fail.txt skipped.txt live_report.csv; do
@@ -70,31 +73,20 @@ jobs:
             echo "❌ 失效去重后: $fail_count 个"
           fi
 
-      - name: Commit results
+      - name: Commit and push results
+        if: always()
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add live_ok.txt live_fail.txt skipped.txt live_report.csv
-
           if git diff --cached --quiet; then
-            echo "无变更，跳过提交"
+            echo "📭 无变更，跳过提交"
             exit 0
           fi
-
-          git commit -m "chore: update IPTV check results [skip ci]"
-
-          # 重试推送，解决并发冲突
+          git commit -m "🔄 IPTV 检测更新 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
           for i in 1 2 3; do
-            echo "Push attempt $i..."
-            git pull --rebase origin main
-            if git push origin main; then
-              echo "✅ 推送完成"
-              exit 0
-            fi
-            echo "⚠️ 推送失败，等待重试..."
+            git pull --rebase origin main || git pull --rebase origin master
+            git push origin HEAD && break
+            echo "⚠️ push 失败，重试 $i/3..."
             sleep 5
           done
-
-          echo "❌ 3 次推送均失败"
-          exit 1
