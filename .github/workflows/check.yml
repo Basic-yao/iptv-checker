@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add live_ok.m3u live_ok.txt live_fail.txt live_report.csv
+          git add live_ok.txt live_ok.txt live_fail.txt live_report.csv
           git diff --cached --quiet || git commit -m "chore: update IPTV check results [skip ci]"
           git push
