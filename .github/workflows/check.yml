@@ -6,8 +6,13 @@ on:
     paths:
       - 'live.txt'
       - 'check_iptv.py'
+      - '.github/workflows/check.yml'
   schedule:
     - cron: '0 18 * * *'   # UTC 18:00 = 北京时间 02:00
+
+concurrency:
+  group: iptv-check-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -18,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 拉取完整历史，rebase 需要
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -45,7 +52,7 @@ jobs:
       - name: Show output stats
         run: |
           echo "📤 生成文件统计:"
-          for f in live_ok.txt live_ok.m3u live_fail.txt live_report.csv; do
+          for f in live_ok.txt live_fail.txt skipped.txt live_report.csv; do
             if [ -f "$f" ]; then
               lines=$(wc -l < "$f")
               size=$(du -sh "$f" | cut -f1)
@@ -66,13 +73,28 @@ jobs:
       - name: Commit results
         run: |
           git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add live_ok.txt live_ok.m3u live_fail.txt live_report.csv
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add live_ok.txt live_fail.txt skipped.txt live_report.csv
+
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
-          else
-            echo "📝 提交变更..."
-            git commit -m "chore: update IPTV check results [skip ci]"
-            git push
-            echo "✅ 推送完成"
+            exit 0
           fi
+
+          git commit -m "chore: update IPTV check results [skip ci]"
+
+          # 重试推送，解决并发冲突
+          for i in 1 2 3; do
+            echo "Push attempt $i..."
+            git pull --rebase origin main
+            if git push origin main; then
+              echo "✅ 推送完成"
+              exit 0
+            fi
+            echo "⚠️ 推送失败，等待重试..."
+            sleep 5
+          done
+
+          echo "❌ 3 次推送均失败"
+          exit 1
