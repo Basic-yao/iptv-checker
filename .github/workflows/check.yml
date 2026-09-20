@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   check:
-    runs-on: ubuntu-24.04   # 固定版本，避免 Ubuntu 26 迁移后出问题
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,8 +27,41 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Show input stats
+        run: |
+          if [ -f live.txt ]; then
+            total=$(grep -c '^http' live.txt || echo 0)
+            echo "📥 输入文件共 $total 个链接"
+            dupes=$(sort live.txt | grep '^http' | uniq -d | wc -l)
+            echo "🔍 其中重复行: $dupes 个"
+          else
+            echo "❌ live.txt 不存在"
+            exit 1
+          fi
+
       - name: Run checker
         run: python check_iptv.py
+
+      - name: Show output stats
+        run: |
+          echo "📤 生成文件统计:"
+          for f in live_ok.txt live_ok.m3u live_fail.txt live_report.csv; do
+            if [ -f "$f" ]; then
+              lines=$(wc -l < "$f")
+              size=$(du -sh "$f" | cut -f1)
+              echo "   $f  → ${lines} 行, ${size}"
+            else
+              echo "   $f  → 未生成"
+            fi
+          done
+          if [ -f live_ok.txt ]; then
+            ok_count=$(grep -c '^http' live_ok.txt || echo 0)
+            echo "✅ 可用去重后: $ok_count 个"
+          fi
+          if [ -f live_fail.txt ]; then
+            fail_count=$(grep -c '^http' live_fail.txt || echo 0)
+            echo "❌ 失效去重后: $fail_count 个"
+          fi
 
       - name: Commit results
         run: |
@@ -38,6 +71,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
           else
+            echo "📝 提交变更..."
             git commit -m "chore: update IPTV check results [skip ci]"
             git push
+            echo "✅ 推送完成"
           fi
