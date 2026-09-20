@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源检测 + txt/m3u 生成
+IPTV 直播源检测 + txt/m3u 生成（含去重）
 输出:
-  live_ok.txt    ← 纯 TXT（每行一个 URL）
-  live_ok.m3u    ← M3U 播放列表
-  live_fail.txt  ← 失效列表
-  live_report.csv← 检测报告
+  live_ok.txt    ← 纯 TXT（每行一个 URL，已去重）
+  live_ok.m3u    ← M3U 播放列表（已去重）
+  live_fail.txt  ← 失效列表（已去重）
+  live_report.csv← 检测报告（不去重，保留全部记录）
 """
 
 import sys
@@ -95,6 +95,21 @@ def parse_file(filepath):
     return entries
 
 
+# ━━━ 去重函数 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def deduplicate(results_list):
+    """
+    按 URL 去重，保留第一次出现的记录
+    results_list: [(cat, url, status, elapsed, error), ...]
+    返回去重后的列表
+    """
+    seen = {}
+    for item in results_list:
+        url = item[1]
+        if url not in seen:
+            seen[url] = item
+    return list(seen.values())
+
+
 # ━━━ 主流程 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def main():
     parser = argparse.ArgumentParser(description='IPTV Checker')
@@ -112,7 +127,7 @@ def main():
 
     print(f"📂 读取 {args.file} ...")
     entries = parse_file(args.file)
-    print(f"   共 {len(entries)} 个链接\n")
+    print(f"   共 {len(entries)} 个链接（含可能的重复）\n")
 
     results = []
     completed = 0
@@ -133,15 +148,27 @@ def main():
             short = url if len(url) <= 55 else url[:52] + "..."
             print(f"  [{completed:>3}/{total}] {icon} {status:>3} | {elapsed:>5}ms | {short}")
 
+    # 分离可用/失效
     ok_list = [(c, u, s, e_ms, e) for c, u, s, e_ms, e in results if s in (200, 206)]
     fail_list = [(c, u, s, e_ms, e) for c, u, s, e_ms, e in results if s not in (200, 206)]
 
-    print(f"\n✅ 可用: {len(ok_list)}  ❌ 失效: {len(fail_list)}  📊 {len(ok_list)/total*100:.1f}%")
+    # ━━━ 去重 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    ok_list_dedup = deduplicate(ok_list)
+    fail_list_dedup = deduplicate(fail_list)
+
+    removed_ok = len(ok_list) - len(ok_list_dedup)
+    removed_fail = len(fail_list) - len(fail_list_dedup)
+
+    print(f"\n✅ 可用: {len(ok_list_dedup)} (去重前 {len(ok_list)}, 移除 {removed_ok} 重复)")
+    print(f"❌ 失效: {len(fail_list_dedup)} (去重前 {len(fail_list)}, 移除 {removed_fail} 重复)")
+
+    if removed_ok + removed_fail > 0:
+        print(f"🧹 共移除 {removed_ok + removed_fail} 个重复 URL")
 
     # ━━━ 写 live_ok.txt（纯 TXT）━━━━━━━━━━━━
     with open('live_ok.txt', 'w', encoding='utf-8') as f:
         prev_cat = None
-        for cat, url, *_ in ok_list:
+        for cat, url, *_ in ok_list_dedup:
             if cat != prev_cat:
                 f.write(f"\n# ---- {cat} ----\n")
                 prev_cat = cat
@@ -151,7 +178,7 @@ def main():
     with open('live_ok.m3u', 'w', encoding='utf-8') as f:
         f.write('#EXTM3U\n')
         prev_cat = None
-        for cat, url, *_ in ok_list:
+        for cat, url, *_ in ok_list_dedup:
             group = CAT_MAP.get(cat, "其他")
             if cat != prev_cat:
                 f.write(f"\n# ===== {cat} =====\n")
@@ -163,14 +190,14 @@ def main():
     # ━━━ 写 live_fail.txt ━━━━━━━━━━━━━━━━━━━
     with open('live_fail.txt', 'w', encoding='utf-8') as f:
         prev_cat = None
-        for cat, url, status, _, error in fail_list:
+        for cat, url, status, _, error in fail_list_dedup:
             if cat != prev_cat:
                 f.write(f"\n# ---- {cat} ----\n")
                 prev_cat = cat
             reason = f"  # {status} {error}" if error else f"  # HTTP {status}"
             f.write(f"{url}{reason}\n")
 
-    # ━━━ 写 CSV 报告 ━━━━━━━━━━━━━━━━━━━━━━━━
+    # ━━━ 写 CSV 报告（不去重，保留全部检测记录）━━━
     with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
         w.writerow(['分类', 'URL', '状态码', '响应时间(ms)', '错误'])
@@ -178,10 +205,10 @@ def main():
             w.writerow([cat, url, status, elapsed, error])
 
     print(f"\n💾 已生成:")
-    print(f"   live_ok.txt    ← 纯 TXT（每行一个 URL）")
-    print(f"   live_ok.m3u    ← M3U 播放列表")
-    print(f"   live_fail.txt  ← 失效列表")
-    print(f"   live_report.csv← 检测报告")
+    print(f"   live_ok.txt    ← 纯 TXT（已去重）")
+    print(f"   live_ok.m3u    ← M3U 播放列表（已去重）")
+    print(f"   live_fail.txt  ← 失效列表（已去重）")
+    print(f"   live_report.csv← 检测报告（保留全部记录）")
 
 
 if __name__ == '__main__':
