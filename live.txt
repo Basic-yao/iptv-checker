@@ -1,3 +1,6 @@
+
+https://gh-proxy.com/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
+
 # ---- 中文综合聚合 ----
 https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
 https://gh-proxy.com/https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
