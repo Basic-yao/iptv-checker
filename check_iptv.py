@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源检测 → 纯 TXT 输出（按大类分组，每行一个 URL）
+IPTV 直播源检测 → 纯 TXT 输出
+- 按大类分组，标题格式 # ---- 分类 ----
+- 大类内按响应速度排序（快→慢）
+- URL 去重
 """
 
 import sys
@@ -24,7 +27,8 @@ DEFAULT_THREADS = 25
 DEFAULT_TIMEOUT = 8
 USER_AGENT = "Mozilla/5.0 (Linux; Android 10; TV) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 
-# 细分类 → 大类
+# 细分类 → 大类（大类顺序即输出顺序）
+CAT_ORDER = ["国内源", "国际源", "4K高清", "TVBox", "其他"]
 CAT_MAP = {
     "中文综合聚合": "国内源",
     "国内地方/个人源": "国内源",
@@ -155,7 +159,7 @@ def main():
     # 可用
     ok_raw = [(b, oc, u, s, e_ms, e) for b, oc, u, s, e_ms, e in results if s in (200, 206)]
 
-    # URL 去重
+    # URL 去重（保留首次，同时保留其响应时间）
     seen = {}
     for item in ok_raw:
         u = item[2]
@@ -163,23 +167,29 @@ def main():
             seen[u] = item
     ok_dedup = list(seen.values())
 
-    # 按大类分组
-    by_broad = {}
-    for broad, orig_cat, url, *_ in ok_dedup:
-        by_broad.setdefault(broad, []).append(url)
+    # 按大类分组，大类内按响应速度排序（快→慢）
+    by_broad = {broad: [] for broad in CAT_ORDER}
+    for broad, orig_cat, url, status, elapsed, error in ok_dedup:
+        by_broad.setdefault(broad, []).append((url, elapsed))
 
-    print(f"\n✅ 可用: {len(ok_dedup)} (去重后)")
-    for broad, urls in by_broad.items():
-        print(f"   {broad}: {len(urls)} 条")
+    for broad in by_broad:
+        by_broad[broad].sort(key=lambda x: x[1])  # 按响应时间升序
+
+    total_ok = sum(len(v) for v in by_broad.values())
+    print(f"\n✅ 可用: {total_ok} (去重后，已按响应速度排序)")
+    for broad in CAT_ORDER:
+        urls = by_broad[broad]
+        if urls:
+            print(f"   {broad}: {len(urls)} 条")
 
     # ━━━ 写 live_ok.txt ━━━━━━━━━━━━━━━━━━━━━━━━━━━
     with open('live_ok.txt', 'w', encoding='utf-8') as f:
-        for broad in ["国内源", "国际源", "4K高清", "TVBox", "其他"]:
+        for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
             if not urls:
                 continue
-            f.write(f"# {broad}\n")
-            for url in urls:
+            f.write(f"# ---- {broad} ----\n")
+            for url, elapsed in urls:
                 f.write(f"{url}\n")
             f.write("\n")
 
@@ -190,18 +200,18 @@ def main():
                 f.write(f"{url}\n")
 
     # ━━━ 写 fail.txt ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    fail_list = [(b, oc, u, s, e) for b, oc, u, s, e_ms, e in results if s not in (200, 206)]
+    fail_raw = [(b, oc, u, s, e) for b, oc, u, s, e_ms, e in results if s not in (200, 206)]
     seen_f = {}
-    for item in fail_list:
+    for item in fail_raw:
         u = item[2]
         if u not in seen_f:
             seen_f[u] = item
     with open('live_fail.txt', 'w', encoding='utf-8') as f:
-        for broad in ["国内源", "国际源", "4K高清", "TVBox", "其他"]:
+        for broad in CAT_ORDER:
             items = [(b, oc, u, s, e) for b, oc, u, s, e in seen_f.values() if b == broad]
             if not items:
                 continue
-            f.write(f"# {broad}\n")
+            f.write(f"# ---- {broad} ----\n")
             for _, _, url, status, error in items:
                 reason = f"  #{status} {error}" if error else f"  #HTTP{status}"
                 f.write(f"{url}{reason}\n")
@@ -211,11 +221,11 @@ def main():
     with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
         w.writerow(['大类', '分类', 'URL', '状态码', '响应时间(ms)', '错误'])
-        for broad, orig_cat, url, status, elapsed, error in sorted(results, key=lambda x: (x[0], x[2])):
+        for broad, orig_cat, url, status, elapsed, error in sorted(results, key=lambda x: (CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99, x[4])):
             w.writerow([broad, orig_cat, url, status, elapsed, error])
 
     print(f"\n💾 已生成:")
-    print(f"   live_ok.txt     ← 纯 TXT（按大类分组）")
+    print(f"   live_ok.txt     ← 纯 TXT（# ---- 分类 ---- 格式，按响应速度排序）")
     print(f"   live_fail.txt   ← 失效列表")
     print(f"   skipped.txt     ← 跳过的源")
     print(f"   live_report.csv ← 检测报告")
