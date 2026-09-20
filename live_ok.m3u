@@ -1,34 +1,54 @@
 #EXTM3U
 
 # ===== iptv =====
-#EXTINF:-1 tvg-name="us" group-title="其他",us
-https://iptv-org.github.io/iptv/countries/us.m3u
-#EXTINF:-1 tvg-name="cn" group-title="其他",cn
-https://iptv-org.github.io/iptv/countries/cn.m3u
-#EXTINF:-1 tvg-name="sports" group-title="其他",sports
-https://iptv-org.github.io/iptv/categories/sports.m3u
 #EXTINF:-1 tvg-name="hk" group-title="其他",hk
 https://iptv-org.github.io/iptv/countries/hk.m3u
+#EXTINF:-1 tvg-name="news" group-title="其他",news
+https://iptv-org.github.io/iptv/categories/news.m3u
+#EXTINF:-1 tvg-name="zho" group-title="其他",zho
+https://iptv-org.github.io/iptv/languages/zho.m3u
+#EXTINF:-1 tvg-name="sports" group-title="其他",sports
+https://iptv-org.github.io/iptv/categories/sports.m3u
+#EXTINF:-1 tvg-name="cn" group-title="其他",cn
+https://iptv-org.github.io/iptv/countries/cn.m3u
 #EXTINF:-1 tvg-name="jp" group-title="其他",jp
 https://iptv-org.github.io/iptv/countries/jp.m3u
-#EXTINF:-1 tvg-name="movies" group-title="其他",movies
-https://iptv-org.github.io/iptv/categories/movies.m3u
+#EXTINF:-1 tvg-name="us" group-title="其他",us
+https://iptv-org.github.io/iptv/countries/us.m3u
+#EXTINF:-1 tvg-name="documentary" group-title="其他",documentary
+https://iptv-org.github.io/iptv/categories/documentary.m3u
 #EXTINF:-1 tvg-name="tw" group-title="其他",tw
 https://iptv-org.github.io/iptv/countries/tw.m3u
 #EXTINF:-1 tvg-name="kr" group-title="其他",kr
 https://iptv-org.github.io/iptv/countries/kr.m3u
-#EXTINF:-1 tvg-name="documentary" group-title="其他",documentary
-https://iptv-org.github.io/iptv/categories/documentary.m3u
-#EXTINF:-1 tvg-name="zho" group-title="其他",zho
-https://iptv-org.github.io/iptv/languages/zho.m3u
-#EXTINF:-1 tvg-name="news" group-title="其他",news
-https://iptv-org.github.io/iptv/categories/news.m3u
+#EXTINF:-1 tvg-name="movies" group-title="其他",movies
+https://iptv-org.github.io/iptv/categories/movies.m3u
 #EXTINF:-1 tvg-name="cn" group-title="其他",cn
 https://gh-proxy.com/https://raw.githubusercontent.com/iptv-org/iptv/master/streams/cn.m3u
 
 # ===== 综合/其他聚合 =====
 #EXTINF:-1 tvg-name="result" group-title="综合聚合",result
-https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
+https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
+
+# ===== vbskycn 镜像 =====
+#EXTINF:-1 tvg-name="iptv4" group-title="国内源",iptv4
+https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/master/tv/iptv4.txt
+#EXTINF:-1 tvg-name="iptv4" group-title="国内源",iptv4
+https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
+
+# ===== 未分类 =====
+#EXTINF:-1 tvg-name="live" group-title="其他",live
+https://gh-proxy.com/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
+
+# ===== 中文综合聚合 =====
+#EXTINF:-1 tvg-name="TV-IPV4" group-title="综合聚合",TV-IPV4
+https://gh-proxy.com/https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
+#EXTINF:-1 tvg-name="iptv" group-title="综合聚合",iptv
+https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+
+# ===== 综合/其他聚合 =====
+#EXTINF:-1 tvg-name="http_wangziduoqing" group-title="综合聚合",http_wangziduoqing
+https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
 #EXTINF:-1 tvg-name="result" group-title="综合聚合",result
 https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
 
@@ -37,68 +57,42 @@ https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/h
 https://gh-proxy.com/https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 
 # ===== 综合/其他聚合 =====
+#EXTINF:-1 tvg-name="Gather" group-title="综合聚合",Gather
+https://gh-proxy.com/https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
+#EXTINF:-1 tvg-name="tv" group-title="综合聚合",tv
+http://47.94.6.170/TV/tv.m3u
+#EXTINF:-1 tvg-name="result" group-title="综合聚合",result
+https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
+#EXTINF:-1 tvg-name="%E5%9B%BD%E5%86%85%E7%94%B5%E8" group-title="综合聚合",%E5%9B%BD%E5%86%85%E7%94%B5%E8
+https://gh-proxy.com/https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
 #EXTINF:-1 tvg-name="result" group-title="综合聚合",result
 https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
 
-# ===== vbskycn 镜像 =====
-#EXTINF:-1 tvg-name="iptv4" group-title="国内源",iptv4
-https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/master/tv/iptv4.txt
-
-# ===== 综合/其他聚合 =====
-#EXTINF:-1 tvg-name="http_wangziduoqing" group-title="综合聚合",http_wangziduoqing
-https://gh-proxy.com/https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
-
-# ===== vbskycn 镜像 =====
-#EXTINF:-1 tvg-name="iptv4" group-title="国内源",iptv4
-https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
-
-# ===== 综合/其他聚合 =====
-#EXTINF:-1 tvg-name="result" group-title="综合聚合",result
-https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
-
-# ===== 中文综合聚合 =====
-#EXTINF:-1 tvg-name="iptv" group-title="综合聚合",iptv
-https://gh-proxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
-
-# ===== 综合/其他聚合 =====
-#EXTINF:-1 tvg-name="tv" group-title="综合聚合",tv
-http://47.94.6.170/TV/tv.m3u
-#EXTINF:-1 tvg-name="live" group-title="综合聚合",live
-https://gh-proxy.com/https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
-
-# ===== 中文综合聚合 =====
-#EXTINF:-1 tvg-name="TV-IPV4" group-title="综合聚合",TV-IPV4
-https://gh-proxy.com/https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
-
-# ===== 综合/其他聚合 =====
-#EXTINF:-1 tvg-name="others_output" group-title="综合聚合",others_output
-https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/others_output.txt
-#EXTINF:-1 tvg-name="result" group-title="综合聚合",result
-https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt
-#EXTINF:-1 tvg-name="%E5%9B%BD%E5%86%85%E7%94%B5%E8" group-title="综合聚合",%E5%9B%BD%E5%86%85%E7%94%B5%E8
-https://gh-proxy.com/https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
-#EXTINF:-1 tvg-name="iptv" group-title="综合聚合",iptv
-https://gh-proxy.com/https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
-#EXTINF:-1 tvg-name="Gather" group-title="综合聚合",Gather
-https://gh-proxy.com/https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
-#EXTINF:-1 tvg-name="bbxx_lite" group-title="综合聚合",bbxx_lite
-https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx_lite.m3u
-
 # ===== 国内地方/个人源 =====
 #EXTINF:-1 tvg-name="live" group-title="国内源",live
-https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt
+https://supprise0901.github.io/TVBox_live/live.txt
 #EXTINF:-1 tvg-name="live" group-title="国内源",live
 https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
-#EXTINF:-1 tvg-name="ipv4" group-title="国内源",ipv4
-https://gh-proxy.com/https://raw.githubusercontent.com/kakaxi-1/IPTV/main/ipv4.txt
+
+# ===== 综合/其他聚合 =====
+#EXTINF:-1 tvg-name="iptv" group-title="综合聚合",iptv
+https://gh-proxy.com/https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
+#EXTINF:-1 tvg-name="bbxx_lite" group-title="综合聚合",bbxx_lite
+https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx_lite.m3u
+#EXTINF:-1 tvg-name="result" group-title="综合聚合",result
+https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt
+#EXTINF:-1 tvg-name="live" group-title="综合聚合",live
+https://gh-proxy.com/https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
+#EXTINF:-1 tvg-name="others_output" group-title="综合聚合",others_output
+https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/others_output.txt
+
+# ===== 国内地方/个人源 =====
 #EXTINF:-1 tvg-name="pllive" group-title="国内源",pllive
 https://gh-proxy.com/https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
 #EXTINF:-1 tvg-name="tv" group-title="国内源",tv
 https://gh-proxy.com/https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
 #EXTINF:-1 tvg-name="pllive" group-title="国内源",pllive
 https://gh-proxy.com/https://raw.githubusercontent.com/jn950/live/refs/heads/main/tv/pllive.txt
-#EXTINF:-1 tvg-name="live" group-title="国内源",live
-https://supprise0901.github.io/TVBox_live/live.txt
 
 # ===== 综合/其他聚合 =====
 #EXTINF:-1 tvg-name="all" group-title="综合聚合",all
@@ -106,154 +100,144 @@ https://aptv.pro/all.m3u
 
 # ===== 国内地方/个人源 =====
 #EXTINF:-1 tvg-name="ipv4" group-title="国内源",ipv4
+https://gh-proxy.com/https://raw.githubusercontent.com/kakaxi-1/IPTV/main/ipv4.txt
+#EXTINF:-1 tvg-name="live" group-title="国内源",live
+https://gh-proxy.com/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt
+#EXTINF:-1 tvg-name="ipv4" group-title="国内源",ipv4
 https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
 #EXTINF:-1 tvg-name="live" group-title="国内源",live
-https://gh-proxy.com/https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
-#EXTINF:-1 tvg-name="live_ipv4" group-title="国内源",live_ipv4
-https://gh-proxy.com/https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
-#EXTINF:-1 tvg-name="20210808384" group-title="国内源",20210808384
-https://gh-proxy.com/https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808384.m3u
-#EXTINF:-1 tvg-name="ipv4" group-title="国内源",ipv4
-https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
-#EXTINF:-1 tvg-name="20210808226" group-title="国内源",20210808226
-https://gh-proxy.com/https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808226.m3u
-#EXTINF:-1 tvg-name="zubo_all" group-title="国内源",zubo_all
-https://gh-proxy.com/https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
-#EXTINF:-1 tvg-name="result" group-title="国内源",result
-https://gh-proxy.com/https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
+https://gh-proxy.com/https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
 #EXTINF:-1 tvg-name="cnTV_AutoUpdate" group-title="国内源",cnTV_AutoUpdate
 https://gh-proxy.com/https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
 #EXTINF:-1 tvg-name="live" group-title="国内源",live
-https://gh-proxy.com/https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
+https://gh-proxy.com/https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
+#EXTINF:-1 tvg-name="ipv4" group-title="国内源",ipv4
+https://gh-proxy.com/https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
 #EXTINF:-1 tvg-name="kk" group-title="国内源",kk
 https://gh-proxy.com/https://raw.githubusercontent.com/asdjkl6/tv/tv/.m3u/%E6%95%B4%E5%A5%97%E7%9B%B4%E6%92%AD%E6%BA%90/%E6%B5%8B%E8%AF%95/%E6%95%B4%E5%A5%97%E7%9B%B4%E6%92%AD%E6%BA%90/kk.txt
+#EXTINF:-1 tvg-name="result" group-title="国内源",result
+https://gh-proxy.com/https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
+#EXTINF:-1 tvg-name="live_ipv4" group-title="国内源",live_ipv4
+https://gh-proxy.com/https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
+#EXTINF:-1 tvg-name="zubo_all" group-title="国内源",zubo_all
+https://gh-proxy.com/https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
+#EXTINF:-1 tvg-name="kk" group-title="国内源",kk
+https://gh-proxy.com/https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
+#EXTINF:-1 tvg-name="20210808384" group-title="国内源",20210808384
+https://gh-proxy.com/https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808384.m3u
+#EXTINF:-1 tvg-name="20210808226" group-title="国内源",20210808226
+https://gh-proxy.com/https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808226.m3u
 
 # ===== 咪咕/移动 =====
 #EXTINF:-1 tvg-name="interface" group-title="咪咕",interface
 https://gh-proxy.com/https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt
 
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="kk" group-title="国内源",kk
-https://gh-proxy.com/https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
-
 # ===== TVBox/盒子 =====
-#EXTINF:-1 tvg-name="live" group-title="TVBox",live
-https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt
 #EXTINF:-1 tvg-name="bhzb" group-title="TVBox",bhzb
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
+#EXTINF:-1 tvg-name="live" group-title="TVBox",live
+https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt
+#EXTINF:-1 tvg-name="yylunbo" group-title="TVBox",yylunbo
+https://gh-proxy.com/https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
 
 # ===== 综合/其他聚合 =====
 #EXTINF:-1 tvg-name="smart-cn" group-title="综合聚合",smart-cn
 https://tmxk.pp.ua/smart-cn.m3u
 
-# ===== TVBox/盒子 =====
-#EXTINF:-1 tvg-name="yylunbo" group-title="TVBox",yylunbo
-https://gh-proxy.com/https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
-
 # ===== 4K/高清 =====
 #EXTINF:-1 tvg-name="dgtv" group-title="4K",dgtv
 http://1.94.31.214/live/live9/dgtv.txt
-#EXTINF:-1 tvg-name="dgtv2026" group-title="4K",dgtv2026
-http://1.94.31.214/live/live9/dgtv2026.php
 #EXTINF:-1 tvg-name="latest" group-title="4K",latest
 http://117.72.68.25:9230/latest.txt
 
 # ===== 咪咕/移动 =====
-#EXTINF:-1 tvg-name="zb" group-title="咪咕",zb
-http://wangziduoqing.com/yuan/zb.txt
+#EXTINF:-1 tvg-name="migu" group-title="咪咕",migu
+http://www.52top.com.cn:678/downloads/migu.txt
+
+# ===== 4K/高清 =====
+#EXTINF:-1 tvg-name="dgtv2026" group-title="4K",dgtv2026
+http://1.94.31.214/live/live9/dgtv2026.php
 
 # ===== 代理/中转/加密 =====
 #EXTINF:-1 tvg-name="sub?kbQyhXwA=m3u" group-title="代理源",sub?kbQyhXwA=m3u
 https://live.45678888.xyz/sub?kbQyhXwA=m3u
 #EXTINF:-1 tvg-name="proxy" group-title="代理源",proxy
-https://45678888.xyz/iptv/proxy.php?sub=9eea6609748994bd9ebe3cfffc52215d
-#EXTINF:-1 tvg-name="proxy" group-title="代理源",proxy
 https://45678888.xyz/iptv/proxy.php?sub=4d0be2911590a0a83fe915e9e9eb7443
+#EXTINF:-1 tvg-name="proxy" group-title="代理源",proxy
+https://45678888.xyz/iptv/proxy.php?sub=9eea6609748994bd9ebe3cfffc52215d
+#EXTINF:-1 tvg-name="%E7%99%BD%E8%8F%9C%E9%B8%9F" group-title="代理源",%E7%99%BD%E8%8F%9C%E9%B8%9F
+http://zo.gt.tc/o/i/%E7%99%BD%E8%8F%9C%E9%B8%9F.txt
 
 # ===== KStore/网盘分享 =====
 #EXTINF:-1 tvg-name="ds9" group-title="网盘分享",ds9
 https://d.kstore.dev/download/12441/ds9.txt
-
-# ===== 代理/中转/加密 =====
-#EXTINF:-1 tvg-name="%E7%99%BD%E8%8F%9C%E9%B8%9F" group-title="代理源",%E7%99%BD%E8%8F%9C%E9%B8%9F
-http://zo.gt.tc/o/i/%E7%99%BD%E8%8F%9C%E9%B8%9F.txt
-
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="20180818china" group-title="国内源",20180818china
-https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
-#EXTINF:-1 tvg-name="result" group-title="国内源",result
-https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
-
-# ===== 4K/高清 =====
-#EXTINF:-1 tvg-name="iptv4" group-title="4K",iptv4
-https://live.zbds.top/tv/iptv4.txt
-
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="20180818" group-title="国内源",20180818
-https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
-
-# ===== 其他新增 =====
-#EXTINF:-1 tvg-name="iptv" group-title="其他",iptv
-https://gh-proxy.com/https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
-
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="IPTV" group-title="国内源",IPTV
-https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
-
-# ===== 其他新增 =====
-#EXTINF:-1 tvg-name="user_result" group-title="其他",user_result
-https://gh-proxy.com/https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
-#EXTINF:-1 tvg-name="collect_tv" group-title="其他",collect_tv
-https://gh-proxy.com/https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
-#EXTINF:-1 tvg-name="movie_live" group-title="其他",movie_live
-https://gh-proxy.com/https://raw.githubusercontent.com/DataShare-duo/MovieLiveUrl/refs/heads/main/movie_live.m3u
-
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="TV" group-title="国内源",TV
-https://gitee.com/hzxs800274/iptv/raw/master/live/TV
-
-# ===== 其他新增 =====
-#EXTINF:-1 tvg-name="xp_result" group-title="其他",xp_result
-https://gh-proxy.com/https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.txt
-#EXTINF:-1 tvg-name="LU" group-title="其他",LU
-https://gh-proxy.com/https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
-#EXTINF:-1 tvg-name="mit" group-title="其他",mit
-https://gh-proxy.com/https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
-#EXTINF:-1 tvg-name="live" group-title="其他",live
-http://yimolan.serv00.net/zb/live.php
-#EXTINF:-1 tvg-name="live" group-title="其他",live
-https://cdn.qd.je/live.m3u
 
 # ===== TVBox/盒子 =====
 #EXTINF:-1 tvg-name="live" group-title="TVBox",live
 http://west.shaonv.me/tvbox/live.txt
 
 # ===== 其他新增 =====
+#EXTINF:-1 tvg-name="iptv" group-title="其他",iptv
+https://gh-proxy.com/https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
+
+# ===== 4K/高清 =====
+#EXTINF:-1 tvg-name="iptv4" group-title="4K",iptv4
+https://live.zbds.top/tv/iptv4.txt
+
+# ===== 其他新增 =====
+#EXTINF:-1 tvg-name="live" group-title="其他",live
+http://yimolan.serv00.net/zb/live.php
+#EXTINF:-1 tvg-name="movie_live" group-title="其他",movie_live
+https://gh-proxy.com/https://raw.githubusercontent.com/DataShare-duo/MovieLiveUrl/refs/heads/main/movie_live.m3u
+#EXTINF:-1 tvg-name="xp_result" group-title="其他",xp_result
+https://gh-proxy.com/https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.txt
+#EXTINF:-1 tvg-name="live" group-title="其他",live
+https://cdn.qd.je/live.m3u
+#EXTINF:-1 tvg-name="collect_tv" group-title="其他",collect_tv
+https://gh-proxy.com/https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
+
+# ===== 咪咕/移动 =====
+#EXTINF:-1 tvg-name="zb" group-title="咪咕",zb
+http://wangziduoqing.com/yuan/zb.txt
+
+# ===== 其他新增 =====
+#EXTINF:-1 tvg-name="user_result" group-title="其他",user_result
+https://gh-proxy.com/https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
+#EXTINF:-1 tvg-name="LU" group-title="其他",LU
+https://gh-proxy.com/https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
+#EXTINF:-1 tvg-name="mit" group-title="其他",mit
+https://gh-proxy.com/https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
 #EXTINF:-1 tvg-name="TMP" group-title="其他",TMP
 https://gh-proxy.com/https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
-#EXTINF:-1 tvg-name="tv" group-title="其他",tv
-http://tv123.vvvv.ee/tv.m3u
+#EXTINF:-1 tvg-name="yiyifafa" group-title="其他",yiyifafa
+https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
+#EXTINF:-1 tvg-name="12" group-title="其他",12
+https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt
 #EXTINF:-1 tvg-name="live" group-title="其他",live
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
 
 # ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="wxk1" group-title="国内源",wxk1
-https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
-
-# ===== 其他新增 =====
-#EXTINF:-1 tvg-name="12" group-title="其他",12
-https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt
-#EXTINF:-1 tvg-name="yiyifafa" group-title="其他",yiyifafa
-https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
-
-# ===== 代理/中转/加密 =====
-#EXTINF:-1 tvg-name="gggg" group-title="代理源",gggg
-http://rihou.cc:555/gggg.nzk
-
-# ===== 国内地方/个人源 =====
-#EXTINF:-1 tvg-name="itvlist" group-title="国内源",itvlist
-https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
-#EXTINF:-1 tvg-name="iptv" group-title="国内源",iptv
-https://gitee.com/lwr851/live/raw/master/iptv.m3u
+#EXTINF:-1 tvg-name="result" group-title="国内源",result
+https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
+#EXTINF:-1 tvg-name="20180818" group-title="国内源",20180818
+https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
 #EXTINF:-1 tvg-name="iptv" group-title="国内源",iptv
 https://gitee.com/hw2837/iptv/raw/master/iptv
+#EXTINF:-1 tvg-name="IPTV" group-title="国内源",IPTV
+https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
+#EXTINF:-1 tvg-name="wxk1" group-title="国内源",wxk1
+https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
+#EXTINF:-1 tvg-name="itvlist" group-title="国内源",itvlist
+https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
+
+# ===== 其他新增 =====
+#EXTINF:-1 tvg-name="tv" group-title="其他",tv
+http://tv123.vvvv.ee/tv.m3u
+
+# ===== 国内地方/个人源 =====
+#EXTINF:-1 tvg-name="TV" group-title="国内源",TV
+https://gitee.com/hzxs800274/iptv/raw/master/live/TV
+#EXTINF:-1 tvg-name="20180818china" group-title="国内源",20180818china
+https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
+#EXTINF:-1 tvg-name="iptv" group-title="国内源",iptv
+https://gitee.com/lwr851/live/raw/master/iptv.m3u
