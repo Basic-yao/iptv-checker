@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源检测（方案B：固定6大类输出）
-- 输出永远只有 6 个大类：国内源 / 国际源 / 4K高清 / TVBox / GitHub源 / 其他
-- live.txt 标题只决定归属，不出现在输出里
-- 各大类内部按「域名 + 用户名首字」排序
-- 放宽判定：403/301/302/503 保留
-- 去重（URL级 + 路径级） + 新增源标星
+IPTV 直播源检测
+- 输出固定 6 大类：国内源 / 国际源 / 4K高清 / TVBox / GitHub源 / 其他
+- GitHub 源按用户名首字排序
+- 403 仅 GitHub 限流保留，其他一律判失效
+- 4K/8K URL 自动归 4K高清
+- 去重 + 新增标星
 """
 
 import sys
@@ -65,6 +65,7 @@ TITLE_MAP = {
     "其他":            "其他",
 }
 
+# 跳过检测的关键词
 SKIP_URL_KEYWORDS = [
     "proxy.php?sub=", "/encrypt/", "/api/decrypt",
     ".php?sub=", "4key.cn/FP", "zo.gt.tc",
@@ -84,55 +85,57 @@ def normalize_url(u):
     return u
 
 
-def get_sort_key(url):
-    """
-    排序键：(域名, 用户名首段小写)
-    - GitHub 源按 用户名 首字排
-    - 非 GitHub 源按 域名 首字排
-    - 同用户名下按完整路径排
-    """
-    try:
-        p = urlparse(url)
-        net = p.netloc.lower()
-        if 'github' in net:
-            parts = [x for x in p.path.split('/') if x]
-            if parts:
-                return (net, parts[0].lower(), '/'.join(parts).lower())
-        return (net, p.path.lstrip('/').lower())
-    except Exception:
-        return ('', url.lower())
+def is_github_url(url):
+    low = url.lower()
+    return 'raw.githubusercontent.com' in low or 'githubusercontent.com' in low
 
 
 def classify(url, title="未分类"):
-    """三层判定：URL强制 → 标题映射 → 域名兜底 → 其他"""
+    """
+    三层判定，优先级从高到低：
+    1. URL 特征强制覆盖
+    2. 标题映射
+    3. 域名兜底
+    4. 兜底"其他"
+    """
     low = normalize_url(url).lower()
 
-    # 第1层：URL 强制
+    # ── 第1层：URL 强制覆盖 ──
+    # 4K/8K
     if any(k in low for k in ['4k', '8k']):
         return "4K高清"
-    if 'raw.githubusercontent.com' in low or 'githubusercontent.com' in low or 'github.com' in low:
+
+    # GitHub
+    if is_github_url(url):
         return "GitHub源"
+
+    # iptv-org
     if 'iptv-org' in low:
         return "国际源"
-    if 'tvbox' in low or 'box' in low or 'tvboxos' in low:
+
+    # TVBox
+    if 'tvbox' in low or 'box' in low:
         return "TVBox"
 
-    # 第2层：标题映射
-    if title in TITLE_MAP:
-        return TITLE_MAP[title]
-    for k, v in TITLE_MAP.items():
-        if k in title:
-            return v
+    # ── 第2层：标题映射 ──
+    if title and title != "未分类":
+        for k, v in TITLE_MAP.items():
+            if k in title:
+                return v
 
-    # 第3层：域名兜底
+    # ── 第3层：域名兜底 ──
     if 'gitee.com' in low or 'gitlab.com' in low or 'bitbucket' in low:
         return "国内源"
     if 'migu' in low or 'miguvideo' in low:
         return "国内源"
-    if any(d in low for d in ['t.freetv.fun', 'live.zbds', 'live.hacks', 'live.zhoujie', 'freetv', '850930', 'ibert.me']):
+    if any(d in low for d in ['t.freetv.fun', 'live.zbds', 'live.hacks', 'live.zhoujie']):
+        return "国内源"
+    if 'freetv' in low or '850930' in low:
+        return "国内源"
+    if 'ibert.me' in low:
         return "国内源"
 
-    # 第4层：兜底
+    # ── 第4层：兜底 ──
     return "其他"
 
 
@@ -153,6 +156,21 @@ def load_previous_ok_urls():
     return urls
 
 
+# ━━━ 排序键 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def get_sort_key(url):
+    """GitHub 源按用户名首字排序，非 GitHub 按域名首字"""
+    try:
+        p = urlparse(url)
+        net = p.netloc.lower()
+        if 'github' in net:
+            parts = [x for x in p.path.split('/') if x]
+            if parts:
+                return (net, parts[0].lower(), '/'.join(parts).lower())
+        return (net, p.path.lstrip('/').lower())
+    except Exception:
+        return ('', url.lower())
+
+
 # ━━━ 解析输入文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def parse_file(filepath):
     entries = []
@@ -164,6 +182,7 @@ def parse_file(filepath):
                 continue
             if line.startswith('#EXTM3U'):
                 continue
+            # 分类标题行
             if line.startswith('#') and 'http' not in line:
                 m = re.match(r'#\s*-+\s*(.+?)\s*-+\s*$', line)
                 if m:
@@ -183,7 +202,7 @@ def parse_file(filepath):
     return entries
 
 
-# ━━━ 检测函数（宽容版）━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━ 检测函数 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def check_url(url, timeout=20):
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
     parsed = urlparse(url)
@@ -206,10 +225,10 @@ def check_url(url, timeout=20):
             if status == 405:
                 raise requests.exceptions.RequestException("try_get")
             if status in (403, 503):
-                r2 = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True, verify=False, stream=True)
-                elapsed2 = int((time.time() - start) * 1000)
-                r2.close()
-                return url, r2.status_code if r2.status_code in (200, 206) else status, elapsed2, "limited" if status == 403 else "retry"
+                # 仅 GitHub 限流保留，其余判 fail
+                if status == 403 and is_github_url(url):
+                    return url, status, elapsed, "limited"
+                return url, status, elapsed, "fail"
         except requests.exceptions.RequestException:
             pass
 
@@ -221,8 +240,8 @@ def check_url(url, timeout=20):
         status = r.status_code
         if status in (200, 206, 301, 302):
             return url, status, elapsed, "ok"
-        if status in (403, 503):
-            return url, status, elapsed, "limited" if status == 403 else "retry"
+        if status == 403 and is_github_url(url):
+            return url, status, elapsed, "limited"
         return url, status, elapsed, "fail"
 
     except requests.exceptions.Timeout:
@@ -234,9 +253,10 @@ def check_url(url, timeout=20):
 
 
 def is_usable(status, flag):
+    """200/206/301/302 可用；403 仅 GitHub 限流(limited)保留"""
     if status in (200, 206, 301, 302):
         return True
-    if status == 403:
+    if status == 403 and flag == "limited":
         return True
     return False
 
@@ -316,7 +336,7 @@ def main():
     new_urls_norm = {u for u in new_urls_norm if u not in {normalize_url(p) for p in prev_urls}}
     print(f"\n✨ 新增源: {len(new_urls_norm)} 条")
 
-    # 去重：URL 完全相同
+    # 去重（URL 级）
     seen_url = {}
     for item in ok_raw:
         u = normalize_url(item[2])
@@ -324,7 +344,7 @@ def main():
             seen_url[u] = item
     ok_url_dedup = list(seen_url.values())
 
-    # 去重：路径级，保留响应快的
+    # 去重（路径级，保留响应快的）
     seen_repo = {}
     for item in ok_url_dedup:
         key = normalize_url(item[2])
@@ -335,24 +355,19 @@ def main():
                 seen_repo[key] = item
     ok_dedup = list(seen_repo.values())
 
-    # ━━━ 按大类分组 + 排序 ━━━━━━━━━━━━━━━━━━━━━━━
-    # 记录首次出现顺序，保证同排序键下稳定
-    first_seen = {}
-    idx = 0
+    # 按大类分组 + 排序
     by_broad = {broad: [] for broad in CAT_ORDER}
-
+    seen_ok_final = set()
     for broad, orig_cat, url, status, elapsed, flag in ok_dedup:
         norm_u = normalize_url(url)
-        if norm_u not in first_seen:
-            first_seen[norm_u] = idx
-            idx += 1
-        by_broad[broad].append((url, elapsed, first_seen[norm_u]))
+        if norm_u not in seen_ok_final:
+            seen_ok_final.add(norm_u)
+            by_broad.setdefault(broad, []).append((url, elapsed))
 
-    for broad in CAT_ORDER:
-        # 排序：先按域名/用户名首字，再按首次出现顺序
-        by_broad[broad].sort(key=lambda x: (get_sort_key(x[0]), x[2]))
+    for b in CAT_ORDER:
+        by_broad[b].sort(key=lambda x: get_sort_key(x[0]))
 
-    total_ok = sum(len(v) for v in by_broad.values())
+    total_ok = len(seen_ok_final)
 
     print(f"\n{'='*50}")
     print(f"📊 检测完成")
@@ -365,33 +380,36 @@ def main():
     print(f"{'='*50}\n")
 
     # ━━━ 写文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # live_ok.txt
     with open('live_ok.txt', 'w', encoding='utf-8') as f:
         for broad in CAT_ORDER:
-            items = by_broad.get(broad, [])
-            if not items:
+            urls = by_broad.get(broad, [])
+            if not urls:
                 continue
             f.write(f"# ---- {broad} ----\n")
-            for url, elapsed, _ in items:
+            for url, elapsed in urls:
                 f.write(f"{url}\n")
             f.write("\n")
 
+    # live_ok.m3u
     with open('live_ok.m3u', 'w', encoding='utf-8') as f:
         f.write('#EXTM3U\n')
         for broad in CAT_ORDER:
-            items = by_broad.get(broad, [])
-            if not items:
+            urls = by_broad.get(broad, [])
+            if not urls:
                 continue
-            for url, elapsed, _ in items:
+            for url, elapsed in urls:
                 f.write(f'#EXTINF:-1 group-title="{broad}", {broad} ({elapsed}ms)\n')
                 f.write(f'{url}\n')
             f.write('\n')
 
+    # skipped.txt
     if skipped:
         with open('skipped.txt', 'w', encoding='utf-8') as f:
             for url in skipped:
                 f.write(f"{url}\n")
 
-    # 失效源（只收真正失效的）
+    # live_fail.txt
     fail_raw = [(b, oc, u, s, e, fl) for b, oc, u, s, e, fl in results if not is_usable(s, fl)]
     seen_f = {}
     for item in fail_raw:
@@ -418,7 +436,6 @@ def main():
                 0 if normalize_url(x[2]) in new_urls_norm else 1,
                 CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99,
                 get_sort_key(x[2]),
-                x[4]
             )
         )
         csv_seen = set()
@@ -432,11 +449,11 @@ def main():
             w.writerow([is_new, broad, orig_cat, url, status, elapsed, state])
 
     print(f"💾 已生成:")
-    print(f"   live_ok.txt     ← {total_ok} 条（已按域名/用户名首字排序）")
-    print(f"   live_ok.m3u     ← {total_ok} 条（已排序）")
+    print(f"   live_ok.txt     ← {total_ok} 条（6 大类，GitHub 按用户名排序）")
+    print(f"   live_ok.m3u     ← {total_ok} 条")
     if skipped:
         print(f"   skipped.txt     ← {len(skipped)} 个")
-    print(f"   live_fail.txt   ← 真正失效的源")
+    print(f"   live_fail.txt   ← 失效源（含 403 私人源、超时、连接失败等）")
     print(f"   live_report.csv ← 检测报告")
 
     sys.exit(0)
