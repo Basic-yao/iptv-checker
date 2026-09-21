@@ -1,12 +1,12 @@
 # ---- 其他 ----
 https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt  #403 fail
 https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #403 fail
-https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #403 fail
 https://ds65.tv1288.xyz  #403 fail
+https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #403 fail
 https://iptv.catvod.com/tv.m3u  #403 fail
 https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt  #403 fail
 https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1  #403 fail
-https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #403 fail
-http://rihou.cc:555/gggg.nzk  #403 fail
 https://php.946985.filegear-sg.me/jackTV.m3u  #403 fail
+https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #403 fail
+http://rihou.cc:555/gggg.nzk  #403 fail
 
