@@ -1,25 +1,31 @@
-@@ -1,39 +1,43 @@
-name: IPTV Source Checker
+name: IPTV Check
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'   # 北京时间每天 02:00
+  workflow_dispatch:       # 手动触发
   push:
     paths:
       - 'live.txt'
       - 'check_iptv.py'
-  schedule:
-    - cron: '0 18 * * *'   # UTC 18:00 = 北京时间 02:00
+      - '.github/workflows/check.yml'
 
-permissions:
-  contents: write
+concurrency:
+  group: iptv-check-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   check:
-    runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04   # 固定版本，避免 Ubuntu 26 迁移后出问题
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,22 +33,63 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Show input stats
+        run: |
+          if [ -f live.txt ]; then
+            total=$(wc -l < live.txt)
+            http_count=$(grep -c '^http' live.txt || echo 0)
+            echo "📥 live.txt: ${total} 行, ${http_count} 个 http 链接"
+          else
+            echo "❌ live.txt 不存在"
+            exit 1
+          fi
 
       - name: Run checker
-        run: python check_iptv.py
+        run: python check_iptv.py --threads 10 --timeout 10
 
-      - name: Commit results
+      - name: Show output stats
+        if: always()
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add live_ok.txt live_ok.txt live_fail.txt live_report.csv
-          git diff --cached --quiet || git commit -m "chore: update IPTV check results [skip ci]"
-          git push
-          git add live_ok.txt live_ok.m3u live_fail.txt live_report.csv
-          if git diff --cached --quiet; then
-            echo "无变更，跳过提交"
-          else
-            git commit -m "chore: update IPTV check results [skip ci]"
-            git push
+          echo "📤 生成文件统计:"
+          for f in live_ok.m3u live_ok.txt live_fail.txt skipped.txt live_report.csv; do
+            if [ -f "$f" ]; then
+              lines=$(wc -l < "$f")
+              size=$(du -sh "$f" | cut -f1)
+              echo "   $f  → ${lines} 行, ${size}"
+            else
+              echo "   $f  → 未生成"
+            fi
+          done
+          if [ -f live_ok.m3u ]; then
+            ok_count=$(grep -c '^http' live_ok.m3u || echo 0)
+            echo "✅ 可用源: $ok_count 个"
           fi
+
+      - name: Commit and push results
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "📌 当前分支: $BRANCH"
+
+          git add live_ok.m3u live_ok.txt live_fail.txt skipped.txt live_report.csv
+
+          if git diff --cached --quiet; then
+            echo "📭 无变更，跳过提交"
+            exit 0
+          fi
+
+          git commit -m "🔄 IPTV 检测更新 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M') [skip ci]"
+
+          git fetch origin "$BRANCH"
+          git pull --rebase origin "$BRANCH" || true
+          git push origin "HEAD:$BRANCH" || {
+            echo "⚠️ 常规推送失败，尝试 force-with-lease..."
+            git push --force-with-lease origin "HEAD:$BRANCH"
+          }
