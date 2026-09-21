@@ -1,4 +1,4 @@
-name: IPTV Check
+name: IPTV检查
 
 on:
   schedule:
@@ -11,7 +11,7 @@ on:
     paths:
       - 'live.txt'
       - 'check_iptv.py'
-      - 'check.yml'
+      - '.github/workflows/check.yml'
 
 concurrency:
   group: iptv-check-${{ github.ref }}
@@ -21,6 +21,8 @@ jobs:
   check:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -50,16 +52,17 @@ jobs:
           fi
 
       - name: Run checker
+        id: checker
         run: |
           python check_iptv.py --threads 10 --timeout 10
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Show output stats
         if: always()
         run: |
           echo "📤 生成文件统计:"
           for f in live_ok.txt live_fail.txt skipped.txt live_report.csv; do
-            if [ -f "$f"; then
+            if [ -f "$f" ]; then
               lines=$(wc -l < "$f")
               size=$(du -sh "$f" | cut -f1)
               echo "   $f  → ${lines} 行, ${size}"
@@ -81,15 +84,24 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+          # 自动识别当前 HEAD 对应的远端分支，避免硬编码 main/master 失败
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "📌 当前分支: $BRANCH"
+
           git add live_ok.txt live_fail.txt skipped.txt live_report.csv
+
           if git diff --cached --quiet; then
             echo "📭 无变更，跳过提交"
             exit 0
           fi
-          git commit -m "🔄 IPTV 检测更新 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
-          for i in 1 2 3; do
-            git pull --rebase origin main || git pull --rebase origin master
-            git push origin HEAD && break
-            echo "⚠️ push 失败，重试 $i/3..."
-            sleep 5
-          done
+
+          git commit -m "🔄 IPTV检测输出更新 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M') [skip ci]"
+
+          # 推送前先同步远端，防止本地落后于 origin 导致 reject
+          git fetch origin "$BRANCH"
+          git pull --rebase origin "$BRANCH" || true
+          git push origin "HEAD:$BRANCH" || {
+            echo "⚠️ 常规推送失败，尝试 force-with-lease..."
+            git push --force-with-lease origin "HEAD:$BRANCH"
+          }
