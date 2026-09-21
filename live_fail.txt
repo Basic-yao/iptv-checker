@@ -1,27 +1,26 @@
 # ---- 国内源 ----
 https://live.zbds.org/tv/iptv4.txt  #0 conn
-https://t.freetv.fun/m3u/playlist.txt  #0 timeout
 https://t.freetv.fun/m3u/taiwan.txt  #0 timeout
+https://t.freetv.fun/m3u/playlist.txt  #0 timeout
 https://t.freetv.fun/m3u/hong_kong.txt  #0 timeout
 https://t.freetv.fun/m3u/macao.txt  #0 timeout
+https://live.freetv.top/douyuyqk.m3u  #0 timeout
 https://t.freetv.fun/m3u/japan.txt  #0 timeout
-https://freetv.fun/test_channels_original_new.txt  #0 timeout
 http://rihou.cc:88/zb/migu720plist.txt  #404 fail
+https://freetv.fun/test_channels_original_new.txt  #0 timeout
 
 # ---- 4K高清 ----
 https://t.freetv.fun/m3u/china_original.txt  #0 timeout
 
 # ---- TVBox ----
-https://yg.ygbox.de5.net/huya.php  #0 timeout
-http://xn--x6qx76b.top/ZB  #0 conn
 https://gitee.com/yu_shan_fei/vvvzhy/raw/zby/yu/yqk3.m3u  #404 fail
-https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #423 fail
 https://gitee.com/jin-xueling/lingl/raw/master/hu.txt  #423 fail
+http://xn--x6qx76b.top/ZB  #0 conn
+https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #423 fail
 
 # ---- GitHub源 ----
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/%E5%B0%8F%E8%82%A5%E7%BE%8A.m3u  #404 fail
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/%E5%92%AA%E5%92%95%E7%9B%B4%E6%92%AD.txt  #404 fail
-https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u  #404 fail
 https://raw.githubusercontent.com/cyalias/mytvs-github/refs/heads/main/mytv.txt  #404 fail
 https://raw.githubusercontent.com/onlylove2023/iptv/refs/heads/main/IPTV.m3u  #404 fail
 https://raw.githubusercontent.com/yuanzl77/IPTV/refs/heads/main/live.txt  #404 fail
@@ -32,6 +31,7 @@ https://raw.githubusercontent.com/xmbjm/IPTV/master/output/user_result.m3u  #404
 https://raw.githubusercontent.com/PizazzGY/TV/master/output/user_result.txt  #404 fail
 https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/dianshijia_10.1.txt  #404 fail
 https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1  #404 fail
+https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u  #404 fail
 
 # ---- 其他 ----
 https://ha.msbot.dpdns.org/4gtv_api.php  #0 conn
@@ -40,9 +40,9 @@ https://sports.de5.net/xiaohongshu/xhsworldcup.m3u  #404 fail
 https://d.kstore.dev/download/15366/6988.txt  #404 fail
 https://d.kstore.dev/download/11344/yunduan.txt  #404 fail
 https://7337.kstore.vip/lib/kjtwzb.txt  #404 fail
-http://iptv.4666888.xyz/FYTV.txt  #0 conn
 https://9730.kstore.space/%E9%A3%9B%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #404 fail
 https://d.h6room.com/frjzb.txt  #404 fail
 https://45678888.xyz/iptv/proxy.php?sub=9eea6609748994bd9ebe3cfffc52215d  #0 timeout
 https://live.45678888.xyz/sub?kbQyhXwA=m3u  #0 timeout
+http://iptv.4666888.xyz/FYTV.txt  #0 timeout
 
