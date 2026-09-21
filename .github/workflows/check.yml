@@ -5,6 +5,9 @@ on:
     - cron: '0 18 * * *'   # 北京时间 02:00
   workflow_dispatch:
   push:
+    branches:
+      - main
+      - master
     paths:
       - 'live.txt'
       - 'check_iptv.py'
@@ -56,7 +59,7 @@ jobs:
         run: |
           echo "📤 生成文件统计:"
           for f in live_ok.txt live_fail.txt skipped.txt live_report.csv; do
-            if [ -f "$f" ]; then
+            if [ -f "$f"; then
               lines=$(wc -l < "$f")
               size=$(du -sh "$f" | cut -f1)
               echo "   $f  → ${lines} 行, ${size}"
