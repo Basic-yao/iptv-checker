@@ -1,41 +1,40 @@
-# ---- 国内源 ----
+# ---- 直播 ----
+http://iptv.4666888.xyz/FYTV.txt  #0 ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+https://iptv.catvod.com/catvod_com?token=af8c376298c8d34b9c5a33b758c96db91aefffd1237d8bba1b8c6e16e39f98d4  #HTTP403
+
+# ---- 其他 ----
+https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt  #HTTP403
+https://gitee.com/sk0yang/tv/raw/master/output/result.txt  #HTTP403
+https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #HTTP403
+https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #HTTP403
 http://rihou.cc:88/zb/migu720plist.txt  #HTTP404
-
-# ---- 4K高清 ----
-https://live.zbds.org/tv/iptv4.txt  #0 CONN_ERR
-https://t.freetv.fun/m3u/china_original.txt  #0 TIMEOUT
-https://4key.cn/FP  #0 TIMEOUT
-
-# ---- TVBox ----
-http://xn--x6qx76b.top/ZB  #0 CONN_ERR
+https://gitee.com/jin-xueling/lingl/raw/master/hu.txt  #HTTP423
+https://gitee.com/yu_shan_fei/vvvzhy/raw/zby/yu/yqk3.m3u  #HTTP404
+https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #HTTP423
+https://d.kstore.dev/download/15366/6988.txt  #HTTP404
+https://d.kstore.dev/download/11344/yunduan.txt  #HTTP404
+https://7337.kstore.vip/lib/kjtwzb.txt  #HTTP404
+https://9730.kstore.space/%E9%A3%9B%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #HTTP404
+https://d.h6room.com/frjzb.txt  #HTTP404
+https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1  #HTTP403
+https://php.946985.filegear-sg.me/jackTV.m3u  #HTTP403
+https://ds65.tv1288.xyz  #HTTP403
+https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #HTTP403
+https://t.freetv.fun/m3u/china_original.txt  #0 HTTPSConnectionPool(host='t.freetv.fun', port=443): Read timed out. (read timeout=10)
+https://live.zbds.org/tv/iptv4.txt  #0 HTTPSConnectionPool(host='live.zbds.org', port=443): Max retries exceeded with url: /tv/iptv4.txt (Caused by NameResolutionError("HTTPSConnection(host='live.zbds.org', port=443): Failed to resolve 'live.zbds.org' ([Errno -2] Name or service not known)"))
+https://45678888.xyz/iptv/proxy.php?sub=4d0be2911590a0a83fe915e9e9eb7443  #0 HTTPSConnectionPool(host='45678888.xyz', port=443): Read timed out. (read timeout=10)
+https://live.45678888.xyz/sub?kbQyhXwA=m3u  #0 HTTPSConnectionPool(host='live.45678888.xyz', port=443): Max retries exceeded with url: /sub?kbQyhXwA=m3u (Caused by ConnectTimeoutError(<HTTPSConnection(host='live.45678888.xyz', port=443) at 0x7f0eb819fe50>, 'Connection to live.45678888.xyz timed out. (connect timeout=10)'))
+https://4key.cn/FP  #0 HTTPSConnectionPool(host='4key.cn', port=443): Max retries exceeded with url: /FP (Caused by ConnectTimeoutError(<HTTPSConnection(host='4key.cn', port=443) at 0x7f0eb81a4390>, 'Connection to 4key.cn timed out. (connect timeout=10)'))
+http://xn--x6qx76b.top/ZB  #0 HTTPConnectionPool(host='xn--x6qx76b.top', port=80): Max retries exceeded with url: /ZB (Caused by NameResolutionError("HTTPConnection(host='xn--x6qx76b.top', port=80): Failed to resolve 'xn--x6qx76b.top' ([Errno -2] Name or service not known)"))
+https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt  #0 HTTPSConnectionPool(host='cloud.7so.top', port=443): Max retries exceeded with url: /f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt (Caused by ConnectTimeoutError(<HTTPSConnection(host='cloud.7so.top', port=443) at 0x7f0ea5f6d990>, 'Connection to cloud.7so.top timed out. (connect timeout=10)'))
 
 # ---- GitHub源 ----
+https://raw.githubusercontent.com/lalifeier/IPTV/refs/heads/main/txt/IPTV.txt  #HTTP404
 https://raw.githubusercontent.com/rad168/iptv/main/live.m3u  #HTTP404
 https://raw.githubusercontent.com/lalifeier/IPTV/main/m3u/IPTV.m3u  #HTTP404
-https://raw.githubusercontent.com/PizazzGY/TV/master/output/user_result.txt  #HTTP404
 https://raw.githubusercontent.com/xmbjm/IPTV/master/output/user_result.m3u  #HTTP404
-https://raw.githubusercontent.com/lalifeier/IPTV/refs/heads/main/txt/IPTV.txt  #HTTP404
+https://raw.githubusercontent.com/PizazzGY/TV/master/output/user_result.txt  #HTTP404
 https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/dianshijia_10.1.txt  #HTTP404
 https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1  #HTTP404
 https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u  #HTTP404
-
-# ---- 其他 ----
-https://gitee.com/sk0yang/tv/raw/master/output/result.txt  #HTTP403
-https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt  #HTTP403
-https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #HTTP403
-https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #HTTP403
-https://d.kstore.dev/download/15366/6988.txt  #HTTP404
-https://d.kstore.dev/download/11344/yunduan.txt  #HTTP404
-https://gitee.com/jin-xueling/cinematography/raw/master/json.txt  #HTTP423
-https://7337.kstore.vip/lib/kjtwzb.txt  #HTTP404
-https://gitee.com/yu_shan_fei/vvvzhy/raw/zby/yu/yqk3.m3u  #HTTP404
-https://9730.kstore.space/%E9%A3%9B%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #HTTP404
-https://gitee.com/jin-xueling/lingl/raw/master/hu.txt  #HTTP423
-https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1  #HTTP403
-https://iptv.catvod.com/catvod_com?token=af8c376298c8d34b9c5a33b758c96db91aefffd1237d8bba1b8c6e16e39f98d4  #HTTP403
-https://ds65.tv1288.xyz  #HTTP403
-https://php.946985.filegear-sg.me/jackTV.m3u  #HTTP403
-https://d.h6room.com/frjzb.txt  #HTTP404
-https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt  #0 TIMEOUT
-http://iptv.4666888.xyz/FYTV.txt  #0 TIMEOUT
 
