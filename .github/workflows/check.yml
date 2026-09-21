@@ -1,95 +1,51 @@
-name: IPTV Check
+name: IPTV 检查器
 
 on:
-  schedule:
-    - cron: '0 18 * * *'   # 北京时间每天 02:00
-  workflow_dispatch:       # 手动触发
   push:
     paths:
       - 'live.txt'
       - 'check_iptv.py'
       - '.github/workflows/check.yml'
+  workflow_dispatch:
 
-concurrency:
-  group: iptv-check-${{ github.ref }}
-  cancel-in-progress: false
+permissions:
+  contents: write
 
 jobs:
   check:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 60
-    permissions:
-      contents: write
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 检出代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 2  # 拉取上一次提交，用于对比新增源
 
-      - name: Set up Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: 安装依赖
+        run: pip install requests
 
-      - name: Show input stats
+      - name: 显示输入统计
         run: |
-          if [ -f live.txt ]; then
-            total=$(wc -l < live.txt)
-            http_count=$(grep -c '^http' live.txt || echo 0)
-            echo "📥 live.txt: ${total} 行, ${http_count} 个 http 链接"
-          else
-            echo "❌ live.txt 不存在"
-            exit 1
-          fi
+          echo "📥 live.txt 行数: $(wc -l < live.txt)"
+          echo "🔗 URL 数量: $(grep -c '^https\?://' live.txt || echo 0)"
 
-      - name: Run checker
+      - name: 运行检查器
+        continue-on-error: true   # ← 关键：脚本报非0退出也不中断
         run: python check_iptv.py --threads 10 --timeout 10
 
-      - name: Show output stats
-        if: always()
+      - name: 提交结果
+        continue-on-error: true   # ← 关键：无变化也不报错
         run: |
-          echo "📤 生成文件统计:"
-          for f in live_ok.m3u live_ok.txt live_fail.txt skipped.txt live_report.csv; do
-            if [ -f "$f" ]; then
-              lines=$(wc -l < "$f")
-              size=$(du -sh "$f" | cut -f1)
-              echo "   $f  → ${lines} 行, ${size}"
-            else
-              echo "   $f  → 未生成"
-            fi
-          done
-          if [ -f live_ok.m3u ]; then
-            ok_count=$(grep -c '^http' live_ok.m3u || echo 0)
-            echo "✅ 可用源: $ok_count 个"
-          fi
-
-      - name: Commit and push results
-        if: always()
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-          echo "📌 当前分支: $BRANCH"
-
-          git add live_ok.m3u live_ok.txt live_fail.txt skipped.txt live_report.csv
-
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
           if git diff --cached --quiet; then
-            echo "📭 无变更，跳过提交"
-            exit 0
+            echo "ℹ️ 无变化，跳过提交"
+          else
+            git commit -m "自动更新 IPTV 检查结果 [skip ci]"
+            git push
           fi
-
-          git commit -m "🔄 IPTV 检测更新 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M') [skip ci]"
-
-          git fetch origin "$BRANCH"
-          git pull --rebase origin "$BRANCH" || true
-          git push origin "HEAD:$BRANCH" || {
-            echo "⚠️ 常规推送失败，尝试 force-with-lease..."
-            git push --force-with-lease origin "HEAD:$BRANCH"
-          }
