@@ -1,5 +1,4 @@
 
-https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/%E5%92%AA%E5%92%95%E7%9B%B4%E6%92%AD.txt
