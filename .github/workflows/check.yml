@@ -18,7 +18,7 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # 拉取上一次提交，用于对比新增源
+          fetch-depth: 0
 
       - name: 设置 Python
         uses: actions/setup-python@v5
@@ -34,15 +34,14 @@ jobs:
           echo "🔗 URL 数量: $(grep -c '^https\?://' live.txt || echo 0)"
 
       - name: 运行检查器
-        continue-on-error: true   # ← 关键：脚本报非0退出也不中断
-        run: python check_iptv.py --threads 10 --timeout 10
+        run: python check_iptv.py --threads 10 --timeout 20
 
       - name: 提交结果
-        continue-on-error: true   # ← 关键：无变化也不报错
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add live_ok.txt live_ok.m3u live_fail.txt live_report.csv skipped.txt
           if git diff --cached --quiet; then
             echo "ℹ️ 无变化，跳过提交"
           else
