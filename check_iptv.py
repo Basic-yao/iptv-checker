@@ -2,11 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 IPTV 直播源检测 → 纯 TXT 输出
-- 按大类分组，标题格式 # ---- 分类 ----
-- 大类内按响应速度排序（快→慢）
-- URL 级去重 + 完整路径去重（不误杀同仓库不同文件）
-- 代理/加密类自动跳过
-- 异常全捕获，不因单条源崩溃
+- 输入：live.txt（一堆杂乱源，支持 m3u / 纯 URL 列表）
+- 流程：测速 → 去重 → 分组合并
+- 输出：live_ok.txt / live_fail.txt / skipped.txt / live_report.csv
 """
 
 import sys
@@ -88,11 +86,7 @@ def normalize_url(url):
 
 
 def repo_key(url):
-    """
-    完整路径去重键。
-    同仓库不同文件 → 不同 key → 不合并。
-    只有真正的重复文件（master vs refs/heads/master）才合并。
-    """
+    """完整路径去重键"""
     clean = normalize_url(url)
     m = re.match(r'https?://raw\.githubusercontent\.com/([^/]+/[^/]+/.+)', clean)
     if m:
@@ -104,47 +98,75 @@ def repo_key(url):
 
 # ━━━ 解析输入文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def parse_file(filepath):
+    """
+    解析 live.txt，支持两种格式：
+    1) M3U 格式：#EXTINF ... 后面跟 URL
+    2) 纯 URL 列表：每行一个 http 链接
+    返回 [(分类, url), ...]
+    """
     entries = []
     current_cat = "未分类"
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
             line = line.strip()
-            if not line:
+            if not line or line.startswith('#EXTM3U'):
                 continue
-            if line.startswith('#EXTM3U'):
+
+            # 提取 #EXTINF 里的 group-title（如果是 M3U 行）
+            if line.startswith('#EXTINF'):
+                m = re.search(r'group-title="([^"]+)"', line)
+                if m:
+                    current_cat = m.group(1).strip()
                 continue
-            # 分类标题行
+
+            # 分类标题行（形如 # ---- 国内源 ---- 或纯 # 中文综合聚合）
             if line.startswith('#') and 'http' not in line:
                 m = re.match(r'#\s*-+\s*(.+?)\s*-+\s*$', line)
                 if m:
                     current_cat = m.group(1).strip()
-                elif not line.startswith('#EXTINF') and not line.startswith('#EXTGRP'):
+                else:
                     candidate = line.lstrip('#').strip()
                     if candidate and not candidate.startswith('EXT'):
                         current_cat = candidate
-                if line.startswith('#EXTINF'):
-                    m = re.search(r'group-title="([^"]+)"', line)
-                    if m:
-                        current_cat = m.group(1).strip()
                 continue
+
             # URL 行
             if line.startswith('http'):
                 entries.append((current_cat, line))
+
     return entries
 
 
-# ━━━ 检测函数（异常全捕获）━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━ 检测函数（咪咕源强制用 GET）━━━━━━━━━━━━━━━━
 def check_url(url, timeout=10):
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
     parsed = urlparse(url)
-    if 'migu' in parsed.netloc.lower():
+    is_migu = 'migu' in parsed.netloc.lower()
+    if is_migu:
         headers["Referer"] = "https://www.miguvideo.com/"
 
     start = time.time()
-    try:
-        # 先试 HEAD
+
+    # 咪咕源不允许 HEAD，直接走 GET，避免大量 403/405 误判
+    if is_migu:
         try:
-            r = requests.head(url, headers=headers, timeout=timeout, allow_redirects=True, verify=False)
+            r = requests.get(url, headers=headers, timeout=timeout,
+                             allow_redirects=True, verify=False, stream=True)
+            elapsed = int((time.time() - start) * 1000)
+            r.close()
+            return url, r.status_code, elapsed, ""
+        except requests.exceptions.Timeout:
+            return url, 0, int((time.time() - start) * 1000), "TIMEOUT"
+        except requests.exceptions.ConnectionError:
+            return url, 0, int((time.time() - start) * 1000), "CONN_ERR"
+        except Exception as e:
+            return url, 0, int((time.time() - start) * 1000), str(e)[:50]
+
+    # 普通源：先 HEAD，失败回退 GET
+    try:
+        try:
+            r = requests.head(url, headers=headers, timeout=timeout,
+                              allow_redirects=True, verify=False)
             elapsed = int((time.time() - start) * 1000)
             if r.status_code in (200, 206):
                 return url, r.status_code, elapsed, ""
@@ -153,9 +175,9 @@ def check_url(url, timeout=10):
         except requests.exceptions.RequestException:
             pass
 
-        # HEAD 不行就 GET（stream 模式）
         start = time.time()
-        r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True, verify=False, stream=True)
+        r = requests.get(url, headers=headers, timeout=timeout,
+                         allow_redirects=True, verify=False, stream=True)
         elapsed = int((time.time() - start) * 1000)
         r.close()
         return url, r.status_code, elapsed, ""
@@ -201,7 +223,7 @@ def main():
         if should_skip_url(url):
             skipped.append(url)
             continue
-        broad = CAT_MAP.get(cat, "其他")
+        broad = classify(cat)   # 这里改用 classify，CAT_MAP 没有的会归到"其他"
         if broad in SKIP_CATS:
             skipped.append(url)
         else:
@@ -258,7 +280,7 @@ def main():
             seen_repo[key] = item
         else:
             repo_dup_count += 1
-            if item[4] < seen_repo[key][4]:
+            if item[4] < seen_repo[key][4]:   # 保留响应更快的
                 seen_repo[key] = item
     ok_dedup = list(seen_repo.values())
 
@@ -291,7 +313,7 @@ def main():
     if other_count:
         print(f"   ⚠️ '其他'类有 {other_count} 条")
 
-    # ━━━ 统计日志 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # ━━━ 统计日志 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     print(f"\n{'='*50}")
     print(f"📊 检测完成")
     print(f"{'='*50}")
@@ -348,7 +370,8 @@ def main():
     with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
         w.writerow(['大类', '原始分类', 'URL', '状态码', '响应时间(ms)', '错误'])
-        for broad, orig_cat, url, status, elapsed, error in sorted(results, key=lambda x: (CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99, x[4])):
+        for broad, orig_cat, url, status, elapsed, error in sorted(
+                results, key=lambda x: (CAT_ORDER.index(x[0]) if x[0] in CAT_ORDER else 99, x[4])):
             w.writerow([broad, orig_cat, url, status, elapsed, error])
 
     print(f"💾 已生成:")
@@ -358,8 +381,6 @@ def main():
         print(f"   skipped.txt     ← {len(skipped)} 个跳过的源")
     print(f"   live_report.csv ← 检测报告")
 
-    # 即使有失败源也不让 exit code 非 0（防止 Actions 误判）
-    # 只有完全没解析到任何链接才失败
     if len(entries) == 0:
         sys.exit(1)
     sys.exit(0)
