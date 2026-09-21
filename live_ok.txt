@@ -41,7 +41,6 @@ https://live.zbds.top/tv/iptv4.txt
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://west.shaonv.me/tvbox/live.txt
-https://yg.ygbox.de5.net/huya.php
 
 # ---- GitHub源 ----
 https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
