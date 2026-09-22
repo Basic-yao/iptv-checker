@@ -1,257 +1,270 @@
 #EXTM3U
-#EXTINF:-1 group-title="国内源", 国内源 (448ms)
-http://47.94.6.170/TV/tv.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (780ms)
-https://aptv.pro/all.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (10500ms)
-https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
-#EXTINF:-1 group-title="国内源", 国内源 (11255ms)
-https://gitee.com/hw2837/iptv/raw/master/iptv
-#EXTINF:-1 group-title="国内源", 国内源 (11247ms)
-https://gitee.com/hzxs800274/iptv/raw/master/live/TV
-#EXTINF:-1 group-title="国内源", 国内源 (11402ms)
-https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
-#EXTINF:-1 group-title="国内源", 国内源 (10550ms)
-https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
-#EXTINF:-1 group-title="国内源", 国内源 (12171ms)
-https://gitee.com/lwr851/live/raw/master/iptv.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (10434ms)
-https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (11260ms)
-https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
-#EXTINF:-1 group-title="国内源", 国内源 (5109ms)
-https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (3969ms)
-https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
-#EXTINF:-1 group-title="国内源", 国内源 (223ms)
-https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
-#EXTINF:-1 group-title="国内源", 国内源 (983ms)
-https://live.zhoujie218.top/tv/iptv4.txt
-#EXTINF:-1 group-title="国内源", 国内源 (266ms)
-https://m3u.ibert.me/txt/fmml_ipv6.txt
-#EXTINF:-1 group-title="国内源", 国内源 (269ms)
-https://m3u.ibert.me/txt/y_g.txt
-#EXTINF:-1 group-title="国内源", 国内源 (265ms)
-https://m3u.ibert.me/txt/ycl_iptv.txt
-#EXTINF:-1 group-title="国内源", 国内源 (1403ms)
-https://seep.eu.org/develop202.github.io/migu_video/interface.txt
-#EXTINF:-1 group-title="国内源", 国内源 (854ms)
-https://tmxk.pp.ua/smart-cn.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (473ms)
-https://tv.850930.xyz/kdsb.txt
-#EXTINF:-1 group-title="国内源", 国内源 (362ms)
-https://tv.850930.xyz/pix.m3u
-#EXTINF:-1 group-title="国内源", 国内源 (3632ms)
-http://wangziduoqing.com/yuan/zb.txt
-#EXTINF:-1 group-title="国内源", 国内源 (1225ms)
-http://www.52top.com.cn:678/downloads/migu.txt
+# 生成时间: 2026-09-22 15:15:03
 
-#EXTINF:-1 group-title="国际源", 国际源 (163ms)
-https://iptv-org.github.io/iptv/countries/cn.m3u
-#EXTINF:-1 group-title="国际源", 国际源 (110ms)
-https://iptv-org.github.io/iptv/countries/hk.m3u
-#EXTINF:-1 group-title="国际源", 国际源 (174ms)
-https://iptv-org.github.io/iptv/countries/tw.m3u
-#EXTINF:-1 group-title="国际源", 国际源 (87ms)
-https://iptv-org.github.io/iptv/index.m3u
-#EXTINF:-1 group-title="国际源", 国际源 (99ms)
-https://iptv-org.github.io/iptv/languages/zho.m3u
-
-#EXTINF:-1 group-title="4K高清", 4K高清 (440ms)
+#EXTINF:-1 group-title="其他", 其他 (481ms)
 http://1.94.31.214/live/live9/dgtv.txt
-#EXTINF:-1 group-title="4K高清", 4K高清 (1359ms)
+#EXTINF:-1 group-title="其他", 其他 (1950ms)
 http://1.94.31.214/live/live9/dgtv2026.php
-#EXTINF:-1 group-title="4K高清", 4K高清 (444ms)
+#EXTINF:-1 group-title="其他", 其他 (1540ms)
 http://117.72.68.25:9230/latest.txt
-#EXTINF:-1 group-title="4K高清", 4K高清 (985ms)
-https://live.zbds.top/tv/iptv4.txt
-
-#EXTINF:-1 group-title="TVBox", TVBox (315ms)
+#EXTINF:-1 group-title="其他", 其他 (504ms)
+http://47.94.6.170/TV/tv.m3u
+#EXTINF:-1 group-title="其他", 其他 (786ms)
+http://www.52top.com.cn:678/downloads/migu.txt
+#EXTINF:-1 group-title="其他", 其他 (887ms)
+https://aptv.pro/all.m3u
+#EXTINF:-1 group-title="其他", 其他 (134ms)
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
-#EXTINF:-1 group-title="TVBox", TVBox (164ms)
-https://supprise0901.github.io/TVBox_live/live.txt
-#EXTINF:-1 group-title="TVBox", TVBox (2848ms)
-http://west.shaonv.me/tvbox/live.txt
-#EXTINF:-1 group-title="TVBox", TVBox (236ms)
-https://yg.ygbox.de5.net/huya.php
-
-#EXTINF:-1 group-title="GitHub源", GitHub源 (474ms)
-https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (173ms)
-https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (201ms)
-https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (348ms)
-https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (173ms)
-https://raw.githubusercontent.com/alienlu/iptv/refs/heads/master/iptv.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (175ms)
-https://raw.githubusercontent.com/altn2025/iptv/main/iptv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (174ms)
-https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (156ms)
-https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (146ms)
-https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808226.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (155ms)
-https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808384.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (204ms)
-https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/assets/test.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (317ms)
-https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (283ms)
-https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (219ms)
-https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (206ms)
-https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (229ms)
-https://raw.githubusercontent.com/DataShare-duo/MovieLiveUrl/refs/heads/main/movie_live.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (83ms)
-https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (215ms)
-https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (168ms)
-https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (186ms)
-https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
-#EXTINF:-1 group-title="GitHub源", GitHub源 (151ms)
-https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
-#EXTINF:-1 group-title="GitHub源", GitHub源 (194ms)
-https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (333ms)
-https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (80ms)
-https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (159ms)
-https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (175ms)
-https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
-#EXTINF:-1 group-title="GitHub源", GitHub源 (222ms)
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (199ms)
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (167ms)
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
-#EXTINF:-1 group-title="GitHub源", GitHub源 (174ms)
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (320ms)
-https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (144ms)
-https://raw.githubusercontent.com/jiangnan1224/iptv_ipv4_live/refs/heads/main/live_ipv4.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (110ms)
-https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (328ms)
-https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (289ms)
-https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (191ms)
-https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (376ms)
-https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/others_output.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (181ms)
-https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (361ms)
-https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (149ms)
-https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx_lite.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (307ms)
-https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/others_output.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (255ms)
-https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (172ms)
-https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (157ms)
-https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (171ms)
-https://raw.githubusercontent.com/mlzlzj/hnyuan/refs/heads/main/iptv_list.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (156ms)
-https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (406ms)
-https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (185ms)
-https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (177ms)
-https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (481ms)
-https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (181ms)
-https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (205ms)
-https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (209ms)
-https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (168ms)
-https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (157ms)
-https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (122ms)
-https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (163ms)
-https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (181ms)
-https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv6.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (256ms)
-https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (163ms)
-https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (167ms)
-https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (280ms)
-https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (459ms)
-https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (266ms)
-https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (144ms)
-https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (166ms)
-https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (234ms)
-https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (154ms)
-https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (254ms)
-https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (221ms)
-https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (397ms)
-https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (166ms)
-https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (165ms)
-https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (147ms)
-https://raw.githubusercontent.com/zwc456baby/iptv_alive/master/live.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (167ms)
-https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
-#EXTINF:-1 group-title="GitHub源", GitHub源 (171ms)
-https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
-#EXTINF:-1 group-title="GitHub源", GitHub源 (494ms)
-https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
-
-#EXTINF:-1 group-title="其他", 其他 (3850ms)
+#EXTINF:-1 group-title="其他", 其他 (1571ms)
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
-#EXTINF:-1 group-title="其他", 其他 (1652ms)
+#EXTINF:-1 group-title="其他", 其他 (1792ms)
 https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt
-#EXTINF:-1 group-title="其他", 其他 (536ms)
+#EXTINF:-1 group-title="其他", 其他 (612ms)
+https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt
+#EXTINF:-1 group-title="其他", 其他 (441ms)
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
-#EXTINF:-1 group-title="其他", 其他 (271ms)
-https://d.kstore.dev/download/12441/ds9.txt
-#EXTINF:-1 group-title="其他", 其他 (547ms)
-https://ilook.epg.one/5CM5SY98BF24PL/2
-#EXTINF:-1 group-title="其他", 其他 (946ms)
-https://iptv.zsdc.eu.org/home/iptv.m3u8
-#EXTINF:-1 group-title="其他", 其他 (354ms)
-https://live.iptv-free.com/iptv/categories/general.m3u
 #EXTINF:-1 group-title="其他", 其他 (287ms)
+https://d.kstore.dev/download/12441/ds9.txt
+#EXTINF:-1 group-title="其他", 其他 (95ms)
+https://ds65.tv1288.xyz
+#EXTINF:-1 group-title="其他", 其他 (11073ms)
+https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
+#EXTINF:-1 group-title="其他", 其他 (11086ms)
+https://gitee.com/hw2837/iptv/raw/master/iptv
+#EXTINF:-1 group-title="其他", 其他 (11859ms)
+https://gitee.com/hzxs800274/iptv/raw/master/live/TV
+#EXTINF:-1 group-title="其他", 其他 (11751ms)
+https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
+#EXTINF:-1 group-title="其他", 其他 (12270ms)
+https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
+#EXTINF:-1 group-title="其他", 其他 (11963ms)
+https://gitee.com/lwr851/live/raw/master/iptv.m3u
+#EXTINF:-1 group-title="其他", 其他 (12219ms)
+https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (11050ms)
+https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
+#EXTINF:-1 group-title="其他", 其他 (5654ms)
+https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt
+#EXTINF:-1 group-title="其他", 其他 (10208ms)
+https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt
+#EXTINF:-1 group-title="其他", 其他 (1581ms)
+https://gitee.com/sk0yang/tv/raw/master/output/result.txt
+#EXTINF:-1 group-title="其他", 其他 (3509ms)
+https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
+#EXTINF:-1 group-title="其他", 其他 (4564ms)
+https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
+#EXTINF:-1 group-title="其他", 其他 (3749ms)
+https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt
+#EXTINF:-1 group-title="其他", 其他 (540ms)
+https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
+#EXTINF:-1 group-title="其他", 其他 (353ms)
+https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
+#EXTINF:-1 group-title="其他", 其他 (534ms)
+https://ilook.epg.one/5CM5SY98BF24PL/2
+#EXTINF:-1 group-title="其他", 其他 (146ms)
+https://iptv-org.github.io/iptv/countries/cn.m3u
+#EXTINF:-1 group-title="其他", 其他 (129ms)
+https://iptv-org.github.io/iptv/countries/hk.m3u
+#EXTINF:-1 group-title="其他", 其他 (102ms)
+https://iptv-org.github.io/iptv/countries/tw.m3u
+#EXTINF:-1 group-title="其他", 其他 (31ms)
+https://iptv-org.github.io/iptv/index.m3u
+#EXTINF:-1 group-title="其他", 其他 (28ms)
+https://iptv-org.github.io/iptv/languages/zho.m3u
+#EXTINF:-1 group-title="其他", 其他 (379ms)
+https://iptv.zsdc.eu.org/home/iptv.m3u8
+#EXTINF:-1 group-title="其他", 其他 (1095ms)
+https://jihulab.com/-/snippets/5265/raw/main/.txt
+#EXTINF:-1 group-title="其他", 其他 (60ms)
+https://live.catvod.com/?tk=bf9107ef730675e6b4d39d1303afb0b1
+#EXTINF:-1 group-title="其他", 其他 (296ms)
+https://live.iptv-free.com/iptv/categories/general.m3u
+#EXTINF:-1 group-title="其他", 其他 (253ms)
 https://live.iptv-free.com/iptv/categories/movies.m3u
-#EXTINF:-1 group-title="其他", 其他 (613ms)
-http://tot.totalh.net/tttt.txt
-#EXTINF:-1 group-title="其他", 其他 (1572ms)
+#EXTINF:-1 group-title="其他", 其他 (59ms)
+https://live.zbds.top/tv/iptv4.txt
+#EXTINF:-1 group-title="其他", 其他 (1846ms)
+https://live.zhoujie218.top/tv/iptv4.txt
+#EXTINF:-1 group-title="其他", 其他 (156ms)
+https://m3u.ibert.me/txt/fmml_ipv6.txt
+#EXTINF:-1 group-title="其他", 其他 (124ms)
+https://m3u.ibert.me/txt/y_g.txt
+#EXTINF:-1 group-title="其他", 其他 (132ms)
+https://m3u.ibert.me/txt/ycl_iptv.txt
+#EXTINF:-1 group-title="其他", 其他 (145ms)
+https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u
+#EXTINF:-1 group-title="其他", 其他 (113ms)
+https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.txt
+#EXTINF:-1 group-title="其他", 其他 (190ms)
+https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
+#EXTINF:-1 group-title="其他", 其他 (128ms)
+https://raw.githubusercontent.com/alienlu/iptv/refs/heads/master/iptv.txt
+#EXTINF:-1 group-title="其他", 其他 (181ms)
+https://raw.githubusercontent.com/altn2025/iptv/main/iptv.m3u
+#EXTINF:-1 group-title="其他", 其他 (245ms)
+https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
+#EXTINF:-1 group-title="其他", 其他 (79ms)
+https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
+#EXTINF:-1 group-title="其他", 其他 (55ms)
+https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808226.m3u
+#EXTINF:-1 group-title="其他", 其他 (111ms)
+https://raw.githubusercontent.com/cai23511/yex/master/TVlist/20210808384.m3u
+#EXTINF:-1 group-title="其他", 其他 (119ms)
+https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/assets/test.txt
+#EXTINF:-1 group-title="其他", 其他 (230ms)
+https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
+#EXTINF:-1 group-title="其他", 其他 (96ms)
+https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u
+#EXTINF:-1 group-title="其他", 其他 (93ms)
+https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u
+#EXTINF:-1 group-title="其他", 其他 (91ms)
+https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u
+#EXTINF:-1 group-title="其他", 其他 (133ms)
+https://raw.githubusercontent.com/DataShare-duo/MovieLiveUrl/refs/heads/main/movie_live.m3u
+#EXTINF:-1 group-title="其他", 其他 (164ms)
+https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt
+#EXTINF:-1 group-title="其他", 其他 (168ms)
+https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
+#EXTINF:-1 group-title="其他", 其他 (93ms)
+https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u
+#EXTINF:-1 group-title="其他", 其他 (124ms)
+https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
+#EXTINF:-1 group-title="其他", 其他 (28ms)
+https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+#EXTINF:-1 group-title="其他", 其他 (118ms)
+https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt
+#EXTINF:-1 group-title="其他", 其他 (286ms)
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (96ms)
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (236ms)
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt
+#EXTINF:-1 group-title="其他", 其他 (99ms)
+https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
+#EXTINF:-1 group-title="其他", 其他 (106ms)
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
+#EXTINF:-1 group-title="其他", 其他 (107ms)
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
+#EXTINF:-1 group-title="其他", 其他 (90ms)
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
+#EXTINF:-1 group-title="其他", 其他 (108ms)
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
+#EXTINF:-1 group-title="其他", 其他 (146ms)
+https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
+#EXTINF:-1 group-title="其他", 其他 (107ms)
+https://raw.githubusercontent.com/jiangnan1224/iptv_ipv4_live/refs/heads/main/live_ipv4.txt
+#EXTINF:-1 group-title="其他", 其他 (302ms)
+https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
+#EXTINF:-1 group-title="其他", 其他 (131ms)
+https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
+#EXTINF:-1 group-title="其他", 其他 (131ms)
+https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt
+#EXTINF:-1 group-title="其他", 其他 (64ms)
+https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+#EXTINF:-1 group-title="其他", 其他 (282ms)
+https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/others_output.txt
+#EXTINF:-1 group-title="其他", 其他 (92ms)
+https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx.txt
+#EXTINF:-1 group-title="其他", 其他 (217ms)
+https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u
+#EXTINF:-1 group-title="其他", 其他 (104ms)
+https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx_lite.m3u
+#EXTINF:-1 group-title="其他", 其他 (255ms)
+https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/others_output.txt
+#EXTINF:-1 group-title="其他", 其他 (108ms)
+https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
+#EXTINF:-1 group-title="其他", 其他 (157ms)
+https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
+#EXTINF:-1 group-title="其他", 其他 (110ms)
+https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt
+#EXTINF:-1 group-title="其他", 其他 (191ms)
+https://raw.githubusercontent.com/mlzlzj/hnyuan/refs/heads/main/iptv_list.txt
+#EXTINF:-1 group-title="其他", 其他 (107ms)
+https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
+#EXTINF:-1 group-title="其他", 其他 (303ms)
+https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (119ms)
+https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt
+#EXTINF:-1 group-title="其他", 其他 (281ms)
+https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
+#EXTINF:-1 group-title="其他", 其他 (91ms)
+https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
+#EXTINF:-1 group-title="其他", 其他 (91ms)
+https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u
+#EXTINF:-1 group-title="其他", 其他 (95ms)
+https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
+#EXTINF:-1 group-title="其他", 其他 (305ms)
+https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
+#EXTINF:-1 group-title="其他", 其他 (132ms)
+https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
+#EXTINF:-1 group-title="其他", 其他 (118ms)
+https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
+#EXTINF:-1 group-title="其他", 其他 (133ms)
+https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
+#EXTINF:-1 group-title="其他", 其他 (90ms)
+https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt
+#EXTINF:-1 group-title="其他", 其他 (125ms)
+https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv6.txt
+#EXTINF:-1 group-title="其他", 其他 (147ms)
+https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
+#EXTINF:-1 group-title="其他", 其他 (148ms)
+https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
+#EXTINF:-1 group-title="其他", 其他 (121ms)
+https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.txt
+#EXTINF:-1 group-title="其他", 其他 (152ms)
+https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (249ms)
+https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (108ms)
+https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
+#EXTINF:-1 group-title="其他", 其他 (111ms)
+https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt
+#EXTINF:-1 group-title="其他", 其他 (347ms)
+https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
+#EXTINF:-1 group-title="其他", 其他 (181ms)
+https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt
+#EXTINF:-1 group-title="其他", 其他 (123ms)
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
+#EXTINF:-1 group-title="其他", 其他 (265ms)
+https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u
+#EXTINF:-1 group-title="其他", 其他 (134ms)
+https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
+#EXTINF:-1 group-title="其他", 其他 (137ms)
+https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt
+#EXTINF:-1 group-title="其他", 其他 (106ms)
+https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u
+#EXTINF:-1 group-title="其他", 其他 (89ms)
+https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
+#EXTINF:-1 group-title="其他", 其他 (96ms)
+https://raw.githubusercontent.com/zwc456baby/iptv_alive/master/live.txt
+#EXTINF:-1 group-title="其他", 其他 (101ms)
+https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
+#EXTINF:-1 group-title="其他", 其他 (178ms)
+https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
+#EXTINF:-1 group-title="其他", 其他 (2229ms)
+http://rihou.cc:555/gggg.nzk
+#EXTINF:-1 group-title="其他", 其他 (11692ms)
+https://seep.eu.org/develop202.github.io/migu_video/interface.txt
+#EXTINF:-1 group-title="其他", 其他 (109ms)
+https://supprise0901.github.io/TVBox_live/live.txt
+#EXTINF:-1 group-title="其他", 其他 (1025ms)
+https://tmxk.pp.ua/smart-cn.m3u
+#EXTINF:-1 group-title="其他", 其他 (316ms)
+https://tv.850930.xyz/kdsb.txt
+#EXTINF:-1 group-title="其他", 其他 (321ms)
+https://tv.850930.xyz/pix.m3u
+#EXTINF:-1 group-title="其他", 其他 (1011ms)
 http://tv123.vvvv.ee/tv.m3u
-#EXTINF:-1 group-title="其他", 其他 (857ms)
+#EXTINF:-1 group-title="其他", 其他 (639ms)
+https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
+#EXTINF:-1 group-title="其他", 其他 (1002ms)
+http://wangziduoqing.com/yuan/zb.txt
+#EXTINF:-1 group-title="其他", 其他 (6061ms)
+http://west.shaonv.me/tvbox/live.txt
+#EXTINF:-1 group-title="其他", 其他 (658ms)
 https://xn--6orr3pi6g9uu.top/zb/zb.txt
-#EXTINF:-1 group-title="其他", 其他 (614ms)
+#EXTINF:-1 group-title="其他", 其他 (416ms)
+https://yg.ygbox.de5.net/huya.php
+#EXTINF:-1 group-title="其他", 其他 (607ms)
 http://yimolan.serv00.net/zb/live.php
 
