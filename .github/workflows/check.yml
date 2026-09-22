@@ -41,8 +41,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # 强制添加指定输出文件，确保即使内容为空也被跟踪
           git add -f live_ok.txt live_ok.m3u live_fail.txt live_report.csv skipped.txt
-          # 强制提交（允许空提交），确保每次运行都有唯一提交时间
           git commit --allow-empty -m "自动更新 IPTV 检查结果 [skip ci]" || true
           git push
