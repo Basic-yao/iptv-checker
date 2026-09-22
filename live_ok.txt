@@ -1,5 +1,5 @@
-# 生成时间: 2026-09-22 18:36:45
-# 总计: 138 条
+# 生成时间: 2026-09-22 19:52:48
+# 总计: 135 条
 
 # ---- 国内源 ----
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
@@ -43,7 +43,6 @@ http://www.52top.com.cn:678/downloads/migu.txt
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://west.shaonv.me/tvbox/live.txt
-https://yg.ygbox.de5.net/huya.php
 
 # ---- GitHub源 ----
 https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u
@@ -144,8 +143,6 @@ https://m3u.ibert.me/txt/y_g.txt
 https://m3u.ibert.me/txt/ycl_iptv.txt
 https://tmxk.pp.ua/smart-cn.m3u
 http://tot.totalh.net/tttt.txt
-https://tv.850930.xyz/kdsb.txt
-https://tv.850930.xyz/pix.m3u
 http://tv123.vvvv.ee/tv.m3u
 http://wangziduoqing.com/yuan/zb.txt
 https://xn--6orr3pi6g9uu.top/zb/zb.txt
