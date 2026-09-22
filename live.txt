@@ -9,12 +9,9 @@ https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
 https://gitee.com/lwr851/live/raw/master/iptv.m3u
 https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
 https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
-https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt
-https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt
 https://gitee.com/sk0yang/tv/raw/master/output/result.txt
 https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
 https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
-https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt
 https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
 https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
