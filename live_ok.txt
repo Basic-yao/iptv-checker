@@ -1,30 +1,26 @@
-# 生成时间: 2026-09-22 07:00:28
-# 总计: 147 条
-
 # ---- 国内源 ----
-https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u
-https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u
-https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
-https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
+http://47.94.6.170/TV/tv.m3u
+https://aptv.pro/all.m3u
+https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
+https://gitee.com/hw2837/iptv/raw/master/iptv
+https://gitee.com/hzxs800274/iptv/raw/master/live/TV
+https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
+https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
+https://gitee.com/lwr851/live/raw/master/iptv.m3u
+https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
+https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
+https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
+https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
+https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
+https://live.zhoujie218.top/tv/iptv4.txt
+https://m3u.ibert.me/txt/fmml_ipv6.txt
+https://m3u.ibert.me/txt/y_g.txt
+https://m3u.ibert.me/txt/ycl_iptv.txt
 https://seep.eu.org/develop202.github.io/migu_video/interface.txt
+https://tmxk.pp.ua/smart-cn.m3u
+https://tv.850930.xyz/kdsb.txt
+https://tv.850930.xyz/pix.m3u
+http://wangziduoqing.com/yuan/zb.txt
 http://www.52top.com.cn:678/downloads/migu.txt
 
 # ---- 国际源 ----
@@ -44,6 +40,7 @@ https://live.zbds.top/tv/iptv4.txt
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://west.shaonv.me/tvbox/live.txt
+https://yg.ygbox.de5.net/huya.php
 
 # ---- GitHub源 ----
 https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
@@ -125,38 +122,16 @@ https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
 https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
 
 # ---- 其他 ----
-http://47.94.6.170/TV/tv.m3u
-https://aptv.pro/all.m3u
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
 https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt
+https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
 https://d.kstore.dev/download/12441/ds9.txt
-https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
-https://gitee.com/hw2837/iptv/raw/master/iptv
-https://gitee.com/hzxs800274/iptv/raw/master/live/TV
-https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
-https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
-https://gitee.com/lwr851/live/raw/master/iptv.m3u
-https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
-https://gitee.com/myvisual/newzubo/raw/main/IPTV.txt
-https://gitee.com/sk0yang/tv/raw/master/output/result.txt
-https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
-https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
-https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
 https://ilook.epg.one/5CM5SY98BF24PL/2
 https://iptv.zsdc.eu.org/home/iptv.m3u8
-https://jihulab.com/-/snippets/5265/raw/main/.txt
 https://live.iptv-free.com/iptv/categories/general.m3u
 https://live.iptv-free.com/iptv/categories/movies.m3u
-https://live.zhoujie218.top/tv/iptv4.txt
-https://m3u.ibert.me/txt/fmml_ipv6.txt
-https://m3u.ibert.me/txt/y_g.txt
-https://m3u.ibert.me/txt/ycl_iptv.txt
-https://tmxk.pp.ua/smart-cn.m3u
 http://tot.totalh.net/tttt.txt
-https://tv.850930.xyz/kdsb.txt
-https://tv.850930.xyz/pix.m3u
 http://tv123.vvvv.ee/tv.m3u
-http://wangziduoqing.com/yuan/zb.txt
 https://xn--6orr3pi6g9uu.top/zb/zb.txt
 http://yimolan.serv00.net/zb/live.php
 
