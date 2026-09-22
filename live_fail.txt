@@ -1,5 +1,5 @@
-# 生成时间: 2026-09-22 16:37:30
-# 真失效: 6 个
+# 生成时间: 2026-09-22 18:36:45
+# 真失效: 3 个
 
 # ---- 国内源 ----
 # (无)
@@ -17,9 +17,6 @@
 # (无)
 
 # ---- 其他 ----
-https://gitee.com/RandomCJ/IPTV_Personal/raw/master/output/IPTV_Personal.txt  #403 fail
-https://gitee.com/q1017673817/fan/raw/iptv/zubo.txt  #403 fail
-https://gitee.com/xiao-ping2/iptv-api/raw/master/output/xp_result.txt  #403 fail
 https://ds65.tv1288.xyz  #403 fail
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #403 fail
 http://rihou.cc:555/gggg.nzk  #403 fail
