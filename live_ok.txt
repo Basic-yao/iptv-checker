@@ -1,5 +1,5 @@
-# 生成时间: 2026-09-22 06:55:05
-# 总计: 149 条
+# 生成时间: 2026-09-22 07:00:28
+# 总计: 147 条
 
 # ---- 国内源 ----
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
@@ -44,7 +44,6 @@ https://live.zbds.top/tv/iptv4.txt
 https://bitbucket.org/guot55/bhmb/raw/main/TVBoxOSC/bhzb.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://west.shaonv.me/tvbox/live.txt
-https://yg.ygbox.de5.net/huya.php
 
 # ---- GitHub源 ----
 https://github.com/alantang1977/cluntop/blob/main/lib/iptv.txt
@@ -129,7 +128,6 @@ https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
 http://47.94.6.170/TV/tv.m3u
 https://aptv.pro/all.m3u
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
-https://cdn.qd.je/live.m3u
 https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt
 https://d.kstore.dev/download/12441/ds9.txt
 https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
