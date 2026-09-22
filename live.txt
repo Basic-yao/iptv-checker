@@ -40,8 +40,6 @@ https://m3u.ibert.me/txt/fmml_ipv6.txt
 https://m3u.ibert.me/txt/y_g.txt
 https://m3u.ibert.me/txt/ycl_iptv.txt
 https://tmxk.pp.ua/smart-cn.m3u
-https://tv.850930.xyz/kdsb.txt
-https://tv.850930.xyz/pix.m3u
 http://wangziduoqing.com/yuan/zb.txt
 
 # ---- 国际源 ----
