@@ -1,22 +1,27 @@
-# 生成时间: 2026-09-23 17:42:46
-# 真失效: 2 个
-
 # ---- 国内源 ----
-# (无)
-
-# ---- 国际源 ----
-# (无)
-
-# ---- 4K高清 ----
-# (无)
-
-# ---- TVBox ----
-# (无)
-
-# ---- GitHub源 ----
-# (无)
+https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u  #403 fail
+https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u  #403 fail
 
 # ---- 其他 ----
 https://ds65.tv1288.xyz  #403 fail
-https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #403 fail
 
