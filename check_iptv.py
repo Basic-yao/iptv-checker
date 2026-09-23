@@ -363,13 +363,39 @@ def main():
                 f.write(f"{u}\n")
             f.write("\n")
 
-    # ── live_ok.m3u ──
+# ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序 | 仅此表）──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
         write_header(f, "可用源播放列表")
         f.write("#EXTM3U\n\n")
+
+        m3u_items = []
+        seen_m3u = set()
         for url, status, elapsed, flag in _ok_raw:
-            broad = get_domain(url)
-            f.write(f'#EXTINF:-1,{broad}\n{url}\n')
+            norm = normalize_url(url)
+            if norm in seen_m3u:
+                continue
+            seen_m3u.add(norm)
+            
+            # 响应时间转为数值，无效则沉底（设为极大值）
+            try:
+                rt = float(elapsed)
+            except Exception:
+                rt = 99999999.0
+            
+            # 保留更新时间用于EXTINF后缀（可选，避免重名），此处严格按需求只写响应时间
+            days, update_date = get_source_age._cache.get(norm, (None, "未知"))
+            m3u_items.append((rt, url))
+
+        # 按响应时间从小到大排序（最快的最前面）
+        m3u_items.sort(key=lambda x: x[0])
+
+        for rt, url in m3u_items:
+            # 响应时间为整数显示，极大值时显示未知
+            if rt >= 99999999:
+                name = "未知"
+            else:
+                name = f"{int(rt)}ms"
+            f.write(f"#EXTINF:-1,{name}\n{url}\n")
 
     # ── 分档文件 ──
     def write_tier_file(fname, tier, label):
