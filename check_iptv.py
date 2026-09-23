@@ -1,43 +1,39 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 检查器（四档分档 + 真实源龄 + 原OK判定不变）
-分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
-源龄：远程URL用Last-Modified/GitHub API；取不到标未知
-live_ok.txt = 纯URL，按四档归类，无尾注
-live_report.csv = 生成时间首行首列 / 更新时间只到日期 / 网址置末 / 严格9列
+IPTV 直播源自动检测脚本
+功能：检测 live.txt 中的 URL 可用性，按源龄分档，生成报告
 """
 import os
-import re
 import sys
 import csv
 import time
+import re
 import json
 import socket
 import threading
 import argparse
-from datetime import datetime, timedelta, timezone
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse, urlunparse
 
 import requests
-from requests.exceptions import RequestException, Timeout, ConnectionError
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # ═══════════════════════════════════════════════
 # 全局配置
 # ═══════════════════════════════════════════════
-THREADS = 10
 TIMEOUT = 20
-STALE_DAYS = 90
+THREADS = 10
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+HEADERS = {"User-Agent": USER_AGENT}
+
 RECENT_DAYS = 7
 MONTH_DAYS = 30
 THREE_MONTH_DAYS = 90
-
-USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-              "AppleWebKit/537.36 (KHTML, like Gecko) "
-              "Chrome/120.0 Safari/537.36")
-HEADERS = {"User-Agent": USER_AGENT}
+STALE_DAYS = 90
 
 TIER_NEW = "🆕一周内"
 TIER_MONTH = "📅一个月内"
@@ -45,16 +41,16 @@ TIER_3MONTH = "📆三个月内"
 TIER_OLD = "🧓超三个月"
 TIER_UNKNOWN = "❓未知"
 
-CST8 = timezone(timedelta(hours=8))
+CST8 = datetime.timezone(datetime.timedelta(hours=8))
 
 # ═══════════════════════════════════════════════
 # 工具函数
 # ═══════════════════════════════════════════════
-def now_cst():
-    return datetime.now(CST8)
+def now_beijing():
+    return datetime.datetime.now(CST8).strftime("%Y-%m-%d %H:%M:%S")
 
 def ts_cst():
-    return now_cst().strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.datetime.now(CST8).strftime("%Y-%m-%d %H:%M:%S")
 
 def normalize_url(u):
     u = u.strip().split("#")[0].strip()
@@ -88,61 +84,7 @@ def is_web_page(url):
 
 def is_github_url(url):
     low = url.lower()
-    return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com"])
-
-# ═══════════════════════════════════════════════
-# 源龄检测（返回 days + 更新日期，只到日期）
-# ═══════════════════════════════════════════════
-def get_source_age(url):
-    norm = normalize_url(url)
-    if hasattr(get_source_age, "_cache"):
-        if norm in get_source_age._cache:
-            return get_source_age._cache[norm]
-    else:
-        get_source_age._cache = {}
-
-    now = now_cst()
-    days = None
-    update_date = ""   # 只到日期，如 2026-09-20
-
-    try:
-        if is_github_url(url):
-            m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
-            if m:
-                owner, repo, branch, path = m.groups()
-                path = path.split("?")[0].split("#")[0]
-                api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
-                try:
-                    r = requests.get(api, headers=HEADERS, timeout=10)
-                    if r.status_code == 200 and r.json():
-                        dt_str = r.json()[0]["commit"]["committer"]["date"]
-                        dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
-                        days = (now - dt.astimezone(CST8)).days
-                        update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
-                        get_source_age._cache[norm] = (days, update_date)
-                        return days, update_date
-                except Exception:
-                    pass
-
-        try:
-            r = requests.head(norm, headers=HEADERS, timeout=10, allow_redirects=True, verify=False)
-            lm = r.headers.get("Last-Modified")
-            if lm:
-                dt = parsedate_to_datetime(lm)
-                if dt.tzinfo is None:
-                    dt = dt.replace(tzinfo=timezone.utc)
-                days = (now - dt.astimezone(CST8)).days
-                update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
-                get_source_age._cache[norm] = (days, update_date)
-                return days, update_date
-        except Exception:
-            pass
-    except Exception:
-        pass
-
-    update_date = "未知"
-    get_source_age._cache[norm] = (None, update_date)
-    return None, update_date
+    return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com", "gitee.com", "gitlab.com"])
 
 def tier_of(days):
     if days is None:
@@ -167,6 +109,85 @@ def age_label(days):
     return f"{days}天(超三月)"
 
 # ═══════════════════════════════════════════════
+# 源龄获取（返回 days + 更新日期，只到日期）
+# ═══════════════════════════════════════════════
+get_source_age = lambda url: (None, "未知")
+get_source_age._cache = {}
+
+def fetch_source_age(url):
+    norm = normalize_url(url)
+    if norm in get_source_age._cache:
+        return get_source_age._cache[norm]
+
+    now = datetime.datetime.now(CST8)
+    days = None
+    update_date = "未知"
+
+    try:
+        # GitHub/Gitee 源
+        if is_github_url(url):
+            try:
+                m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
+                if m:
+                    owner, repo, branch, path = m.groups()
+                    path = path.split("?")[0].split("#")[0]
+                    api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
+                    r = requests.get(api, headers=HEADERS, timeout=10)
+                    if r.status_code == 200:
+                        data = r.json()
+                        if isinstance(data, list) and data:
+                            dt_str = data[0]["commit"]["committer"]["date"]
+                            dt = datetime.datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+                            days = (now - dt.astimezone(CST8)).days
+                            update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
+                            get_source_age._cache[norm] = (days, update_date)
+                            return days, update_date
+            except Exception:
+                pass
+            # Gitee 尝试
+            try:
+                m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/raw/([^/]+)/(.+)", norm)
+                if m:
+                    owner, repo, branch, path = m.groups()
+                    api = f"https://gitee.com/api/v5/repos/{owner}/{repo}/commits?path={path}&ref={branch}&per_page=1"
+                    r = requests.get(api, headers=HEADERS, timeout=10)
+                    if r.status_code == 200:
+                        data = r.json()
+                        if isinstance(data, list) and data:
+                            dt_str = data[0]["commit"]["committer"]["date"]
+                            dt = datetime.datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+                            days = (now - dt.astimezone(CST8)).days
+                            update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
+                            get_source_age._cache[norm] = (days, update_date)
+                            return days, update_date
+            except Exception:
+                pass
+
+        # 普通源：Last-Modified
+        try:
+            sess = requests.Session()
+            retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
+            sess.mount("http://", HTTPAdapter(max_retries=retries))
+            sess.mount("https://", HTTPAdapter(max_retries=retries))
+            head = sess.head(norm, headers=HEADERS, timeout=10, allow_redirects=True, verify=False)
+            lm = head.headers.get("Last-Modified")
+            if lm:
+                dt = parsedate_to_datetime(lm)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=datetime.timezone.utc)
+                days = (now - dt.astimezone(CST8)).days
+                update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
+                get_source_age._cache[norm] = (days, update_date)
+                return days, update_date
+        except Exception:
+            pass
+    except Exception:
+        pass
+
+    get_source_age._cache[norm] = (None, update_date)
+    return None, update_date
+
+# ═══════════════════════════════════════════════
 # 检测核心（三层判定）
 # ═══════════════════════════════════════════════
 def check_url(url):
@@ -183,7 +204,11 @@ def check_url(url):
 
     try:
         try:
-            r = requests.head(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False)
+            sess = requests.Session()
+            retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
+            sess.mount("http://", HTTPAdapter(max_retries=retries))
+            sess.mount("https://", HTTPAdapter(max_retries=retries))
+            r = sess.head(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False)
             elapsed = int((time.time() - start) * 1000)
             status = r.status_code
             if status in (200, 206, 301, 302):
@@ -196,15 +221,19 @@ def check_url(url):
                 else:
                     flag = "fail"
             elif status == 405:
-                raise RequestException("try_get")
+                raise requests.exceptions.RequestException("try_get")
             else:
                 flag = "fail"
-        except RequestException:
+        except requests.exceptions.RequestException:
             pass
 
         if flag in ("", "fail", None):
             start = time.time()
-            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False, stream=True)
+            sess = requests.Session()
+            retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
+            sess.mount("http://", HTTPAdapter(max_retries=retries))
+            sess.mount("https://", HTTPAdapter(max_retries=retries))
+            r = sess.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False, stream=True)
             elapsed = int((time.time() - start) * 1000)
             r.close()
             status = r.status_code
@@ -219,10 +248,10 @@ def check_url(url):
                     flag = "fail"
             else:
                 flag = "fail"
-    except Timeout:
+    except requests.exceptions.Timeout:
         elapsed = int((time.time() - start) * 1000)
         flag = "timeout"
-    except ConnectionError:
+    except requests.exceptions.ConnectionError:
         elapsed = int((time.time() - start) * 1000)
         flag = "conn"
     except Exception:
@@ -255,22 +284,24 @@ def write_header(f, title):
 # 主流程
 # ═══════════════════════════════════════════════
 def main():
-    global THREADS, TIMEOUT
+    global TIMEOUT, THREADS
 
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--threads", type=int, default=THREADS)
-    ap.add_argument("--timeout", type=int, default=TIMEOUT)
-    args = ap.parse_args()
-    THREADS = args.threads
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--timeout", type=int, default=TIMEOUT)
+    parser.add_argument("--threads", type=int, default=THREADS)
+    args = parser.parse_args()
     TIMEOUT = args.timeout
+    THREADS = args.threads
 
-    ts = ts_cst()
-    print(f"🕒 开始检测（北京时间 {ts}）")
-    print(f"⚙️ 线程: {THREADS} | 超时: {TIMEOUT}s")
-    print(f"📅 分档: ≤{RECENT_DAYS}天 / ≤{MONTH_DAYS}天 / ≤{THREE_MONTH_DAYS}天 / >{THREE_MONTH_DAYS}天")
+    ts = now_beijing()
+    print(f"\n{'='*60}")
+    print(f"🚀 IPTV 检测开始 | {ts} (北京时间)")
+    print(f"⏱超时: {TIMEOUT}s | 线程: {THREADS}")
+    print(f"{'='*60}")
 
     if not os.path.exists("live.txt"):
-        sys.exit("❌ 缺 live.txt")
+        print("❌ live.txt 不存在")
+        sys.exit(1)
 
     raw_lines = []
     with open("live.txt", "r", encoding="utf-8") as f:
@@ -309,7 +340,7 @@ def main():
     age_completed = 0
     for url in _uniq_urls:
         norm = normalize_url(url)
-        days, update_date = get_source_age(url)
+        days, update_date = fetch_source_age(url)
         tier = tier_of(days)
         _by_tier[tier].append(url)
         is_ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
@@ -336,13 +367,10 @@ def main():
 
     print(f"\n💾 写入文件（统一北京时间: {ts}）")
 
-# ── live_ok.txt（统计可用总数 | 四分组固定顺序 | 组内按字母排序）──
+    # ── live_ok.txt（统计可用总数 | 四分组固定顺序 | 组内按字母排序）──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
-        # 顶部：统计可用总数
         f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
         f.write(f"# 可用总数: {total_ok}\n\n")
-
-        # 四分组固定顺序：一周内 / 一个月内 / 三个月内 / 超三个月
         order = [
             (TIER_NEW, "🆕一周内"),
             (TIER_MONTH, "📅一个月内"),
@@ -350,7 +378,6 @@ def main():
             (TIER_OLD, "🧓超三个月"),
         ]
         for tier_key, tier_label in order:
-            # 组内按字母顺序排序（忽略协议 http/https）
             ok_urls = sorted(
                 set(_by_tier[tier_key]),
                 key=lambda u: u.split("://", 1)[-1].lower()
@@ -363,11 +390,10 @@ def main():
                 f.write(f"{u}\n")
             f.write("\n")
 
-# ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序 | 仅此表）──
+    # ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序 | 仅此表）──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
         write_header(f, "可用源播放列表")
         f.write("#EXTM3U\n\n")
-
         m3u_items = []
         seen_m3u = set()
         for url, status, elapsed, flag in _ok_raw:
@@ -375,22 +401,13 @@ def main():
             if norm in seen_m3u:
                 continue
             seen_m3u.add(norm)
-            
-            # 响应时间转为数值，无效则沉底（设为极大值）
             try:
                 rt = float(elapsed)
             except Exception:
                 rt = 99999999.0
-            
-            # 保留更新时间用于EXTINF后缀（可选，避免重名），此处严格按需求只写响应时间
-            days, update_date = get_source_age._cache.get(norm, (None, "未知"))
             m3u_items.append((rt, url))
-
-        # 按响应时间从小到大排序（最快的最前面）
         m3u_items.sort(key=lambda x: x[0])
-
         for rt, url in m3u_items:
-            # 响应时间为整数显示，极大值时显示未知
             if rt >= 99999999:
                 name = "未知"
             else:
@@ -401,7 +418,7 @@ def main():
     def write_tier_file(fname, tier, label):
         with open(fname, "w", encoding="utf-8") as f:
             write_header(f, f"{label}（{len(_by_tier[tier])}个）")
-            for u in sorted(set(_by_tier[tier]), key=get_domain):
+            for u in sorted(set(_by_tier[tier]), key=lambda u: u.split("://", 1)[-1].lower()):
                 f.write(f"{u}\n")
 
     write_tier_file("live_week.txt", TIER_NEW, "一周内（Week）")
@@ -431,15 +448,11 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-# ── live_report.csv（全9列兼容GitHub预览 | 生成时间首格 | 更新时间从新到旧 | 网址置末）──
+    # ── live_report.csv（全9列 | 生成时间首列 | 更新日期从新到旧 | 网址置末）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 第1行：生成时间占第1列，后8列留空
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
-        # 第2行：表头
         w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态", "类型", "源龄(天)", "更新分档", "备注", "网址"])
-        
-        # 先收集去重后的数据行
         rows = []
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
@@ -452,7 +465,6 @@ def main():
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
             age_str = str(days) if days is not None else "未知"
-            
             note_parts = []
             if norm in _recent_urls:
                 note_parts.append(f"🆕{RECENT_DAYS}天内更新")
@@ -463,26 +475,17 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            
-            # 排序键：真实日期转整数降序（最新在最前），"未知"给极小值排最后
             if update_date != "未知":
                 try:
-                    sort_key = -int(update_date.replace("-", ""))  # 负号实现从新到旧
-                except:
+                    sort_key = -int(update_date.replace("-", ""))
+                except Exception:
                     sort_key = 99999999
             else:
-                sort_key = 99999999  # 未知沉底
-            
+                sort_key = 99999999
             rows.append((sort_key, update_date, status, elapsed, state, url_type, age_str, tier, note, url))
-
-        # 按更新时间从新到旧排序（今天的最前面）
         rows.sort(key=lambda r: r[0])
-
-        # 先写纯数据行（不含汇总块，保证视觉连续）
         for (_, update_date, status, elapsed, state, url_type, age_str, tier, note, url) in rows:
             w.writerow([update_date, status, elapsed, state, url_type, age_str, tier, note, url])
-
-        # 僵尸源汇总块（严格9列，置底）
         w.writerow(["", "", "", "", "", "", "", "", ""])
         w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
@@ -496,15 +499,15 @@ def main():
     print(f"\n{'='*60}")
     print(f"✅ 全部完成 | {ts}")
     print(f"{'='*60}")
-    print(f"   live_ok.txt     ← {total_ok} 条（纯URL，四档归类）")
-    print(f"   live_ok.m3u     ← {total_ok} 条")
+    print(f"   live_ok.txt     ← {total_ok} 条（四档+字母序）")
+    print(f"   live_ok.m3u     ← {total_ok} 条（响应时间排序）")
     print(f"   live_fail.txt   ← {len(_fail_raw)} 个真失效")
     print(f"   live_week.txt   ← {len(_by_tier[TIER_NEW])} 个 🆕一周内")
     print(f"   live_month.txt  ← {len(_by_tier[TIER_MONTH])} 个 📅一个月内")
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
-    print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源（>90天且不通）")
-    print(f"   live_report.csv ← 9列报告（生成时间首列/更新日期/网址置末）")
+    print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源")
+    print(f"   live_report.csv ← 9列报告（生成时间/更新日期/网址置末）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
