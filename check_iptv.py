@@ -3,14 +3,17 @@
 """
 IPTV 直播源自动检测脚本
 功能：检测 live.txt 中的 URL 可用性，按源龄分档，生成报告
+源龄获取：GitHub/Gitee API → JsDelivr → HEAD Last-Modified → HEAD Date → URL日期 → 本地git log → 未知
+缓存：source_age_cache.json 持久化
 """
 import os
 import sys
 import csv
+import json
 import time
 import re
-import json
 import socket
+import subprocess
 import threading
 import argparse
 import datetime
@@ -44,6 +47,26 @@ TIER_UNKNOWN = "❓未知"
 CST8 = datetime.timezone(datetime.timedelta(hours=8))
 
 # ═══════════════════════════════════════════════
+# 持久化缓存
+# ═══════════════════════════════════════════════
+CACHE_FILE = "source_age_cache.json"
+if os.path.exists(CACHE_FILE):
+    try:
+        _age_cache = json.load(open(CACHE_FILE, encoding="utf-8"))
+    except Exception:
+        _age_cache = {}
+else:
+    _age_cache = {}
+
+def save_cache():
+    """退出前保存缓存到磁盘"""
+    try:
+        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(_age_cache, f, ensure_ascii=False)
+    except Exception:
+        pass
+
+# ═══════════════════════════════════════════════
 # 工具函数
 # ═══════════════════════════════════════════════
 def now_beijing():
@@ -75,7 +98,7 @@ def is_direct_stream(url):
 
 def is_web_page(url):
     low = url.lower()
-    if "github" in low:
+    if "github" in low or "gitee" in low or "gitlab" in low:
         return False
     if is_direct_stream(url):
         return False
@@ -109,83 +132,191 @@ def age_label(days):
     return f"{days}天(超三月)"
 
 # ═══════════════════════════════════════════════
-# 源龄获取（返回 days + 更新日期，只到日期）
+# 源龄获取（增强版：多平台+JsDelivr+HEAD+URL日期+git log+缓存）
 # ═══════════════════════════════════════════════
-get_source_age = lambda url: (None, "未知")
-get_source_age._cache = {}
+_github_api_cache = {}
+
+def extract_repo_path(url):
+    """提取 GitHub/Gitee raw/blob 信息"""
+    norm = normalize_url(url)
+    # GitHub raw
+    m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
+    if m:
+        return "github", m.groups()
+    # GitHub blob
+    m = re.match(r"https?://github\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)", norm)
+    if m:
+        return "github", m.groups()
+    # Gitee raw
+    m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/raw/([^/]+)/(.+)", norm)
+    if m:
+        return "gitee", m.groups()
+    # Gitee blob
+    m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)", norm)
+    if m:
+        return "gitee", m.groups()
+    # JsDelivr
+    m = re.match(r"https?://cdn\.jsdelivr\.net/gh/([^/]+)/([^/]+)@([^/]+)/(.+)", norm)
+    if m:
+        return "jsdelivr", m.groups()
+    return None
+
+def get_git_commit_date(platform, owner, repo, branch, path):
+    key = f"{platform}:{owner}/{repo}:{path}"
+    if key in _github_api_cache:
+        return _github_api_cache[key]
+    try:
+        if platform == "github":
+            api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
+            r = requests.get(api, headers=HEADERS, timeout=8)
+        elif platform == "gitee":
+            api = f"https://gitee.com/api/v5/repos/{owner}/{repo}/commits?path={path}&per_page=1"
+            r = requests.get(api, headers=HEADERS, timeout=8)
+        else:
+            return None
+        if r.status_code == 200:
+            data = r.json()
+            if isinstance(data, list) and data:
+                dt_str = data[0]["commit"]["committer"]["date"]
+                d = dt_str[:10]
+                _github_api_cache[key] = d
+                return d
+    except Exception:
+        pass
+    return None
 
 def fetch_source_age(url):
+    """返回 (days, update_date_str)"""
     norm = normalize_url(url)
-    if norm in get_source_age._cache:
-        return get_source_age._cache[norm]
 
-    now = datetime.datetime.now(CST8)
+    # 0) 内存缓存
+    if norm in _age_cache:
+        cached = _age_cache[norm]
+        if isinstance(cached, list) and len(cached) == 2:
+            return cached[0], cached[1]
+        elif isinstance(cached, dict) and "days" in cached:
+            return cached["days"], cached["date"]
+        # 兼容旧格式
+        return cached if isinstance(cached, tuple) else (None, "未知")
+
+    today = datetime.date.today()
     days = None
     update_date = "未知"
 
     try:
-        # GitHub/Gitee 源
-        if is_github_url(url):
-            try:
-                m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
-                if m:
-                    owner, repo, branch, path = m.groups()
-                    path = path.split("?")[0].split("#")[0]
-                    api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
-                    r = requests.get(api, headers=HEADERS, timeout=10)
+        # 1) Git 平台（GitHub/Gitee raw/blob）
+        info = extract_repo_path(url)
+        if info:
+            plat, (owner, repo, branch, path) = info
+            if plat in ("github", "gitee"):
+                d = get_git_commit_date(plat, owner, repo, branch, path)
+                if d:
+                    days = (today - datetime.date.fromisoformat(d)).days
+                    update_date = d + f"({plat})"
+                    _age_cache[norm] = [days, update_date]
+                    return days, update_date
+            elif plat == "jsdelivr":
+                # JsDelivr 查文件发布时间
+                try:
+                    owner, repo, ver, path = owner, repo, branch, path
+                    api = f"https://data.jsdelivr.com/v1/lookup?name={owner}/{repo}&version={ver}"
+                    r = requests.get(api, timeout=6)
                     if r.status_code == 200:
-                        data = r.json()
-                        if isinstance(data, list) and data:
-                            dt_str = data[0]["commit"]["committer"]["date"]
-                            dt = datetime.datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
-                            days = (now - dt.astimezone(CST8)).days
-                            update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
-                            get_source_age._cache[norm] = (days, update_date)
+                        d = r.json().get("published_at", "")[:10]
+                        if d:
+                            days = (today - datetime.date.fromisoformat(d)).days
+                            update_date = d + "(jsdelivr)"
+                            _age_cache[norm] = [days, update_date]
                             return days, update_date
-            except Exception:
-                pass
-            # Gitee 尝试
-            try:
-                m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/raw/([^/]+)/(.+)", norm)
-                if m:
-                    owner, repo, branch, path = m.groups()
-                    api = f"https://gitee.com/api/v5/repos/{owner}/{repo}/commits?path={path}&ref={branch}&per_page=1"
-                    r = requests.get(api, headers=HEADERS, timeout=10)
-                    if r.status_code == 200:
-                        data = r.json()
-                        if isinstance(data, list) and data:
-                            dt_str = data[0]["commit"]["committer"]["date"]
-                            dt = datetime.datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
-                            days = (now - dt.astimezone(CST8)).days
-                            update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
-                            get_source_age._cache[norm] = (days, update_date)
-                            return days, update_date
-            except Exception:
-                pass
+                except Exception:
+                    pass
 
-        # 普通源：Last-Modified
+        # 2) HEAD 请求 → Last-Modified（超时4s，轻量）
         try:
             sess = requests.Session()
-            retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
+            retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
             sess.mount("http://", HTTPAdapter(max_retries=retries))
             sess.mount("https://", HTTPAdapter(max_retries=retries))
-            head = sess.head(norm, headers=HEADERS, timeout=10, allow_redirects=True, verify=False)
+            head = sess.head(norm, headers=HEADERS, timeout=4, allow_redirects=True, verify=False)
             lm = head.headers.get("Last-Modified")
             if lm:
                 dt = parsedate_to_datetime(lm)
                 if dt.tzinfo is None:
                     dt = dt.replace(tzinfo=datetime.timezone.utc)
-                days = (now - dt.astimezone(CST8)).days
-                update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
-                get_source_age._cache[norm] = (days, update_date)
+                d = dt.astimezone(CST8).date()
+                days = (today - d).days
+                update_date = d.isoformat() + "(LM)"
+                _age_cache[norm] = [days, update_date]
                 return days, update_date
         except Exception:
             pass
+
+        # 3) HEAD 请求 → Date（服务器响应时间）
+        try:
+            sess = requests.Session()
+            retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
+            sess.mount("http://", HTTPAdapter(max_retries=retries))
+            sess.mount("https://", HTTPAdapter(max_retries=retries))
+            head = sess.head(norm, headers=HEADERS, timeout=4, allow_redirects=True, verify=False)
+            dm = head.headers.get("Date")
+            if dm:
+                dt = parsedate_to_datetime(dm)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=datetime.timezone.utc)
+                d = dt.astimezone(CST8).date()
+                days = (today - d).days
+                update_date = d.isoformat() + "(Date)"
+                _age_cache[norm] = [days, update_date]
+                return days, update_date
+        except Exception:
+            pass
+
+        # 4) URL 路径中的日期特征（YYYY-MM-DD 或 YYYYMMDD）
+        m1 = re.search(r"(\d{4})-(\d{2})-(\d{2})", norm)
+        if m1:
+            try:
+                d = datetime.date.fromisoformat(m1.group(1) + "-" + m1.group(2) + "-" + m1.group(3))
+                if 2000 <= d.year <= today.year + 1:
+                    days = (today - d).days
+                    update_date = d.isoformat() + "(URL)"
+                    _age_cache[norm] = [days, update_date]
+                    return days, update_date
+            except Exception:
+                pass
+        m2 = re.search(r"[/_-](\d{8})[/_.]", norm)
+        if m2:
+            try:
+                s = m2.group(1)
+                d = datetime.date(int(s[:4]), int(s[4:6]), int(s[6:8]))
+                if 2000 <= d.year <= today.year + 1:
+                    days = (today - d).days
+                    update_date = d.isoformat() + "(URL)"
+                    _age_cache[norm] = [days, update_date]
+                    return days, update_date
+            except Exception:
+                pass
+
+        # 5) 本地 git log（若为本仓库文件）
+        try:
+            local_path = norm.replace("file://", "")
+            if os.path.exists(local_path):
+                out = subprocess.check_output(
+                    ["git", "log", "-1", "--format=%cd", "--date=short", local_path],
+                    stderr=subprocess.DEVNULL).decode().strip()
+                if out:
+                    days = (today - datetime.date.fromisoformat(out)).days
+                    update_date = out + "(git)"
+                    _age_cache[norm] = [days, update_date]
+                    return days, update_date
+        except Exception:
+            pass
+
     except Exception:
         pass
 
-    get_source_age._cache[norm] = (None, update_date)
-    return None, update_date
+    # 全部失败 → 未知
+    _age_cache[norm] = [None, "未知"]
+    return None, "未知"
 
 # ═══════════════════════════════════════════════
 # 检测核心（三层判定）
@@ -336,11 +467,14 @@ def main():
     total_ok = len(_ok_raw)
     print(f"\n📊 检测完成: ✅{total_ok} 可用 | ❌{len(_fail_raw)} 不通")
 
-    print("\n🕵️ 开始源龄检测...")
+    print("\n🕵️ 开始源龄检测（增强版：Git平台+JsDelivr+HEAD+URL日期+缓存）...")
     age_completed = 0
+    unknown_count = 0
     for url in _uniq_urls:
         norm = normalize_url(url)
         days, update_date = fetch_source_age(url)
+        if update_date == "未知":
+            unknown_count += 1
         tier = tier_of(days)
         _by_tier[tier].append(url)
         is_ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
@@ -352,17 +486,19 @@ def main():
             else:
                 _old_but_alive[norm] = days
         age_completed += 1
-        if age_completed % 30 == 0:
-            print(f"   源龄进度: {age_completed}/{len(_uniq_urls)}")
+        if age_completed % 50 == 0:
+            print(f"   源龄进度: {age_completed}/{len(_uniq_urls)} (未知:{unknown_count})")
 
     print(f"\n📊 分档结果:")
     for t in [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD, TIER_UNKNOWN]:
         print(f"   {t}: {len(_by_tier[t])} 个")
     print(f"   🆕一周内(且可用): {len(_recent_urls)} 个")
     print(f"   🧟僵尸源(>90天且不通): {len(_stale_urls)} 个")
+    print(f"   ❓源龄未知: {unknown_count} 个")
 
     if total_ok == 0:
         print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
+        save_cache()
         sys.exit(0)
 
     print(f"\n💾 写入文件（统一北京时间: {ts}）")
@@ -438,7 +574,9 @@ def main():
         f.write("# 这些源已从 live_ok.txt 剔除，建议人工复查后可删除\n\n")
         if _stale_urls:
             for nu in sorted(_stale_urls):
-                days, update_date = get_source_age._cache.get(nu, (None, "未知"))
+                days, update_date = _age_cache.get(nu, (None, "未知"))
+                if isinstance(days, list):
+                    days, update_date = days[0], days[1]
                 f.write(f"{nu}")
                 if days is not None:
                     f.write(f"  # 源龄{age_label(days)}")
@@ -460,7 +598,11 @@ def main():
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            days, update_date = get_source_age._cache.get(norm, (None, "未知"))
+            cached = _age_cache.get(norm, [None, "未知"])
+            if isinstance(cached, list):
+                days, update_date = cached[0], cached[1]
+            else:
+                days, update_date = None, "未知"
             tier = tier_of(days)
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
@@ -477,7 +619,8 @@ def main():
             note = " | ".join(note_parts)
             if update_date != "未知":
                 try:
-                    sort_key = -int(update_date.replace("-", ""))
+                    clean = update_date.replace("-", "").replace("(响应)", "").replace("(URL)", "").replace("(LM)", "").replace("(Date)", "").replace("(github)", "").replace("(gitee)", "").replace("(jsdelivr)", "").replace("(git)", "")
+                    sort_key = -int(clean[:8])
                 except Exception:
                     sort_key = 99999999
             else:
@@ -490,10 +633,17 @@ def main():
         w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
-                days, update_date = get_source_age._cache.get(s, (None, "未知"))
+                cached = _age_cache.get(s, [None, "未知"])
+                if isinstance(cached, list):
+                    days, update_date = cached[0], cached[1]
+                else:
+                    days, update_date = None, "未知"
                 w.writerow([update_date, "", "", "僵尸源", "", age_label(days), tier_of(days), "僵尸源", s])
         else:
             w.writerow(["本次无>90天且不通的源", "", "", "", "", "", "", "", ""])
+
+    # ── 保存缓存 ──
+    save_cache()
 
     # ── 总结 ──
     print(f"\n{'='*60}")
@@ -508,6 +658,7 @@ def main():
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源")
     print(f"   live_report.csv ← 9列报告（生成时间/更新日期/网址置末）")
+    print(f"   源龄缓存        ← {len(_age_cache)} 条已缓存")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
