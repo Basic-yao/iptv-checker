@@ -5,6 +5,7 @@ IPTV 检查器（四档分档 + 真实源龄 + 原OK判定不变）
 分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
 源龄：远程URL用Last-Modified/GitHub API；取不到标未知
 live_ok.txt = 纯URL，按四档归类，无尾注
+live_report.csv = 生成时间首行 / 无大类 / 网址列置末
 """
 import os
 import re
@@ -145,7 +146,7 @@ def get_source_age(url):
 
 def tier_of(days):
     if days is None:
-        return TIER_OLD   # 未知默认归超三月
+        return TIER_OLD
     if days <= RECENT_DAYS:
         return TIER_NEW
     if days <= MONTH_DAYS:
@@ -244,10 +245,9 @@ def is_usable(status, flag, url=""):
     return False
 
 # ═══════════════════════════════════════════════
-# 写文件的通用表头
+# 写文件通用表头
 # ═══════════════════════════════════════════════
 def write_header(f, title):
-    """所有列表文件统一表头：生成时间（北京时间）"""
     f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
     f.write(f"# {title}\n\n")
 
@@ -343,7 +343,6 @@ def main():
         order = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD]
         for tier in order:
             urls_in_tier = sorted(set(_by_tier[tier]), key=get_domain)
-            # 只写可用的
             ok_urls = [u for u in urls_in_tier
                        if any(normalize_url(r[0]) == normalize_url(u) and r[4] for r in _results)]
             if not ok_urls:
@@ -395,19 +394,21 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-    # ── live_report.csv（11列）──
+    # ── live_report.csv（生成时间第一行 | 无大类 | 网址置末）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["生成时间", "大类", "URL", "状态码", "响应时间(ms)",
-                    "状态", "类型", "源龄(天)", "更新分档", "备注", ""])
-        w.writerow([ts, "", "", "", "", "", "", "", "", "", ""])
+        # 第一行：生成时间（左对齐，单独一行）
+        w.writerow([f"生成时间: {ts}"])
+        # 第二行：表头（网址放最后，无大类列）
+        w.writerow(["名称", "状态码", "响应时间(ms)", "状态",
+                    "类型", "源龄(天)", "更新分档", "备注", "网址"])
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
             norm = normalize_url(url)
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            broad = get_domain(url)
+            name = get_domain(url)
             days, desc = get_source_age._cache.get(norm, (None, ""))
             tier = tier_of(days)
             state = "✅可用" if ok else flag
@@ -423,16 +424,18 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            w.writerow(["", broad, url, status, elapsed, state, url_type, age_str, tier, note, ""])
+            # 网址列置末
+            w.writerow([name, status, elapsed, state, url_type, age_str, tier, note, url])
 
+        # 僵尸源汇总块
         w.writerow([])
-        w.writerow(["僵尸源清单", f"共{len(_stale_urls)}个", "", "", "", "", "", "", "", "", ""])
+        w.writerow(["僵尸源清单", "", "", "", "", "", "", f"共{len(_stale_urls)}个", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
                 days, desc = get_source_age._cache.get(s, (None, ""))
-                w.writerow(["", "", s, "", "", "僵尸源", "", age_label(days), tier_of(days), desc, ""])
+                w.writerow(["", "", "", "僵尸源", "", age_label(days), tier_of(days), desc, s])
         else:
-            w.writerow(["", "", "（无）", "", "", "本次无>90天且不通的源", "", "", "", "", ""])
+            w.writerow(["", "", "", "本次无>90天且不通的源", "", "", "", "", ""])
 
     # ── 总结 ──
     print(f"\n{'='*60}")
@@ -446,7 +449,7 @@ def main():
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源（>90天且不通）")
-    print(f"   live_report.csv ← 11列报告")
+    print(f"   live_report.csv ← 9列报告（生成时间首行/网址置末/无大类）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
@@ -458,7 +461,9 @@ def main():
     sys.exit(0)
 
 
-# 模块级集合（main 之前声明，避免 NameError）
+# ═══════════════════════════════════════════════
+# 模块级集合
+# ═══════════════════════════════════════════════
 _lock = threading.Lock()
 _results = []
 _ok_raw = []
