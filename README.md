@@ -1,26 +1,27 @@
-# IPTV Source Checker
+缓存中 `"active_today": true` 的条目即为仅 Date 头标记的源。
 
-自动检测 IPTV 直播源可用性，每日更新可用列表。
+---
 
-## 使用方法
+## ⚠️ 注意事项
 
-1. Fork 本仓库
-2. 编辑 `live.txt` 添加你的直播源
-3. Actions 每天自动运行，或手动触发
-4. 查看 `live_ok.txt` — 直接导入 TiviMate / VLC / IPTV Smarters
+1. **GitHub API 限流**：无 Token 限制 60次/小时，缓存机制可缓解
+2. **403 防盗链源**：连通但需特定 Referer/UA 才能播放，分档归入"未知"
+3. **防递归触发**：输出文件变更不触发工作流（仅监听3个核心文件）
+4. **缓存积累**：首次运行未知较多，后续逐次下降
+5. **时区**：全部使用北京时间 (Asia/Shanghai)
 
-## 本地运行
+---
 
-\`\`\`bash
-pip install -r requirements.txt
-python check_iptv.py
-\`\`\`
+## 📜 许可证
 
-## 输出文件
+MIT License — 自由使用、修改、分发
 
-| 文件 | 说明 |
-|------|------|
-| `live_ok.txt` | ✅ 可用源 M3U 格式，直接导入播放器 |
-| `live_ok.txt` | 可用源纯文本 |
-| `live_fail.txt` | 失效源 |
-| `live_report.csv` | 详细检测报告 |
+---
+
+## 🤝 贡献
+
+Issues 和 Pull Requests 欢迎！
+
+---
+
+*最后更新：2026-09-23 | 脚本版本：v4（Date头降级版）*
