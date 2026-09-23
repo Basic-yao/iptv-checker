@@ -1,17 +1,18 @@
-# 生成时间(北京时间): 2026-09-23 22:22:17
-# 一周内（Week）（14个）
+# 生成时间(北京时间): 2026-09-23 22:59:59
+# 一周内（Week）（15个）
 
 http://1.94.31.214/live/live9/dgtv.txt
 http://1.94.31.214/live/live9/dgtv2026.php
 https://iptv-org.github.io/iptv/index.m3u
-https://iptv-org.github.io/iptv/countries/hk.m3u
-https://iptv-org.github.io/iptv/countries/tw.m3u
-https://iptv-org.github.io/iptv/languages/zho.m3u
 https://iptv-org.github.io/iptv/countries/cn.m3u
-https://live.iptv-free.com/iptv/categories/movies.m3u
+https://iptv-org.github.io/iptv/countries/hk.m3u
+https://iptv-org.github.io/iptv/languages/zho.m3u
+https://iptv-org.github.io/iptv/countries/tw.m3u
 https://live.iptv-free.com/iptv/categories/general.m3u
+https://live.iptv-free.com/iptv/categories/movies.m3u
+https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
 https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
-https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://wangziduoqing.com/yuan/zb.txt
