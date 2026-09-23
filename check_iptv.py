@@ -350,8 +350,11 @@ def main():
             (TIER_OLD, "🧓超三个月"),
         ]
         for tier_key, tier_label in order:
-            # 组内按字母顺序排序
-            ok_urls = sorted(set(_by_tier[tier_key]))
+            # 组内按字母顺序排序（忽略协议 http/https）
+            ok_urls = sorted(
+                set(_by_tier[tier_key]),
+                key=lambda u: u.split("://", 1)[-1].lower()
+            )
             if not ok_urls:
                 f.write(f"# ---- {tier_label}（0个） ----\n\n")
                 continue
