@@ -3,9 +3,9 @@
 """
 IPTV 检查器（四档分档 + 真实源龄 + 分组裸 URL 输出）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
-输出：每个列表文件开头带【北京时间】生成时间
-      CSV 报告：无名称列，URL 在最后一列
+分档顺序（固定）：🆕一周内(≤7天) → 📅一个月内(≤30天) → 📆三个月内(≤90天) → 🧓超三个月(>90天)
+排序：所有列表按 URL 字母升序
+输出：每个文件开头带【北京时间】生成时间；live_ok.txt 分组裸 URL
 """
 
 import os
@@ -43,13 +43,15 @@ _age_cache = {}
 _fail_raw = []
 _stale_urls = set()
 
+# 分组顺序固定：一周 → 一月 → 三月 → 超三月
+TIER_ORDER = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD]
+
 TIER_TITLE = {
     TIER_NEW:    "🆕 一周内（≤7天）",
     TIER_MONTH:  "📅 一个月内（≤30天）",
     TIER_3MONTH: "📆 三个月内（≤90天）",
     TIER_OLD:    "🧓 超三个月（>90天）",
 }
-TIER_ORDER = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD]
 
 # ── 工具 ────────────────────────────────────────
 def normalize_url(u):
@@ -184,7 +186,8 @@ def main():
     ts = gen_time()
     print(f"🕒 开始检测（北京时间 {ts}）")
     print(f"线程: {THREADS} | 超时: {TIMEOUT}s")
-    print(f"分档: ≤7天 / ≤30天 / ≤90天 / >90天")
+    print(f"分档顺序: 一周内 → 一月内 → 三月内 → 超三月")
+    print(f"排序: 所有列表按 URL 字母升序")
 
     src = "live.txt"
     lines = []
@@ -216,11 +219,11 @@ def main():
 
     total_ok = sum(1 for r in _results if r[3])
 
-    # ── live_ok.txt ──
+    # ── live_ok.txt（固定分组顺序，组内 URL 字母升序） ──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts}\n")
-        f.write(f"# 可用源合计: {total_ok} 个\n\n")
-        any_written = False
+        f.write(f"# 可用源合计: {total_ok} 个\n")
+        f.write(f"# 排序: 分组内按 URL 字母升序\n\n")
         for t in TIER_ORDER:
             urls = sorted(set(_by_tier[t]))
             if not urls:
@@ -229,47 +232,48 @@ def main():
             for u in urls:
                 f.write(f"{u}\n")
             f.write("\n")
-            any_written = True
-        if not any_written:
-            f.write("# 无可用源\n")
 
-    # ── live_ok.m3u ──
+    # ── live_ok.m3u（按 URL 字母升序） ──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts}\n")
+        f.write(f"# 排序: 按 URL 字母升序\n")
         f.write("#EXTM3U\n")
-        for r in _results:
+        for r in sorted(_results, key=lambda x: x[2]):
             if r[3]:
-                name = r[1] if r[1] else r[2].split("/")[-1]
-                f.write(f"#EXTINF:-1,{name}\n{r[2]}\n")
+                f.write(f"#EXTINF:-1\n{r[2]}\n")
 
-    # ── 分档单文件 ──
+    # ── 分档单文件（按 URL 字母升序） ──
     for t, fn in [(TIER_NEW, "live_recent.txt"), (TIER_MONTH, "live_month.txt"),
                   (TIER_3MONTH, "live_3month.txt"), (TIER_OLD, "live_old.txt")]:
         with open(fn, "w", encoding="utf-8") as f:
+            urls = sorted(set(_by_tier[t]))
             f.write(f"# 生成时间(北京时间): {ts}\n")
-            f.write(f"# {TIER_TITLE[t]}（{len(set(_by_tier[t]))}个）\n\n")
-            for u in sorted(set(_by_tier[t])):
+            f.write(f"# {TIER_TITLE[t]}（{len(urls)}个）\n")
+            f.write(f"# 排序: 按 URL 字母升序\n\n")
+            for u in urls:
                 days, desc = _age_cache.get(u, (None, ""))
                 f.write(f"{u}  # {age_label(days)}\n")
 
-    # ── 失败 / 僵尸 ──
+    # ── 失败 / 僵尸（按 URL 字母升序） ──
     with open("live_fail.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts}\n")
+        f.write(f"# 排序: 按 URL 字母升序\n\n")
         for u in sorted(set(_fail_raw)):
             f.write(u + "\n")
 
     with open("live_stale.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts}\n")
-        f.write(f"# 僵尸源（>90天且不通）{len(_stale_urls)}个\n\n")
+        f.write(f"# 僵尸源（>90天且不通）{len(_stale_urls)}个\n")
+        f.write(f"# 排序: 按 URL 字母升序\n\n")
         for u in sorted(_stale_urls):
             days, _ = _age_cache.get(u, (None, ""))
             f.write(f"{u}  # {age_label(days)}\n")
 
-    # ── CSV 报告（无名称列，URL 在最后一列） ──
+    # ── CSV 报告（URL 字母升序，URL 在末列） ──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as cf:
         w = csv.writer(cf)
         w.writerow(["状态", "延迟ms", "错误", "分档", "源龄", "类别", "描述", "是否僵尸", "时间", "URL"])
-        for r in _results:
+        for r in sorted(_results, key=lambda x: x[2]):
             url_n, name, url, ok, lat, err, days, tier, desc = r
             is_stale = "是" if (not ok and days and days > 90) else "否"
             w.writerow([
@@ -288,15 +292,15 @@ def main():
     print(f"\n{'='*60}")
     print(f"✅ 全部完成 | 北京时间 {ts}")
     print(f"{'='*60}")
-    print(f"   live_ok.txt     ← {total_ok} 条（四档分组，裸 URL）")
-    print(f"   live_ok.m3u     ← {total_ok} 条")
-    print(f"   live_fail.txt   ← {len(set(_fail_raw))} 个失效")
+    print(f"   live_ok.txt     ← {total_ok} 条（分组固定顺序，组内字母序）")
+    print(f"   live_ok.m3u     ← {total_ok} 条（字母序）")
+    print(f"   live_fail.txt   ← {len(set(_fail_raw))} 个（字母序）")
     print(f"   live_recent.txt ← {len(set(_by_tier[TIER_NEW]))} 个 🆕一周内")
     print(f"   live_month.txt  ← {len(set(_by_tier[TIER_MONTH]))} 个 📅一月内")
     print(f"   live_3month.txt ← {len(set(_by_tier[TIER_3MONTH]))} 个 📆三月内")
     print(f"   live_old.txt    ← {len(set(_by_tier[TIER_OLD]))} 个 🧓超三月")
-    print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源")
-    print(f"   live_report.csv ← 报告（URL 在末列）")
+    print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源（字母序）")
+    print(f"   live_report.csv ← 报告（字母序，URL 末列）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
