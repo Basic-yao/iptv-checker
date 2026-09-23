@@ -1,4 +1,4 @@
-name: IPTV 检查器
+name: IPTV Check
 
 on:
   push:
@@ -8,49 +8,38 @@ on:
       - '.github/workflows/check.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    permissions:
+      contents: write
+
     steps:
-      - name: 检出代码
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 设置 Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 安装依赖
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests urllib3
 
-      - name: 显示输入统计
+      - name: Run check
+        env:
+          TZ: Asia/Shanghai
         run: |
-          echo "📥 live.txt 行数: $(wc -l < live.txt 2>/dev/null || echo 0)"
-          echo "🔗 URL 数量: $(grep -c '^https\?://' live.txt 2>/dev/null || echo 0)"
+          python check_iptv.py --threads 10 --timeout 20
 
-      - name: 运行检查器
-        run: python check_iptv.py --threads 10 --timeout 20
-
-      - name: 检查产物
-        run: ls -la live_*.txt live_*.csv live_*.m3u 2>/dev/null || true
-
-      - name: 提交结果
-        continue-on-error: true
+      - name: Commit and push results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f live_ok.txt live_ok.m3u \
-                     live_week.txt live_month.txt live_3month.txt \
-                     live_old.txt live_stale.txt \
-                     live_fail.txt live_report.csv
-          git diff --cached --quiet && echo "无变更，跳过提交" || \
-          git commit -m "自动更新 IPTV 检查结果 [skip ci]"
+          git add -f live_ok.txt live_ok.m3u live_fail.txt live_week.txt live_month.txt live_3month.txt live_old.txt live_stale.txt live_report.csv
+          git commit --allow-empty -m "🔄 自动更新检测结果 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')"
           git push
