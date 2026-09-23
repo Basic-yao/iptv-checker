@@ -336,17 +336,26 @@ def main():
 
     print(f"\n💾 写入文件（统一北京时间: {ts}）")
 
-    # ── live_ok.txt（纯URL，按四档归类，无尾注）──
+# ── live_ok.txt（统计可用总数 | 四分组固定顺序 | 组内按字母排序）──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
-        write_header(f, "可用源总表（按更新分档归类，纯URL）")
-        order = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD]
-        for tier in order:
-            urls_in_tier = sorted(set(_by_tier[tier]), key=get_domain)
-            ok_urls = [u for u in urls_in_tier
-                       if any(normalize_url(r[0]) == normalize_url(u) and r[4] for r in _results)]
+        # 顶部：统计可用总数
+        f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
+        f.write(f"# 可用总数: {total_ok}\n\n")
+
+        # 四分组固定顺序：一周内 / 一个月内 / 三个月内 / 超三个月
+        order = [
+            (TIER_NEW, "🆕一周内"),
+            (TIER_MONTH, "📅一个月内"),
+            (TIER_3MONTH, "📆三个月内"),
+            (TIER_OLD, "🧓超三个月"),
+        ]
+        for tier_key, tier_label in order:
+            # 组内按字母顺序排序
+            ok_urls = sorted(set(_by_tier[tier_key]))
             if not ok_urls:
+                f.write(f"# ---- {tier_label}（0个） ----\n\n")
                 continue
-            f.write(f"# ---- {tier}（{len(ok_urls)}个） ----\n")
+            f.write(f"# ---- {tier_label}（{len(ok_urls)}个） ----\n")
             for u in ok_urls:
                 f.write(f"{u}\n")
             f.write("\n")
