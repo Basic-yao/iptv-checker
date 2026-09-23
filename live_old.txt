@@ -1,5 +1,6 @@
-# 生成时间(北京时间): 2026-09-23 20:13:58
-# 🧓 超三个月（>90天）（74个）
+# 生成时间(北京时间): 2026-09-23 20:15:00
+# 🧓 超三个月（>90天）（73个）
+# 排序: 按 URL 字母升序
 
 http://117.72.68.25:9230/latest.txt  # 🧓325天(>三月)
 http://tv123.vvvv.ee/tv.m3u  # ❓未知
@@ -32,7 +33,6 @@ https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.t
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u  # ❓未知
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u  # ❓未知
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt  # ❓未知
-https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u  # ❓未知
 https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u  # ❓未知
 https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u  # ❓未知
 https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u  # ❓未知
@@ -72,6 +72,6 @@ https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5
 https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u  # ❓未知
 https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u  # ❓未知
 https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u  # ❓未知
-https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt  # ❓未知
+https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt  # 🧓308天(>三月)
 https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt  # ❓未知
 https://xn--6orr3pi6g9uu.top/zb/zb.txt  # 🧓173天(>三月)
