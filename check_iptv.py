@@ -393,15 +393,14 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-# ── live_report.csv（按更新时间从新到旧排序 | 仅此表排序）──
+# ── live_report.csv（全9列兼容GitHub预览 | 生成时间首格 | 更新时间从新到旧 | 网址置末）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 第1行：生成时间占第1列，后8列空（严格9列）
+        # 第1行：生成时间占第1列，后8列留空
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
         # 第2行：表头
-        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态",
-                    "类型", "源龄(天)", "更新分档", "备注", "网址"])
-
+        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态", "类型", "源龄(天)", "更新分档", "备注", "网址"])
+        
         # 先收集去重后的数据行
         rows = []
         csv_seen = set()
@@ -415,6 +414,7 @@ def main():
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
             age_str = str(days) if days is not None else "未知"
+            
             note_parts = []
             if norm in _recent_urls:
                 note_parts.append(f"🆕{RECENT_DAYS}天内更新")
@@ -425,17 +425,26 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            # 排序键：日期越新越靠前；"未知"排最后
-            sort_key = update_date if update_date != "未知" else "9999-99-99"
+            
+            # 排序键：真实日期转整数降序（最新在最前），"未知"给极小值排最后
+            if update_date != "未知":
+                try:
+                    sort_key = -int(update_date.replace("-", ""))  # 负号实现从新到旧
+                except:
+                    sort_key = 99999999
+            else:
+                sort_key = 99999999  # 未知沉底
+            
             rows.append((sort_key, update_date, status, elapsed, state, url_type, age_str, tier, note, url))
 
-        # 按更新时间从新到旧排序
+        # 按更新时间从新到旧排序（今天的最前面）
         rows.sort(key=lambda r: r[0])
 
+        # 先写纯数据行（不含汇总块，保证视觉连续）
         for (_, update_date, status, elapsed, state, url_type, age_str, tier, note, url) in rows:
             w.writerow([update_date, status, elapsed, state, url_type, age_str, tier, note, url])
 
-        # 僵尸源汇总块
+        # 僵尸源汇总块（严格9列，置底）
         w.writerow(["", "", "", "", "", "", "", "", ""])
         w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
