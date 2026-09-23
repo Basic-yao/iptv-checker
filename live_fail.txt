@@ -1,5 +1,3 @@
-# 生成时间(北京时间): 2026-09-23 21:28:48
-# 真失效源（2个）
-
+# 生成时间: 2026-09-23 21:36:34 (北京时间) | 失效: 2
 https://ds65.tv1288.xyz
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
