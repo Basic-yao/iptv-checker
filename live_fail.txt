@@ -1,6 +1,5 @@
-# 生成时间(北京时间): 2026-09-23 22:00:22
-# 真失效源（3个）
+# 生成时间(北京时间): 2026-09-23 22:08:47
+# 真失效源（2个）
 
-https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
 https://ds65.tv1288.xyz
-https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
+https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
