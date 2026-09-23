@@ -3,7 +3,8 @@
 """
 IPTV 直播源自动检测脚本
 功能：检测 live.txt 中的 URL 可用性，按源龄分档，生成报告
-源龄获取：GitHub/Gitee API → JsDelivr → HEAD Last-Modified → HEAD Date → URL日期 → 本地git log → 未知
+源龄获取：GitHub/Gitee API → JsDelivr → HEAD Last-Modified → URL日期 → 本地git log → 未知
+          HEAD Date 仅标记为"今日活跃"，不计入更新分档
 缓存：source_age_cache.json 持久化
 """
 import os
@@ -110,8 +111,9 @@ def is_github_url(url):
     return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com", "gitee.com", "gitlab.com"])
 
 def tier_of(days):
+    """days=None → 未知档（不强行归入超三月）"""
     if days is None:
-        return TIER_OLD
+        return TIER_UNKNOWN
     if days <= RECENT_DAYS:
         return TIER_NEW
     if days <= MONTH_DAYS:
@@ -132,30 +134,26 @@ def age_label(days):
     return f"{days}天(超三月)"
 
 # ═══════════════════════════════════════════════
-# 源龄获取（增强版：多平台+JsDelivr+HEAD+URL日期+git log+缓存）
+# 源龄获取（增强版：Date头降级为活跃标记，不污染分档）
+# 缓存格式：{"url": {"days": int|None, "date": str, "source": str, "active_today": bool}}
 # ═══════════════════════════════════════════════
 _github_api_cache = {}
 
 def extract_repo_path(url):
     """提取 GitHub/Gitee raw/blob 信息"""
     norm = normalize_url(url)
-    # GitHub raw
     m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
     if m:
         return "github", m.groups()
-    # GitHub blob
     m = re.match(r"https?://github\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)", norm)
     if m:
         return "github", m.groups()
-    # Gitee raw
     m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/raw/([^/]+)/(.+)", norm)
     if m:
         return "gitee", m.groups()
-    # Gitee blob
     m = re.match(r"https?://gitee\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)", norm)
     if m:
         return "gitee", m.groups()
-    # JsDelivr
     m = re.match(r"https?://cdn\.jsdelivr\.net/gh/([^/]+)/([^/]+)@([^/]+)/(.+)", norm)
     if m:
         return "jsdelivr", m.groups()
@@ -192,19 +190,20 @@ def fetch_source_age(url):
     # 0) 内存缓存
     if norm in _age_cache:
         cached = _age_cache[norm]
+        if isinstance(cached, dict):
+            return cached.get("days"), cached.get("date", "未知")
+        # 旧格式兼容
         if isinstance(cached, list) and len(cached) == 2:
             return cached[0], cached[1]
-        elif isinstance(cached, dict) and "days" in cached:
-            return cached["days"], cached["date"]
-        # 兼容旧格式
-        return cached if isinstance(cached, tuple) else (None, "未知")
+        return None, "未知"
 
     today = datetime.date.today()
     days = None
     update_date = "未知"
+    source_tag = ""
 
     try:
-        # 1) Git 平台（GitHub/Gitee raw/blob）
+        # 1) Git 平台（GitHub/Gitee raw/blob）→ 高置信度
         info = extract_repo_path(url)
         if info:
             plat, (owner, repo, branch, path) = info
@@ -212,11 +211,11 @@ def fetch_source_age(url):
                 d = get_git_commit_date(plat, owner, repo, branch, path)
                 if d:
                     days = (today - datetime.date.fromisoformat(d)).days
-                    update_date = d + f"({plat})"
-                    _age_cache[norm] = [days, update_date]
+                    update_date = d
+                    source_tag = plat
+                    _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                     return days, update_date
             elif plat == "jsdelivr":
-                # JsDelivr 查文件发布时间
                 try:
                     owner, repo, ver, path = owner, repo, branch, path
                     api = f"https://data.jsdelivr.com/v1/lookup?name={owner}/{repo}&version={ver}"
@@ -225,13 +224,14 @@ def fetch_source_age(url):
                         d = r.json().get("published_at", "")[:10]
                         if d:
                             days = (today - datetime.date.fromisoformat(d)).days
-                            update_date = d + "(jsdelivr)"
-                            _age_cache[norm] = [days, update_date]
+                            update_date = d
+                            source_tag = "jsdelivr"
+                            _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                             return days, update_date
                 except Exception:
                     pass
 
-        # 2) HEAD 请求 → Last-Modified（超时4s，轻量）
+        # 2) HEAD 请求 → Last-Modified（高置信度）
         try:
             sess = requests.Session()
             retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
@@ -245,41 +245,23 @@ def fetch_source_age(url):
                     dt = dt.replace(tzinfo=datetime.timezone.utc)
                 d = dt.astimezone(CST8).date()
                 days = (today - d).days
-                update_date = d.isoformat() + "(LM)"
-                _age_cache[norm] = [days, update_date]
+                update_date = d.isoformat()
+                source_tag = "LM"
+                _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                 return days, update_date
         except Exception:
             pass
 
-        # 3) HEAD 请求 → Date（服务器响应时间）
-        try:
-            sess = requests.Session()
-            retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
-            sess.mount("http://", HTTPAdapter(max_retries=retries))
-            sess.mount("https://", HTTPAdapter(max_retries=retries))
-            head = sess.head(norm, headers=HEADERS, timeout=4, allow_redirects=True, verify=False)
-            dm = head.headers.get("Date")
-            if dm:
-                dt = parsedate_to_datetime(dm)
-                if dt.tzinfo is None:
-                    dt = dt.replace(tzinfo=datetime.timezone.utc)
-                d = dt.astimezone(CST8).date()
-                days = (today - d).days
-                update_date = d.isoformat() + "(Date)"
-                _age_cache[norm] = [days, update_date]
-                return days, update_date
-        except Exception:
-            pass
-
-        # 4) URL 路径中的日期特征（YYYY-MM-DD 或 YYYYMMDD）
+        # 3) URL 路径中的日期特征（中置信度）
         m1 = re.search(r"(\d{4})-(\d{2})-(\d{2})", norm)
         if m1:
             try:
                 d = datetime.date.fromisoformat(m1.group(1) + "-" + m1.group(2) + "-" + m1.group(3))
                 if 2000 <= d.year <= today.year + 1:
                     days = (today - d).days
-                    update_date = d.isoformat() + "(URL)"
-                    _age_cache[norm] = [days, update_date]
+                    update_date = d.isoformat()
+                    source_tag = "URL"
+                    _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                     return days, update_date
             except Exception:
                 pass
@@ -290,13 +272,14 @@ def fetch_source_age(url):
                 d = datetime.date(int(s[:4]), int(s[4:6]), int(s[6:8]))
                 if 2000 <= d.year <= today.year + 1:
                     days = (today - d).days
-                    update_date = d.isoformat() + "(URL)"
-                    _age_cache[norm] = [days, update_date]
+                    update_date = d.isoformat()
+                    source_tag = "URL"
+                    _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                     return days, update_date
             except Exception:
                 pass
 
-        # 5) 本地 git log（若为本仓库文件）
+        # 4) 本地 git log（高置信度，本仓库文件）
         try:
             local_path = norm.replace("file://", "")
             if os.path.exists(local_path):
@@ -305,9 +288,31 @@ def fetch_source_age(url):
                     stderr=subprocess.DEVNULL).decode().strip()
                 if out:
                     days = (today - datetime.date.fromisoformat(out)).days
-                    update_date = out + "(git)"
-                    _age_cache[norm] = [days, update_date]
+                    update_date = out
+                    source_tag = "git"
+                    _age_cache[norm] = {"days": days, "date": update_date, "source": source_tag, "active_today": False}
                     return days, update_date
+        except Exception:
+            pass
+
+        # 5) HEAD Date 响应头 → 仅标记"今日活跃"，不计入分档（关键改动）
+        try:
+            sess = requests.Session()
+            retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
+            sess.mount("http://", HTTPAdapter(max_retries=retries))
+            sess.mount("https://", HTTPAdapter(max_retries=retries))
+            head = sess.head(norm, headers=HEADERS, timeout=4, allow_redirects=True, verify=False)
+            dm = head.headers.get("Date")
+            if dm:
+                # 仅记录"今日活跃"，days=None → 归入未知档
+                dt = parsedate_to_datetime(dm)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=datetime.timezone.utc)
+                d = dt.astimezone(CST8).date()
+                update_date = d.isoformat() + "(活跃)"
+                source_tag = "Date"
+                _age_cache[norm] = {"days": None, "date": update_date, "source": source_tag, "active_today": True}
+                return None, update_date
         except Exception:
             pass
 
@@ -315,7 +320,7 @@ def fetch_source_age(url):
         pass
 
     # 全部失败 → 未知
-    _age_cache[norm] = [None, "未知"]
+    _age_cache[norm] = {"days": None, "date": "未知", "source": "none", "active_today": False}
     return None, "未知"
 
 # ═══════════════════════════════════════════════
@@ -467,14 +472,19 @@ def main():
     total_ok = len(_ok_raw)
     print(f"\n📊 检测完成: ✅{total_ok} 可用 | ❌{len(_fail_raw)} 不通")
 
-    print("\n🕵️ 开始源龄检测（增强版：Git平台+JsDelivr+HEAD+URL日期+缓存）...")
+    print("\n🕵️ 开始源龄检测（Date头降级为活跃标记，不污染分档）...")
     age_completed = 0
     unknown_count = 0
+    date_only_count = 0  # 仅Date头标记的（不计入分档）
     for url in _uniq_urls:
         norm = normalize_url(url)
         days, update_date = fetch_source_age(url)
-        if update_date == "未知":
+        if days is None:
             unknown_count += 1
+        if norm in _age_cache:
+            cached = _age_cache[norm]
+            if isinstance(cached, dict) and cached.get("active_today"):
+                date_only_count += 1
         tier = tier_of(days)
         _by_tier[tier].append(url)
         is_ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
@@ -487,14 +497,14 @@ def main():
                 _old_but_alive[norm] = days
         age_completed += 1
         if age_completed % 50 == 0:
-            print(f"   源龄进度: {age_completed}/{len(_uniq_urls)} (未知:{unknown_count})")
+            print(f"   源龄进度: {age_completed}/{len(_uniq_urls)} (未知:{unknown_count} 仅活跃:{date_only_count})")
 
     print(f"\n📊 分档结果:")
     for t in [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD, TIER_UNKNOWN]:
         print(f"   {t}: {len(_by_tier[t])} 个")
     print(f"   🆕一周内(且可用): {len(_recent_urls)} 个")
     print(f"   🧟僵尸源(>90天且不通): {len(_stale_urls)} 个")
-    print(f"   ❓源龄未知: {unknown_count} 个")
+    print(f"   ❓源龄未知(含仅活跃): {unknown_count} 个 (其中仅Date活跃:{date_only_count}个)")
 
     if total_ok == 0:
         print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
@@ -503,7 +513,7 @@ def main():
 
     print(f"\n💾 写入文件（统一北京时间: {ts}）")
 
-    # ── live_ok.txt（统计可用总数 | 四分组固定顺序 | 组内按字母排序）──
+    # ── live_ok.txt（四分组固定顺序 | 组内按字母排序）──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
         f.write(f"# 可用总数: {total_ok}\n\n")
@@ -512,6 +522,7 @@ def main():
             (TIER_MONTH, "📅一个月内"),
             (TIER_3MONTH, "📆三个月内"),
             (TIER_OLD, "🧓超三个月"),
+            (TIER_UNKNOWN, "❓未知(含仅活跃)"),
         ]
         for tier_key, tier_label in order:
             ok_urls = sorted(
@@ -526,7 +537,7 @@ def main():
                 f.write(f"{u}\n")
             f.write("\n")
 
-    # ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序 | 仅此表）──
+    # ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序）──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
         write_header(f, "可用源播放列表")
         f.write("#EXTM3U\n\n")
@@ -574,9 +585,12 @@ def main():
         f.write("# 这些源已从 live_ok.txt 剔除，建议人工复查后可删除\n\n")
         if _stale_urls:
             for nu in sorted(_stale_urls):
-                days, update_date = _age_cache.get(nu, (None, "未知"))
-                if isinstance(days, list):
-                    days, update_date = days[0], days[1]
+                cached = _age_cache.get(nu, {"days": None, "date": "未知"})
+                if isinstance(cached, dict):
+                    days = cached.get("days")
+                    update_date = cached.get("date", "未知")
+                else:
+                    days, update_date = None, "未知"
                 f.write(f"{nu}")
                 if days is not None:
                     f.write(f"  # 源龄{age_label(days)}")
@@ -586,7 +600,7 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-    # ── live_report.csv（全9列 | 生成时间首列 | 更新日期从新到旧 | 网址置末）──
+    # ── live_report.csv ──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
@@ -598,11 +612,13 @@ def main():
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            cached = _age_cache.get(norm, [None, "未知"])
-            if isinstance(cached, list):
-                days, update_date = cached[0], cached[1]
+            cached = _age_cache.get(norm, {"days": None, "date": "未知", "source": "none", "active_today": False})
+            if isinstance(cached, dict):
+                days = cached.get("days")
+                update_date = cached.get("date", "未知")
+                active_today = cached.get("active_today", False)
             else:
-                days, update_date = None, "未知"
+                days, update_date, active_today = None, "未知", False
             tier = tier_of(days)
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
@@ -615,12 +631,15 @@ def main():
             elif norm in _old_but_alive:
                 note_parts.append(f"🧓老源{_old_but_alive[norm]}天但存活")
             if days is None:
-                note_parts.append("源龄未知")
+                if active_today:
+                    note_parts.append("仅今日活跃(Date头)")
+                else:
+                    note_parts.append("源龄未知")
             note = " | ".join(note_parts)
             if update_date != "未知":
                 try:
-                    clean = update_date.replace("-", "").replace("(响应)", "").replace("(URL)", "").replace("(LM)", "").replace("(Date)", "").replace("(github)", "").replace("(gitee)", "").replace("(jsdelivr)", "").replace("(git)", "")
-                    sort_key = -int(clean[:8])
+                    clean = re.sub(r'[^0-9]', '', update_date)[:8]
+                    sort_key = -int(clean) if clean else 99999999
                 except Exception:
                     sort_key = 99999999
             else:
@@ -633,9 +652,10 @@ def main():
         w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
-                cached = _age_cache.get(s, [None, "未知"])
-                if isinstance(cached, list):
-                    days, update_date = cached[0], cached[1]
+                cached = _age_cache.get(s, {"days": None, "date": "未知"})
+                if isinstance(cached, dict):
+                    days = cached.get("days")
+                    update_date = cached.get("date", "未知")
                 else:
                     days, update_date = None, "未知"
                 w.writerow([update_date, "", "", "僵尸源", "", age_label(days), tier_of(days), "僵尸源", s])
@@ -657,8 +677,8 @@ def main():
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源")
-    print(f"   live_report.csv ← 9列报告（生成时间/更新日期/网址置末）")
-    print(f"   源龄缓存        ← {len(_age_cache)} 条已缓存")
+    print(f"   live_report.csv ← 9列报告")
+    print(f"   源龄缓存        ← {len(_age_cache)} 条 (未知:{unknown_count} 仅活跃:{date_only_count})")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
