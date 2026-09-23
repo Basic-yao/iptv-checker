@@ -1,2 +1,5 @@
+# 生成时间: 2026-09-23 11:38:06
+# 📆 三个月内（≤90天）（2个）
+
 http://47.94.6.170/TV/tv.m3u  # 📆74天(三月内)
 https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u  # 📆37天(三月内)
