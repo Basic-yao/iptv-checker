@@ -1,4 +1,4 @@
-# 生成时间: 2026-09-23 17:09:24
+# 生成时间: 2026-09-23 17:10:17
 # 总计: 116 条（已剔除僵尸源 0 个）
 
 # ---- 国内源 ----
@@ -62,7 +62,7 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u  # �
 https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u  # 老源262天
 https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u  # 老源312天
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u  # 老源1304天
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8  # 老源1304天
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u  # 老源1304天
 https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
