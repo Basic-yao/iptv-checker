@@ -106,18 +106,18 @@ def main():
 
     total_ok = len(_ok_urls)
 
-    # ── live_ok.txt（分组固定顺序，组内字母序，附耗时） ──
+# ── live_ok.txt（分组固定顺序，组内 URL 字母升序，纯裸 URL） ──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts}\n")
         f.write(f"# 可用源合计: {total_ok} 个\n")
-        f.write(f"# 排序: 分组固定(一周→一月→三月→超三月)，组内URL字母升序，附耗时\n\n")
+        f.write(f"# 排序: 分组固定(一周→一月→三月→超三月)，组内URL字母升序\n\n")
         for t in TIER_ORDER:
-            urls = sorted(set(_by_tier[t]))  # 组内字母序
-            if not urls: continue
+            urls = sorted(set(_by_tier[t]))
+            if not urls:
+                continue
             f.write(f"# ---- {TIER_TITLE[t]}（{len(urls)}个） ----\n")
             for u in urls:
-                lat = next((r[2] for r in _results if r[0]==u), None)
-                f.write(f"{u}  # {lat}ms\n")
+                f.write(f"{u}\n")
             f.write("\n")
 
     # ── live_ok.m3u（按访问时间快慢排序，快者在前） ──
