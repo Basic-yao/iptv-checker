@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源检测（最终稳定版）
+IPTV 直播源检测（最终稳定版 + 源龄检测）
 - 三层判定：直链严判 / GitHub限流保留 / 网页403保留
 - 固定6大类输出
 - 同域名首字排序
 - 防清空 + 强制写文件
 - 生成时间：北京时间（CST8）
 - live_report.csv 为标准8列表格，GitHub预览搜索正常
+- 源龄检测：>90天且不通 → 分离到 live_stale.txt
 """
 
 import sys
@@ -15,8 +16,10 @@ import os
 import re
 import csv
 import time
+import json
 import argparse
 from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlparse
 from collections import defaultdict
@@ -33,6 +36,7 @@ urllib3.disable_warnings()
 # ━━━ 全局配置 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DEFAULT_THREADS = 10
 DEFAULT_TIMEOUT = 20
+STALE_DAYS = 90  # 僵尸源阈值
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 
 CAT_ORDER = ["国内源", "国际源", "4K高清", "TVBox", "GitHub源", "其他"]
@@ -56,6 +60,10 @@ PREV_OK_FILE = 'live_ok.txt'
 
 # 北京时间 UTC+8
 CST8 = timezone(timedelta(hours=8))
+
+# 源龄缓存（避免重复请求同一仓库）
+_age_cache = {}
+_age_lock = None
 
 
 # ━━━ URL 类型判定 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -94,7 +102,6 @@ def normalize_url(u):
 
 
 def get_sort_key(url):
-    """排序键：GitHub按用户名，其他按域名首字"""
     try:
         p = urlparse(url)
         net = p.netloc.lower()
@@ -176,6 +183,63 @@ def parse_file(filepath):
     return entries
 
 
+# ━━━ 源龄检测 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def _github_last_commit(url):
+    """通过 commits API 获取文件最后提交时间"""
+    m = re.match(r'https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)', url)
+    if not m:
+        return None
+    owner, repo, ref, path = m.groups()
+    path = path.split('?')[0].split('#')[0]
+    api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
+    try:
+        r = requests.get(api, headers={"User-Agent": "iptv-checker"}, timeout=10)
+        if r.status_code == 200 and r.json():
+            dt = r.json()[0]["commit"]["committer"]["date"]
+            return datetime.fromisoformat(dt.replace("Z", "+00:00"))
+    except Exception:
+        pass
+    return None
+
+
+def get_source_age(url):
+    """返回 (源龄天数, 来源描述)。失败返回 (None, 说明)"""
+    global _age_cache
+    if url in _age_cache:
+        return _age_cache[url]
+
+    now = datetime.now(timezone.utc)
+    try:
+        if is_github_url(url):
+            lc = _github_last_commit(url)
+            if lc:
+                days = (now - lc).days
+                res = (days, f"GitHub最后提交:{lc.strftime('%Y-%m-%d')}")
+                _age_cache[url] = res
+                return res
+
+        r = requests.head(url, timeout=DEFAULT_TIMEOUT,
+                          headers={"User-Agent": USER_AGENT}, allow_redirects=True, verify=False)
+        lm = r.headers.get("Last-Modified")
+        if lm:
+            d = parsedate_to_datetime(lm)
+            if d is not None:
+                if d.tzinfo is None:
+                    d = d.replace(tzinfo=timezone.utc)
+                days = (now - d).days
+                res = (days, f"Last-Modified:{d.strftime('%Y-%m-%d')}")
+                _age_cache[url] = res
+                return res
+    except Exception as e:
+        res = (None, f"获取源龄失败:{str(e)[:30]}")
+        _age_cache[url] = res
+        return res
+
+    res = (None, "源龄未知")
+    _age_cache[url] = res
+    return res
+
+
 # ━━━ 检测函数（三层判定）━━━━━━━━━━━━━━━━━━━━━━━━
 def check_url(url, timeout):
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
@@ -193,7 +257,6 @@ def check_url(url, timeout):
     elapsed = 0
 
     try:
-        # HEAD
         try:
             r = requests.head(url, headers=headers, timeout=timeout, allow_redirects=True, verify=False)
             elapsed = int((time.time() - start) * 1000)
@@ -214,7 +277,6 @@ def check_url(url, timeout):
         except requests.exceptions.RequestException:
             pass
 
-        # GET
         start = time.time()
         r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True, verify=False, stream=True)
         elapsed = int((time.time() - start) * 1000)
@@ -254,7 +316,6 @@ def is_usable(status, flag, url=""):
 
 # ━━━ 主流程 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def main():
-    # ✅ global 声明必须在最前
     global DEFAULT_THREADS, DEFAULT_TIMEOUT
 
     parser = argparse.ArgumentParser(description='IPTV Checker')
@@ -266,7 +327,6 @@ def main():
     DEFAULT_THREADS = args.threads
     DEFAULT_TIMEOUT = args.timeout
 
-    # 北京时间
     ts = datetime.now(CST8).strftime('%Y-%m-%d %H:%M:%S')
 
     if not os.path.exists(args.file):
@@ -277,7 +337,8 @@ def main():
     print(f"🕒 生成时间（北京时间）: {ts}")
     print(f"📂 读取 {args.file} ...")
     print(f"📋 上一次可用源记录: {len(prev_urls)} 条")
-    print(f"⚙️ 线程: {DEFAULT_THREADS} | 超时: {DEFAULT_TIMEOUT}s\n")
+    print(f"⚙️ 线程: {DEFAULT_THREADS} | 超时: {DEFAULT_TIMEOUT}s")
+    print(f"📅 僵尸源阈值: >{STALE_DAYS} 天且不通\n")
 
     entries = parse_file(args.file)
     print(f"   解析到 {len(entries)} 个链接")
@@ -298,7 +359,6 @@ def main():
     if skipped:
         print(f"⏭️  跳过 {len(skipped)} 个\n")
 
-    # 分类预览
     print(f"📊 分类预览:")
     preview = defaultdict(int)
     for b, _, _ in to_check:
@@ -359,6 +419,42 @@ def main():
 
     total_ok = len(seen_ok_final)
 
+    # ━━━ 源龄检测（可用源 + 失败源都要看年龄）━━━━
+    print(f"\n🕵️  开始源龄检测...")
+    age_map = {}        # url -> (days, desc)
+    stale_urls = set()  # 僵尸源：>90天 且 不通
+    old_but_alive = {}  # 老但存活：>90天 且 通
+
+    # 对去重后的可用源 + 所有失败源做年龄检测
+    urls_need_age = set(normalize_url(u) for _, _, u, _, _, _ in results)
+    age_completed = 0
+    with ThreadPoolExecutor(max_workers=DEFAULT_THREADS) as ex:
+        fut_age = {ex.submit(get_source_age, u): u for u in urls_need_age}
+        for fu in as_completed(fut_age):
+            u = fut_age[fu]
+            age_completed += 1
+            try:
+                days, desc = fu.result()
+            except Exception:
+                days, desc = None, "源龄检测异常"
+            age_map[u] = (days, desc)
+
+            norm_u = normalize_url(u)
+            # 判断是否僵尸源
+            is_alive = any(normalize_url(item[2]) == norm_u and is_usable(item[3], item[5], item[2])
+                           for item in ok_url_dedup)
+            if days is not None and days > STALE_DAYS and not is_alive:
+                stale_urls.add(norm_u)
+            elif days is not None and days > STALE_DAYS and is_alive:
+                old_but_alive[norm_u] = days
+
+            if age_completed % 20 == 0:
+                print(f"   源龄进度: {age_completed}/{len(urls_need_age)}")
+
+    print(f"   📊 源龄完成: {len(age_map)} 个")
+    print(f"   🧟 僵尸源(>{STALE_DAYS}天且不通): {len(stale_urls)} 个")
+    print(f"   🧓 老源但存活(>{STALE_DAYS}天): {len(old_but_alive)} 个")
+
     print(f"\n{'='*60}")
     print(f"📊 检测完成 | {ts}")
     print(f"{'='*60}")
@@ -374,18 +470,29 @@ def main():
         print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
         sys.exit(0)
 
-    # ━━━ 强制写文件（统一提交时间）━━━━━━━━━━━━━━━━
-    # live_ok.txt
+    # ━━━ 强制写文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # live_ok.txt（剔除僵尸源）
     with open('live_ok.txt', 'w', encoding='utf-8') as f:
-        f.write(f"# 生成时间: {ts}\n# 总计: {total_ok} 条\n\n")
+        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 总计: {total_ok} 条（已剔除僵尸源 {len(stale_urls)} 个）\n\n")
         for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
             if not urls:
                 f.write(f"# ---- {broad} ----\n# (无可用源)\n\n")
                 continue
+            # 过滤僵尸源
+            live_urls = [(u, e) for u, e in urls
+                         if normalize_url(u) not in stale_urls]
+            if not live_urls:
+                f.write(f"# ---- {broad} ----\n# (全部为僵尸源，已剔除)\n\n")
+                continue
             f.write(f"# ---- {broad} ----\n")
-            for url, elapsed in urls:
-                f.write(f"{url}\n")
+            for url, elapsed in live_urls:
+                norm_u = normalize_url(url)
+                tag = ""
+                if norm_u in old_but_alive:
+                    tag = f"  # 老源{old_but_alive[norm_u]}天"
+                f.write(f"{url}{tag}\n")
             f.write("\n")
 
     # live_ok.m3u
@@ -393,10 +500,14 @@ def main():
         f.write(f'#EXTM3U\n# 生成时间: {ts}\n\n')
         for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
-            if not urls:
-                continue
-            for url, elapsed in urls:
-                f.write(f'#EXTINF:-1 group-title="{broad}", {broad} ({elapsed}ms)\n')
+            live_urls = [(u, e) for u, e in urls
+                         if normalize_url(u) not in stale_urls]
+            for url, elapsed in live_urls:
+                norm_u = normalize_url(url)
+                tvg = broad
+                if norm_u in old_but_alive:
+                    tvg = f"{broad}(老源)"
+                f.write(f'#EXTINF:-1 group-title="{tvg}", {broad} ({elapsed}ms)\n')
                 f.write(f'{url}\n')
             f.write('\n')
 
@@ -406,7 +517,7 @@ def main():
         for url in skipped:
             f.write(f"{url}\n")
 
-    # live_fail.txt
+    # live_fail.txt（真失效，不含僵尸源——僵尸源单独放）
     fail_raw = [(b, oc, u, s, e, fl) for b, oc, u, s, e, fl in results if not is_usable(s, fl, u)]
     seen_f = {}
     for item in fail_raw:
@@ -425,11 +536,25 @@ def main():
                 f.write(f"{url}  #{status} {flag}\n")
             f.write("\n")
 
-    # ━━━ live_report.csv（标准8列表格，时间合并到表头）━━━━
+    # live_stale.txt（僵尸源：>90天且不通）
+    with open('live_stale.txt', 'w', encoding='utf-8') as f:
+        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 僵尸源: {len(stale_urls)} 个（源龄>{STALE_DAYS}天 且 本次不通）\n")
+        f.write(f"# 这些源已从 live_ok.txt 中剔除，建议人工复查后可删除\n\n")
+        # 按源龄从大到小排序
+        stale_sorted = sorted(
+            [(u, age_map.get(u, (None, ''))[0], age_map.get(u, (None, ''))[1])
+             for u in stale_urls],
+            key=lambda x: (x[1] is None, - (x[1] or 0))
+        )
+        for u, days, desc in stale_sorted:
+            f.write(f"{u}  #{days}天 {desc}\n")
+
+    # ━━━ live_report.csv（10列标准表格）━━━━━━━━━━
     with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
-        # ✅ 表头第1列带上时间，总列数恒为8，GitHub预览搜索正常
-        w.writerow([f'新增源 (生成:{ts})', '大类', '原始分类', 'URL', '状态码', '响应时间(ms)', '状态', '类型'])
+        w.writerow([f'新增源 (生成:{ts})', '大类', '原始分类', 'URL', '状态码',
+                    '响应时间(ms)', '状态', '类型', '源龄(天)', '备注'])
         csv_seen = set()
         for broad, orig_cat, url, status, elapsed, flag in results:
             norm_u = normalize_url(url)
@@ -439,15 +564,26 @@ def main():
             is_new = "★ 新增" if norm_u in new_urls_norm else ""
             state = "可用" if is_usable(status, flag, url) else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
-            w.writerow([is_new, broad, orig_cat, url, status, elapsed, state, url_type])
+            days, desc = age_map.get(norm_u, (None, ""))
+            age_str = str(days) if days is not None else "未知"
+            note_parts = []
+            if norm_u in stale_urls:
+                note_parts.append(f"僵尸源>{STALE_DAYS}天")
+            elif norm_u in old_but_alive:
+                note_parts.append(f"老源{old_but_alive[norm_u]}天但存活")
+            if days is None:
+                note_parts.append("源龄未知")
+            note = " | ".join(note_parts)
+            w.writerow([is_new, broad, orig_cat, url, status, elapsed, state, url_type, age_str, note])
 
     print(f"💾 已生成（统一北京时间: {ts}）:")
-    print(f"   live_ok.txt     ← {total_ok} 条")
-    print(f"   live_ok.m3u     ← {total_ok} 条")
+    print(f"   live_ok.txt     ← {total_ok - len(stale_urls)} 条（剔除僵尸源后）")
+    print(f"   live_ok.m3u     ← {total_ok - len(stale_urls)} 条")
     if skipped:
         print(f"   skipped.txt     ← {len(skipped)} 个")
     print(f"   live_fail.txt   ← {len(seen_f)} 个真失效")
-    print(f"   live_report.csv ← 检测报告（8列，预览搜索正常）")
+    print(f"   live_stale.txt  ← {len(stale_urls)} 个僵尸源（>{STALE_DAYS}天且不通）")
+    print(f"   live_report.csv ← 检测报告（10列，预览搜索正常）")
 
     sys.exit(0)
 
