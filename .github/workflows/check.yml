@@ -14,6 +14,8 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -26,10 +28,22 @@ jobs:
           python-version: '3.11'
 
       - name: 安装依赖
-        run: pip install requests
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 显示输入统计
+        run: |
+          echo "📥 live.txt 行数: $(wc -l < live.txt 2>/dev/null || echo 0)"
+          echo "🔗 URL 数量: $(grep -c '^https\?://' live.txt 2>/dev/null || echo 0)"
 
       - name: 运行检查器
         run: python check_iptv.py --threads 10 --timeout 20
+
+      - name: 检查文件是否生成
+        run: |
+          echo "📂 生成产物："
+          ls -la live_*.txt live_*.csv live_*.m3u 2>/dev/null || true
 
       - name: 提交结果
         continue-on-error: true
@@ -40,5 +54,6 @@ jobs:
                      live_recent.txt live_month.txt live_3month.txt \
                      live_old.txt live_stale.txt \
                      live_fail.txt live_report.csv
-          git commit --allow-empty -m "自动更新 IPTV 检查结果 [skip ci]" || true
+          git diff --cached --quiet && echo "无变更，跳过提交" || \
+          git commit -m "自动更新 IPTV 检查结果 [skip ci]"
           git push
