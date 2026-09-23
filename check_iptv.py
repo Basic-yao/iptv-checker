@@ -8,14 +8,22 @@ IPTV 检查器（四档分档 + 真实源龄 + 原OK判定不变）
 文件：live_ok.txt live_ok.m3u live_fail.txt live_report.csv
       live_recent.txt live_month.txt live_3month.txt live_old.txt live_stale.txt
 """
-import os, re, sys, time, csv, argparse, socket, threading, json
+import os
+import re
+import sys
+import csv
+import time
+import json
+import socket
+import threading
+import argparse
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse, urlunparse
-try:
-    import requests
-except ImportError:
-    sys.exit("❌ 缺少 requests，请 pip install requests")
+
+import requests
+from requests.exceptions import RequestException, Timeout, ConnectionError
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ═══════════════════════════════════════════════
 # 全局配置
@@ -85,13 +93,13 @@ def normalize_url(u):
         netloc = p.netloc.lower().replace("www.", "")
         path = p.path.rstrip("/")
         return urlunparse((p.scheme.lower(), netloc, path, "", "", ""))
-    except:
+    except Exception:
         return u.strip().lower()
 
 def get_domain(url):
     try:
         return urlparse(url).netloc.lower()
-    except:
+    except Exception:
         return url
 
 def classify(url, title="未分类"):
@@ -129,7 +137,7 @@ def is_github_url(url):
     return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com"])
 
 # ═══════════════════════════════════════════════
-# 源龄检测（核心修复：远程用Last-Modified/GitHub API）
+# 源龄检测（核心：远程用Last-Modified/GitHub API）
 # ═══════════════════════════════════════════════
 def get_source_age(url):
     """
@@ -244,10 +252,10 @@ def check_url(url):
                 else:
                     flag = "fail"
             elif status == 405:
-                raise requests.exceptions.RequestException("try_get")
+                raise RequestException("try_get")
             else:
                 flag = "fail"
-        except requests.exceptions.RequestException:
+        except RequestException:
             pass
 
         # HEAD 失败或不确定的，降级 GET
@@ -270,13 +278,13 @@ def check_url(url):
             else:
                 flag = "fail"
 
-    except requests.exceptions.Timeout:
+    except Timeout:
         elapsed = int((time.time() - start) * 1000)
         flag = "timeout"
-    except requests.exceptions.ConnectionError:
+    except ConnectionError:
         elapsed = int((time.time() - start) * 1000)
         flag = "conn"
-    except Exception as e:
+    except Exception:
         elapsed = int((time.time() - start) * 1000)
         flag = "err"
 
@@ -346,7 +354,6 @@ def main():
         for fu in as_completed(futures):
             completed += 1
             url = futures[fu]
-            # 找结果
             norm = normalize_url(url)
             ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
             icon = "✅" if ok else "❌"
@@ -397,7 +404,6 @@ def main():
     with open("live_ok.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间: {ts}\n")
         f.write(f"# 可用: {total_ok} 条（按分档→大类→域名排序）\n\n")
-        # 排序：分档优先(新→旧)，再大类，再域名
         tier_order = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD, TIER_UNKNOWN]
         sorted_ok = sorted(_ok_raw, key=lambda x: (
             tier_order.index(tier_of(_age_cache.get(normalize_url(x[0]), (None, ""))[0])),
@@ -495,7 +501,7 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            w.writerow(["★" if tier == TIER_NEW and ok else "", broad, url, status, elapsed,
+            w.writerow(["★" if (tier == TIER_NEW and ok) else "", broad, url, status, elapsed,
                         state, url_type, age_str, tier, note])
 
         # 僵尸源区块
@@ -516,7 +522,9 @@ def main():
     print(f"   live_ok.txt     ← {total_ok} 条（带分档尾注）")
     print(f"   live_ok.m3u     ← {total_ok} 条")
     print(f"   live_fail.txt   ← {len(_fail_raw)} 个真失效")
-    print(f"   live_recent.txt ← {len([u for u in _by_tier[TIER_NEW] if any(normalize_url(r[0])==normalize_url(u) and r[4] for r in _results)])} 个 🆕一周内(可用)")
+    recent_count = len([u for u in _by_tier[TIER_NEW]
+                        if any(normalize_url(r[0]) == normalize_url(u) and r[4] for r in _results)])
+    print(f"   live_recent.txt ← {recent_count} 个 🆕一周内(可用)")
     print(f"   live_month.txt  ← {len(_by_tier[TIER_MONTH])} 个 📅一个月内")
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月（全部）")
