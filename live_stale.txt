@@ -1,4 +1,16 @@
-# 生成时间: 2026-09-23 17:42:46
-# 僵尸源: 0 个（源龄>90天 且 本次不通）
-# 这些源已从 live_ok.txt 中剔除，建议人工复查后可删除
+# 生成时间: 2026-09-23 18:08:00
+# 🧓超三个月: 13 个
 
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8  # 🧓超三个月 | 源龄1304天 | 2023-02-27T01:23:50Z | ✅可用
+https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt  # 🧓超三个月 | 源龄308天 | 2025-11-19T04:35:43Z | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u  # 🧓超三个月 | 源龄1304天 | 2023-02-27T01:23:50Z | ✅可用
+http://west.shaonv.me/tvbox/live.txt  # 🧓超三个月 | 源龄923天 | Wed, 13 Mar 2024 11:35:57 GMT | ✅可用
+https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt  # 🧓超三个月 | 源龄881天 | Thu, 25 Apr 2024 09:20:25 GMT | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u  # 🧓超三个月 | 源龄1304天 | 2023-02-27T01:23:50Z | ✅可用
+https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt  # 🧓超三个月 | 源龄674天 | 2024-11-17T13:56:54Z | ✅可用
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u  # 🧓超三个月 | 源龄262天 | 2026-01-04T01:31:44Z | ✅可用
+https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u  # 🧓超三个月 | 源龄630天 | 2024-12-31T13:08:36Z | ✅可用
+https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt  # 🧓超三个月 | 源龄437天 | 2025-07-12T18:30:00Z | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u  # 🧓超三个月 | 源龄313天 | 2025-11-14T09:21:40Z | ✅可用
+https://xn--6orr3pi6g9uu.top/zb/zb.txt  # 🧓超三个月 | 源龄172天 | Fri, 03 Apr 2026 10:39:46 GMT | ✅可用
+http://117.72.68.25:9230/latest.txt  # 🧓超三个月 | 源龄325天 | Sat, 01 Nov 2025 12:17:19 GMT | ✅可用

@@ -1,119 +1,119 @@
-﻿新增源,大类,原始分类,URL,状态码,响应时间(ms),状态
-★ 新增,其他,其他,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt,200,1227,可用
-,国内源,国内源,http://47.94.6.170/TV/tv.m3u,200,394,可用
-,国内源,国内源,https://aptv.pro/all.m3u,200,595,可用
-,国内源,国内源,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt,200,11321,可用
-,国内源,国内源,https://gitee.com/hw2837/iptv/raw/master/iptv,200,10854,可用
-,国内源,国内源,https://gitee.com/hzxs800274/iptv/raw/master/live/TV,200,11014,可用
-,国内源,国内源,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt,200,11312,可用
-,国内源,国内源,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt,200,11137,可用
-,国内源,国内源,https://gitee.com/lwr851/live/raw/master/iptv.m3u,200,11501,可用
-,国内源,国内源,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u,200,10751,可用
-,国内源,国内源,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u,200,10472,可用
-,国内源,国内源,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt,200,7511,可用
-,国内源,国内源,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt,200,369,可用
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u,403,135,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u,403,89,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u,403,88,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u,403,88,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u,403,83,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u,403,89,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u,403,89,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u,403,85,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u,403,85,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u,403,84,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u,403,86,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u,403,87,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u,403,151,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u,403,90,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u,403,89,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u,403,92,fail
-,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u,403,96,fail
-,国内源,国内源,https://live.zhoujie218.top/tv/iptv4.txt,200,1290,可用
-,国内源,国内源,http://wangziduoqing.com/yuan/zb.txt,200,623,可用
-,国际源,国际源,https://iptv-org.github.io/iptv/countries/cn.m3u,200,156,可用
-,国际源,国际源,https://iptv-org.github.io/iptv/countries/hk.m3u,200,121,可用
-,国际源,国际源,https://iptv-org.github.io/iptv/countries/tw.m3u,200,115,可用
-,国际源,国际源,https://iptv-org.github.io/iptv/index.m3u,200,78,可用
-,国际源,国际源,https://iptv-org.github.io/iptv/languages/zho.m3u,200,116,可用
-,4K高清,4K高清,http://1.94.31.214/live/live9/dgtv.txt,200,353,可用
-,4K高清,4K高清,http://1.94.31.214/live/live9/dgtv2026.php,200,606,可用
-,4K高清,4K高清,http://117.72.68.25:9230/latest.txt,200,357,可用
-,4K高清,4K高清,https://live.zbds.top/tv/iptv4.txt,200,323,可用
-,4K高清,4K高清,http://www.52top.com.cn:678/downloads/migu.txt,200,1492,可用
-,TVBox,TVBox,https://supprise0901.github.io/TVBox_live/live.txt,200,303,可用
-,TVBox,TVBox,http://west.shaonv.me/tvbox/live.txt,200,1631,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u,200,144,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u,200,145,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u,200,148,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u,200,156,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u,200,158,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u,200,244,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u,200,163,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u,200,155,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u,200,197,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt,200,141,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u,200,142,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit,200,149,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8,200,83,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt,200,167,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u,200,139,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u,200,100,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8,200,159,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u,200,138,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u,200,176,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8,200,146,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u,200,271,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt,200,151,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt,200,186,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt,200,189,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt,200,148,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u,200,140,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u,200,368,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u,200,193,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt,200,185,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt,200,173,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u,200,158,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u,200,174,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt,200,166,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt,200,143,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt,200,171,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u,200,147,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt,200,170,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u,200,163,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u,200,194,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt,200,166,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u,200,169,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt,200,157,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u,200,167,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u,200,158,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u,200,167,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u,200,176,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt,200,167,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt,200,191,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u,200,123,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt,200,158,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u,200,162,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u,200,149,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u,200,151,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt,200,176,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u,200,160,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u,200,160,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u,200,167,可用
-,GitHub源,GitHub源,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt,200,250,可用
-,GitHub源,GitHub源,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt,200,585,可用
-,其他,其他,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt,200,1118,可用
-,其他,其他,https://ds65.tv1288.xyz,403,188,fail
-,其他,其他,https://ilook.epg.one/5CM5SY98BF24PL/2,200,568,可用
-,其他,未分类,https://iptv.445569.xyz/live.m3u,200,10168,可用
-,其他,其他,https://iptv.zsdc.eu.org/home/iptv.m3u8,200,546,可用
-,其他,其他,https://live.iptv-free.com/iptv/categories/general.m3u,200,354,可用
-,其他,其他,https://live.iptv-free.com/iptv/categories/movies.m3u,200,335,可用
-,其他,其他,http://tv123.vvvv.ee/tv.m3u,200,1845,可用
-,其他,其他,https://xn--6orr3pi6g9uu.top/zb/zb.txt,200,347,可用
-,其他,其他,http://yimolan.serv00.net/zb/live.php,200,984,可用
+﻿新增源 (生成:2026-09-23 18:08:00),大类,原始分类,URL,状态码,响应时间(ms),状态,类型,源龄(天),更新分档,备注
+,其他,国内源,http://47.94.6.170/TV/tv.m3u,200,544,可用,网页,74,📆三个月内,"Fri, 10 Jul 2026 13:14:46 GMT"
+,其他,国内源,https://aptv.pro/all.m3u,200,738,可用,其他,9,📅一个月内,"Mon, 14 Sep 2026 10:05:20 GMT"
+,其他,国内源,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u,200,3331,可用,其他,未知,❓未知,
+,其他,国内源,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt,200,3198,可用,直链,未知,❓未知,
+,其他,国内源,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt,200,3963,可用,网页,未知,❓未知,
+,其他,国内源,https://gitee.com/lwr851/live/raw/master/iptv.m3u,200,3965,可用,直链,未知,❓未知,
+,其他,国内源,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt,200,4124,可用,网页,未知,❓未知,
+,其他,国内源,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt,200,4128,可用,其他,未知,❓未知,
+,其他,国内源,https://gitee.com/hw2837/iptv/raw/master/iptv,200,4168,可用,其他,未知,❓未知,
+,其他,国内源,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt,200,311,可用,其他,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u,403,108,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u,403,357,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u,403,328,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u,403,168,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u,403,332,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u,403,183,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u,403,130,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u,403,44,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u,403,65,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u,403,72,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u,403,67,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u,403,80,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u,403,70,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u,403,79,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u,403,76,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u,403,55,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u,403,60,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u,403,70,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u,403,65,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u,403,76,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u,403,60,可用,网页,未知,❓未知,
+★ 新增,国内源,国内源,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u,403,65,可用,网页,未知,❓未知,
+,国际源,国际源,https://iptv-org.github.io/iptv/index.m3u,200,51,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 00:17:33 GMT"
+,国际源,国际源,https://iptv-org.github.io/iptv/countries/hk.m3u,200,77,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 00:17:33 GMT"
+,国际源,国际源,https://iptv-org.github.io/iptv/countries/tw.m3u,200,78,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 00:17:33 GMT"
+,国际源,国际源,https://iptv-org.github.io/iptv/languages/zho.m3u,200,75,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 00:17:33 GMT"
+,国际源,国际源,https://iptv-org.github.io/iptv/countries/cn.m3u,200,104,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 00:17:33 GMT"
+,其他,国内源,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u,200,4576,可用,其他,未知,❓未知,
+,其他,国内源,https://gitee.com/hzxs800274/iptv/raw/master/live/TV,200,4590,可用,直链,未知,❓未知,
+,TVBox,TVBox,https://supprise0901.github.io/TVBox_live/live.txt,200,98,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 10:05:49 GMT"
+,GitHub源,GitHub源,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u,200,81,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u,200,84,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u,200,86,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u,200,77,可用,GitHub,未知,❓未知,
+,4K高清,4K高清,http://1.94.31.214/live/live9/dgtv.txt,200,489,可用,直链,0,🆕一周内,"Wed, 23 Sep 2026 10:00:02 GMT"
+,4K高清,4K高清,http://117.72.68.25:9230/latest.txt,200,495,可用,其他,325,🧓超三个月,"Sat, 01 Nov 2025 12:17:19 GMT"
+,GitHub源,GitHub源,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u,200,85,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u,200,106,可用,GitHub,630,🧓超三个月,2024-12-31T13:08:36Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u,200,97,可用,GitHub,未知,❓未知,
+,4K高清,4K高清,https://live.zbds.top/tv/iptv4.txt,200,606,可用,网页,未知,❓未知,
+,其他,国内源,https://live.zhoujie218.top/tv/iptv4.txt,200,733,可用,网页,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u,200,90,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u,200,88,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt,200,82,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8,200,25,可用,直链,9,📅一个月内,2026-09-13T11:28:38Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u,200,86,可用,直链,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit,200,86,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt,200,82,可用,GitHub,674,🧓超三个月,2024-11-17T13:56:54Z
+,其他,国内源,http://wangziduoqing.com/yuan/zb.txt,200,890,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 04:24:54 GMT"
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u,200,113,可用,GitHub,262,🧓超三个月,2026-01-04T01:31:44Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8,200,111,可用,直链,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u,200,72,可用,GitHub,1304,🧓超三个月,2023-02-27T01:23:50Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt,200,22,可用,直链,0,🆕一周内,2026-09-23T05:02:08Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u,200,159,可用,GitHub,313,🧓超三个月,2025-11-14T09:21:40Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8,200,80,可用,直链,1304,🧓超三个月,2023-02-27T01:23:50Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u,200,79,可用,GitHub,1304,🧓超三个月,2023-02-27T01:23:50Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt,200,78,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u,200,217,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt,200,87,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt,200,95,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u,200,115,可用,GitHub,37,📆三个月内,2026-08-16T12:20:14Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt,200,92,可用,GitHub,437,🧓超三个月,2025-07-12T18:30:00Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u,200,129,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt,200,85,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u,200,72,可用,直链,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u,200,83,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt,200,92,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt,200,80,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt,200,86,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u,200,91,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt,200,98,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u,200,293,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u,200,82,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u,200,83,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt,200,91,可用,GitHub,0,🆕一周内,2026-09-23T07:29:20Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt,200,93,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u,200,94,可用,直链,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u,200,115,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u,200,165,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u,200,105,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt,200,86,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt,200,96,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt,200,90,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u,200,105,可用,GitHub,4,🆕一周内,2026-09-18T10:28:52Z
+,4K高清,4K高清,http://www.52top.com.cn:678/downloads/migu.txt,200,1441,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 09:48:26 GMT"
+,GitHub源,GitHub源,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u,200,128,可用,直链,2,🆕一周内,2026-09-21T05:56:56Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u,200,79,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u,200,106,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u,200,87,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u,200,81,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt,200,88,可用,GitHub,308,🧓超三个月,2025-11-19T04:35:43Z
+,GitHub源,GitHub源,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u,200,100,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u,200,332,可用,GitHub,未知,❓未知,
+,GitHub源,GitHub源,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt,200,218,可用,GitHub,未知,❓未知,
+,其他,其他,https://ds65.tv1288.xyz,403,79,fail,其他,未知,❓未知,
+,其他,其他,https://ilook.epg.one/5CM5SY98BF24PL/2,200,386,可用,其他,未知,❓未知,
+,其他,其他,https://iptv.zsdc.eu.org/home/iptv.m3u8,200,406,可用,直链,未知,❓未知,
+,其他,其他,https://live.iptv-free.com/iptv/categories/general.m3u,200,372,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 08:37:53 GMT"
+,其他,其他,https://live.iptv-free.com/iptv/categories/movies.m3u,200,397,可用,其他,0,🆕一周内,"Wed, 23 Sep 2026 08:38:00 GMT"
+,其他,其他,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt,403,655,fail,其他,未知,❓未知,
+,GitHub源,GitHub源,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt,200,757,可用,GitHub,未知,❓未知,
+,其他,其他,https://xn--6orr3pi6g9uu.top/zb/zb.txt,200,663,可用,其他,172,🧓超三个月,"Fri, 03 Apr 2026 10:39:46 GMT"
+,其他,其他,http://yimolan.serv00.net/zb/live.php,200,682,可用,其他,未知,❓未知,
+,其他,其他,http://tv123.vvvv.ee/tv.m3u,200,1041,可用,其他,未知,❓未知,
+,其他,其他,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt,200,1693,可用,其他,881,🧓超三个月,"Thu, 25 Apr 2024 09:20:25 GMT"
+,4K高清,4K高清,http://1.94.31.214/live/live9/dgtv2026.php,200,3855,可用,直链,0,🆕一周内,"Wed, 23 Sep 2026 10:00:02 GMT"
+,TVBox,TVBox,http://west.shaonv.me/tvbox/live.txt,200,4584,可用,其他,923,🧓超三个月,"Wed, 13 Mar 2024 11:35:57 GMT"
+,其他,未分类,https://iptv.445569.xyz/live.m3u,200,10118,可用,其他,未知,❓未知,

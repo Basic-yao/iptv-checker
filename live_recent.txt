@@ -1,17 +1,19 @@
-# 生成时间: 2026-09-23 17:42:46
-# 新近更新: 14 个（24小时内）
+# 生成时间: 2026-09-23 18:08:00
+# 🆕一周内: 16 个
 
-https://supprise0901.github.io/TVBox_live/live.txt  # Last-Modified:2026-09-23 09:05 | ✅可用
-http://1.94.31.214/live/live9/dgtv.txt  # Last-Modified:2026-09-23 09:00 | ✅可用
-http://1.94.31.214/live/live9/dgtv2026.php  # Last-Modified:2026-09-23 09:00 | ✅可用
-https://live.iptv-free.com/iptv/categories/movies.m3u  # Last-Modified:2026-09-23 08:38 | ✅可用
-https://live.iptv-free.com/iptv/categories/general.m3u  # Last-Modified:2026-09-23 08:37 | ✅可用
-http://www.52top.com.cn:678/downloads/migu.txt  # Last-Modified:2026-09-23 07:48 | ✅可用
-http://wangziduoqing.com/yuan/zb.txt  # Last-Modified:2026-09-23 04:24 | ✅可用
-https://iptv-org.github.io/iptv/countries/tw.m3u  # Last-Modified:2026-09-23 00:17 | ✅可用
-https://iptv-org.github.io/iptv/countries/hk.m3u  # Last-Modified:2026-09-23 00:17 | ✅可用
-https://iptv-org.github.io/iptv/languages/zho.m3u  # Last-Modified:2026-09-23 00:17 | ✅可用
-https://iptv-org.github.io/iptv/countries/cn.m3u  # Last-Modified:2026-09-23 00:17 | ✅可用
-https://iptv-org.github.io/iptv/index.m3u  # Last-Modified:2026-09-23 00:17 | ✅可用
-https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt  # GitHub最后提交:2026-09-23 07:29 | ✅可用
-https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt  # GitHub最后提交:2026-09-23 05:02 | ✅可用
+https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt  # 🆕一周内 | 源龄0天 | 2026-09-23T05:02:08Z | ✅可用
+https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u  # 🆕一周内 | 源龄4天 | 2026-09-18T10:28:52Z | ✅可用
+https://supprise0901.github.io/TVBox_live/live.txt  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 10:05:49 GMT | ✅可用
+http://1.94.31.214/live/live9/dgtv2026.php  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 10:00:02 GMT | ✅可用
+http://1.94.31.214/live/live9/dgtv.txt  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 10:00:02 GMT | ✅可用
+https://iptv-org.github.io/iptv/index.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 00:17:33 GMT | ✅可用
+https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt  # 🆕一周内 | 源龄0天 | 2026-09-23T07:29:20Z | ✅可用
+https://iptv-org.github.io/iptv/languages/zho.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 00:17:33 GMT | ✅可用
+https://iptv-org.github.io/iptv/countries/tw.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 00:17:33 GMT | ✅可用
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u  # 🆕一周内 | 源龄2天 | 2026-09-21T05:56:56Z | ✅可用
+http://www.52top.com.cn:678/downloads/migu.txt  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 09:48:26 GMT | ✅可用
+http://wangziduoqing.com/yuan/zb.txt  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 04:24:54 GMT | ✅可用
+https://live.iptv-free.com/iptv/categories/general.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 08:37:53 GMT | ✅可用
+https://iptv-org.github.io/iptv/countries/cn.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 00:17:33 GMT | ✅可用
+https://live.iptv-free.com/iptv/categories/movies.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 08:38:00 GMT | ✅可用
+https://iptv-org.github.io/iptv/countries/hk.m3u  # 🆕一周内 | 源龄0天 | Wed, 23 Sep 2026 00:17:33 GMT | ✅可用
