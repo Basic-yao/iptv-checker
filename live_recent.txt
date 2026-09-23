@@ -1,15 +1,16 @@
-# 生成时间: 2026-09-23 18:33:46
-# 🆕一周内: 12 个（仅含可用的）
-
-http://1.94.31.214/live/live9/dgtv.txt  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-http://1.94.31.214/live/live9/dgtv2026.php  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://iptv-org.github.io/iptv/countries/cn.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://iptv-org.github.io/iptv/countries/hk.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://iptv-org.github.io/iptv/countries/tw.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://iptv-org.github.io/iptv/index.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://iptv-org.github.io/iptv/languages/zho.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://live.iptv-free.com/iptv/categories/general.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://live.iptv-free.com/iptv/categories/movies.m3u  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt  # 🆕一周内 | 源龄0天(一周内) | GitHub最后提交:2026-09-23 | ✅可用
-https://supprise0901.github.io/TVBox_live/live.txt  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
-http://wangziduoqing.com/yuan/zb.txt  # 🆕一周内 | 源龄0天(一周内) | Last-Modified:Wed, 23 Sep 2026 | ✅可用
+http://1.94.31.214/live/live9/dgtv.txt  # 🆕0天(一周内)
+http://1.94.31.214/live/live9/dgtv2026.php  # 🆕0天(一周内)
+http://wangziduoqing.com/yuan/zb.txt  # 🆕0天(一周内)
+http://www.52top.com.cn:678/downloads/migu.txt  # 🆕0天(一周内)
+https://iptv-org.github.io/iptv/countries/cn.m3u  # 🆕0天(一周内)
+https://iptv-org.github.io/iptv/countries/hk.m3u  # 🆕0天(一周内)
+https://iptv-org.github.io/iptv/countries/tw.m3u  # 🆕0天(一周内)
+https://iptv-org.github.io/iptv/index.m3u  # 🆕0天(一周内)
+https://iptv-org.github.io/iptv/languages/zho.m3u  # 🆕0天(一周内)
+https://live.iptv-free.com/iptv/categories/general.m3u  # 🆕0天(一周内)
+https://live.iptv-free.com/iptv/categories/movies.m3u  # 🆕0天(一周内)
+https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt  # 🆕0天(一周内)
+https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u  # 🆕5天(一周内)
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u  # 🆕2天(一周内)
+https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt  # 🆕0天(一周内)
+https://supprise0901.github.io/TVBox_live/live.txt  # 🆕0天(一周内)

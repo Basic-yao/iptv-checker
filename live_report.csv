@@ -1,123 +1,120 @@
-﻿新增源,大类,URL,状态码,响应时间(ms),状态,类型,源龄(天),更新分档,备注
-,其他,http://47.94.6.170/TV/tv.m3u,200,509,✅可用,网页,74,📆三个月内,
-,其他,https://aptv.pro/all.m3u,200,711,✅可用,其他,9,📅一个月内,
-,其他,https://gitee.com/lwr851/live/raw/master/iptv.m3u,200,6265,✅可用,直链,未知,❓未知,源龄未知
-,其他,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt,200,5577,✅可用,直链,未知,❓未知,源龄未知
-,其他,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u,200,6309,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u,200,5843,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt,200,6357,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://gitee.com/hw2837/iptv/raw/master/iptv,200,6371,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt,200,310,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u,403,314,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u,403,360,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u,403,97,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u,403,398,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u,403,317,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u,403,349,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://gitee.com/hzxs800274/iptv/raw/master/live/TV,200,6706,✅可用,直链,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u,403,76,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u,403,97,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u,403,103,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u,403,98,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u,403,115,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u,403,95,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u,403,113,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u,403,94,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u,403,82,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u,403,91,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u,403,89,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u,403,81,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u,403,103,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u,403,99,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u,403,87,✅可用,网页,未知,❓未知,源龄未知
-,其他,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u,403,67,✅可用,网页,未知,❓未知,源龄未知
-★,GitHub源,https://iptv-org.github.io/iptv/countries/cn.m3u,200,68,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,GitHub源,https://iptv-org.github.io/iptv/countries/hk.m3u,200,87,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,GitHub源,https://iptv-org.github.io/iptv/index.m3u,200,68,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,GitHub源,https://iptv-org.github.io/iptv/countries/tw.m3u,200,84,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,GitHub源,https://iptv-org.github.io/iptv/languages/zho.m3u,200,83,✅可用,其他,0,🆕一周内,🆕7天内更新
-,其他,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt,200,7348,✅可用,网页,未知,❓未知,源龄未知
-★,GitHub源,https://supprise0901.github.io/TVBox_live/live.txt,200,67,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,其他,http://1.94.31.214/live/live9/dgtv.txt,200,490,✅可用,直链,0,🆕一周内,🆕7天内更新
-,其他,http://117.72.68.25:9230/latest.txt,200,529,✅可用,其他,325,🧓超三个月,🧓老源325天但存活
-,GitHub源,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u,200,112,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u,200,74,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u,200,76,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u,200,122,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u,200,69,✅可用,GitHub,630,🧓超三个月,🧓老源630天但存活
-,GitHub源,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u,200,74,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u,200,72,✅可用,GitHub,未知,❓未知,源龄未知
-★,其他,http://1.94.31.214/live/live9/dgtv2026.php,200,830,✅可用,直链,0,🆕一周内,🆕7天内更新
-,GitHub源,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u,200,77,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u,200,81,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt,200,87,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u,200,71,✅可用,直链,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8,200,44,✅可用,直链,9,📅一个月内,
-,GitHub源,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit,200,79,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt,200,77,✅可用,GitHub,674,🧓超三个月,🧓老源674天但存活
-,国内源,http://www.52top.com.cn:678/downloads/migu.txt,200,1082,✅可用,其他,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u,200,96,✅可用,GitHub,262,🧓超三个月,🧓老源262天但存活
-,GitHub源,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u,200,76,✅可用,GitHub,262,🧓超三个月,🧓老源262天但存活
-,GitHub源,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8,200,78,✅可用,直链,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u,200,77,✅可用,GitHub,313,🧓超三个月,🧓老源313天但存活
-,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u,200,78,✅可用,GitHub,1304,🧓超三个月,🧓老源1304天但存活
-,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8,200,77,✅可用,直链,1304,🧓超三个月,🧓老源1304天但存活
-,GitHub源,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u,200,74,✅可用,GitHub,1304,🧓超三个月,🧓老源1304天但存活
-,GitHub源,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt,200,79,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt,200,86,✅可用,GitHub,789,🧓超三个月,🧓老源789天但存活
-★,GitHub源,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt,200,94,✅可用,直链,0,🆕一周内,🆕7天内更新
-,GitHub源,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt,200,81,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u,200,76,✅可用,GitHub,37,📆三个月内,
-,GitHub源,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u,200,77,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt,200,82,✅可用,GitHub,437,🧓超三个月,🧓老源437天但存活
-★,其他,http://wangziduoqing.com/yuan/zb.txt,200,1476,✅可用,其他,0,🆕一周内,🆕7天内更新
-,GitHub源,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt,200,78,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u,200,75,✅可用,直链,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u,200,206,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt,200,86,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u,200,97,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt,200,109,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt,200,80,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt,200,62,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u,200,99,✅可用,GitHub,未知,❓未知,源龄未知
-,其他,https://live.zbds.top/tv/iptv4.txt,200,1526,✅可用,网页,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt,200,92,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u,200,102,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u,200,137,✅可用,GitHub,未知,❓未知,源龄未知
-,其他,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt,200,8587,✅可用,网页,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u,200,85,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u,200,85,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt,200,109,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u,200,88,✅可用,直链,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u,200,119,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt,200,104,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt,200,108,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u,200,82,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt,200,80,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u,200,82,✅可用,直链,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u,200,184,✅可用,GitHub,未知,❓未知,源龄未知
-,其他,https://live.zhoujie218.top/tv/iptv4.txt,200,1913,✅可用,网页,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u,200,99,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u,200,100,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u,200,106,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u,200,126,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u,200,116,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt,200,154,✅可用,GitHub,未知,❓未知,源龄未知
-,GitHub源,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt,200,90,✅可用,GitHub,未知,❓未知,源龄未知
-,其他,https://ds65.tv1288.xyz,403,50,fail,其他,未知,❓未知,源龄未知
-,TVBox,http://west.shaonv.me/tvbox/live.txt,200,1619,✅可用,其他,923,🧓超三个月,🧓老源923天但存活
-,其他,https://iptv.zsdc.eu.org/home/iptv.m3u8,200,315,✅可用,直链,未知,❓未知,源龄未知
-,其他,https://ilook.epg.one/5CM5SY98BF24PL/2,200,380,✅可用,其他,未知,❓未知,源龄未知
-★,其他,https://live.iptv-free.com/iptv/categories/general.m3u,200,381,✅可用,其他,0,🆕一周内,🆕7天内更新
-★,其他,https://live.iptv-free.com/iptv/categories/movies.m3u,200,395,✅可用,其他,0,🆕一周内,🆕7天内更新
-,GitHub源,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt,200,570,✅可用,GitHub,未知,❓未知,源龄未知
-,其他,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt,403,310,fail,其他,未知,❓未知,源龄未知
-,其他,http://yimolan.serv00.net/zb/live.php,200,542,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://xn--6orr3pi6g9uu.top/zb/zb.txt,200,826,✅可用,其他,172,🧓超三个月,🧓老源172天但存活
-,其他,http://tv123.vvvv.ee/tv.m3u,200,1567,✅可用,其他,未知,❓未知,源龄未知
-,其他,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt,200,1893,✅可用,其他,881,🧓超三个月,🧓老源881天但存活
-,其他,https://iptv.445569.xyz/live.m3u,200,12482,✅可用,其他,未知,❓未知,源龄未知
-
-,,,,,,,,,
-僵尸源清单,共0个,,,,,,,,
+名称,URL,状态,延迟ms,错误,分档,源龄,类别,描述,是否僵尸,时间
+tv.m3u,http://47.94.6.170/TV/tv.m3u,✅,443,,三月内,📆74天(三月内),3month,last-modified,否,2026-09-23 10:40:53
+all.m3u,https://aptv.pro/all.m3u,❌,,连接失败,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.m3u,https://iptv.445569.xyz/live.m3u,✅,7231,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+lunbo.txt,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt,✅,270,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+体育频道.m3u,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+儿童频道.m3u,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+其他频道.m3u,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+卫视频道.m3u,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+地方频道.m3u,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+央视频道.m3u,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+戏曲频道.m3u,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+数字频道.m3u,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+游戏频道.m3u,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+电影频道.m3u,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+直播中国.m3u,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+纪录频道.m3u,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+综艺频道.m3u,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+解说频道.m3u,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+音乐频道.m3u,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+体育频道.m3u,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+儿童频道.m3u,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u,✅,1343,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+IPV6.txt,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt,✅,4446,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+iptv,https://gitee.com/hw2837/iptv/raw/master/iptv,✅,4403,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+20180818.txt,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt,✅,4418,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+其他频道.m3u,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+卫视频道.m3u,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+央视频道.m3u,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+TV,https://gitee.com/hzxs800274/iptv/raw/master/live/TV,✅,2666,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+电影频道.m3u,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+地方频道.m3u,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+index.m3u,https://iptv-org.github.io/iptv/index.m3u,✅,103,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+zho.m3u,https://iptv-org.github.io/iptv/languages/zho.m3u,✅,113,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+hk.m3u,https://iptv-org.github.io/iptv/countries/hk.m3u,✅,345,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+cn.m3u,https://iptv-org.github.io/iptv/countries/cn.m3u,✅,406,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+tw.m3u,https://iptv-org.github.io/iptv/countries/tw.m3u,✅,321,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+iptv4.txt,https://live.zhoujie218.top/tv/iptv4.txt,✅,630,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+itvlist.txt,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt,✅,5145,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+dgtv.txt,http://1.94.31.214/live/live9/dgtv.txt,✅,402,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+iptv4.txt,https://live.zbds.top/tv/iptv4.txt,✅,112,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+wxk1.m3u,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u,✅,5996,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+latest.txt,http://117.72.68.25:9230/latest.txt,✅,431,,大于三月,🧓325天(>三月),old,last-modified,否,2026-09-23 10:40:53
+zb.txt,http://wangziduoqing.com/yuan/zb.txt,✅,1110,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+live.txt,https://supprise0901.github.io/TVBox_live/live.txt,✅,318,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+xp_result.m3u,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u,✅,137,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+migu.txt,http://www.52top.com.cn:678/downloads/migu.txt,✅,970,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+iptv.m3u,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u,✅,142,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+dgtv2026.php,http://1.94.31.214/live/live9/dgtv2026.php,✅,194,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+TV-IPV4.m3u,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u,✅,120,,大于三月,🧓630天(>三月),old,github-api,否,2026-09-23 10:40:53
+live_ipv4.m3u,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u,✅,132,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.m3u,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u,✅,183,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+weishi.m3u,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u,✅,178,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+cctv.m3u,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u,✅,171,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+ipv6.m3u,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u,✅,111,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+movie_live.m3u,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u,✅,190,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.m3u,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u,✅,158,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+playlist.m3u8,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8,✅,46,,一月内,📅9天(一月内),month,github-api,否,2026-09-23 10:40:53
+kk.txt,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt,✅,272,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+mit,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit,✅,286,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u,✅,58,,一月内,📅27天(一月内),month,github-api,否,2026-09-23 10:40:53
+list.txt,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt,✅,229,,大于三月,🧓674天(>三月),old,github-api,否,2026-09-23 10:40:53
+%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u,✅,136,,大于三月,🧓313天(>三月),old,github-api,否,2026-09-23 10:40:53
+台湾香港澳门2023.m3u,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u,✅,148,,大于三月,🧓1304天(>三月),old,github-api,否,2026-09-23 10:40:53
+cnTV_AutoUpdate.m3u8,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8,✅,133,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+国内电视台2023.m3u8,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8,✅,198,,大于三月,🧓1304天(>三月),old,github-api,否,2026-09-23 10:40:53
+轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u,✅,136,,大于三月,🧓1304天(>三月),old,github-api,否,2026-09-23 10:40:53
+pllive.txt,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt,✅,110,,一周内,🆕0天(一周内),new,github-api,否,2026-09-23 10:40:53
+TMP.txt,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt,✅,148,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+yszb1.txt,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt,✅,174,,大于三月,🧓789天(>三月),old,github-api,否,2026-09-23 10:40:53
+ipv4.txt,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt,✅,153,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+iptv.m3u,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u,✅,74,,三月内,📆37天(三月内),3month,github-api,否,2026-09-23 10:40:53
+iptv.txt,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt,✅,205,,大于三月,🧓437天(>三月),old,github-api,否,2026-09-23 10:40:53
+user_result.m3u,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u,✅,200,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u,✅,258,,一月内,📅27天(一月内),month,github-api,否,2026-09-23 10:40:53
+20180818china.txt,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt,✅,5314,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+hotel.txt,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt,✅,143,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+yylunbo.m3u,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u,✅,139,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u,✅,135,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+bbxx365.m3u,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u,✅,744,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+IPTV.m3u,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u,✅,168,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt,✅,188,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt,✅,145,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+zubo_all.txt,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt,✅,150,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt,✅,137,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+ipv6.m3u,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u,✅,163,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+ipv4.m3u,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u,✅,153,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+iptv.txt,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt,✅,167,,一周内,🆕0天(一周内),new,github-api,否,2026-09-23 10:40:53
+iptv4.txt,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt,✅,162,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+iptv4.m3u,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u,✅,98,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+collect_tv.m3u,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u,✅,199,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+tv.m3u,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u,✅,247,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+http_wangziduoqing.com_yuan_zb.txt.txt,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt,✅,181,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u,✅,207,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+Gather.m3u,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u,✅,115,,一周内,🆕5天(一周内),new,github-api,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u,✅,419,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+IPTV.m3u,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u,✅,154,,一周内,🆕2天(一周内),new,github-api,否,2026-09-23 10:40:53
+live.txt,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt,✅,150,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt,✅,329,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+user_result.m3u,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u,✅,138,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+iptv.m3u,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u,✅,137,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt,✅,156,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+LU.m3u,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u,✅,160,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.m3u,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u,✅,121,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+result.m3u,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u,✅,179,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,http://west.shaonv.me/tvbox/live.txt,✅,4334,,大于三月,🧓923天(>三月),old,last-modified,否,2026-09-23 10:40:53
+yiyifafa.txt,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt,✅,279,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+itvlist.txt,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt,✅,245,,大于三月,🧓308天(>三月),old,github-api,否,2026-09-23 10:40:53
+iptv.m3u8,https://iptv.zsdc.eu.org/home/iptv.m3u8,✅,491,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+ds65.tv1288.xyz,https://ds65.tv1288.xyz,❌,,HTTP403,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+movies.m3u,https://live.iptv-free.com/iptv/categories/movies.m3u,✅,342,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+general.m3u,https://live.iptv-free.com/iptv/categories/general.m3u,✅,370,,一周内,🆕0天(一周内),new,last-modified,否,2026-09-23 10:40:53
+zb.txt,https://xn--6orr3pi6g9uu.top/zb/zb.txt,✅,394,,大于三月,🧓173天(>三月),old,last-modified,否,2026-09-23 10:40:53
+2,https://ilook.epg.one/5CM5SY98BF24PL/2,✅,709,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.php,http://yimolan.serv00.net/zb/live.php,✅,464,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+live.txt,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt,✅,1127,,大于三月,🧓202天(>三月),old,last-modified,否,2026-09-23 10:40:53
+tv.m3u,http://tv123.vvvv.ee/tv.m3u,✅,540,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
+wexiptv.txt,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt,✅,1758,,大于三月,🧓881天(>三月),old,last-modified,否,2026-09-23 10:40:53
+iptv.m3u,https://gitee.com/lwr851/live/raw/master/iptv.m3u,✅,1229,,大于三月,❓未知,old,,否,2026-09-23 10:40:53
 ,,（无）,,,本次无>90天且不通的源,,,,
