@@ -1,5 +1,5 @@
-# 生成时间: 2026-09-22 19:52:48
-# 真失效: 4 个
+# 生成时间: 2026-09-23 11:03:17
+# 真失效: 5 个
 
 # ---- 国内源 ----
 # (无)
@@ -20,4 +20,5 @@ https://yg.ygbox.de5.net/huya.php  #0 timeout
 https://ds65.tv1288.xyz  #403 fail
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt  #403 fail
 http://rihou.cc:555/gggg.nzk  #403 fail
+https://chuxinya.top/f/2xLkt8/12.28%E9%A3%9E%E6%89%AC%E7%9B%B4%E6%92%AD.txt  #0 timeout
 
