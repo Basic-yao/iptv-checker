@@ -393,14 +393,17 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-    # ── live_report.csv ──
-    # 第1行：生成时间占第1列，后8列空（严格9列）
-    # 第2行：表头（更新时间只到日期，网址置末）
+# ── live_report.csv（按更新时间从新到旧排序 | 仅此表排序）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
+        # 第1行：生成时间占第1列，后8列空（严格9列）
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
+        # 第2行：表头
         w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态",
                     "类型", "源龄(天)", "更新分档", "备注", "网址"])
+
+        # 先收集去重后的数据行
+        rows = []
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
             norm = normalize_url(url)
@@ -422,6 +425,14 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
+            # 排序键：日期越新越靠前；"未知"排最后
+            sort_key = update_date if update_date != "未知" else "9999-99-99"
+            rows.append((sort_key, update_date, status, elapsed, state, url_type, age_str, tier, note, url))
+
+        # 按更新时间从新到旧排序
+        rows.sort(key=lambda r: r[0])
+
+        for (_, update_date, status, elapsed, state, url_type, age_str, tier, note, url) in rows:
             w.writerow([update_date, status, elapsed, state, url_type, age_str, tier, note, url])
 
         # 僵尸源汇总块
