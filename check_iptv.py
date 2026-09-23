@@ -394,13 +394,11 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-    # ── live_report.csv（生成时间第一行 | 无大类 | 网址置末）──
+# ── live_report.csv（生成时间并入首列表头，每行列数一致）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 第一行：生成时间（左对齐，单独一行）
-        w.writerow([f"生成时间: {ts}"])
-        # 第二行：表头（网址放最后，无大类列）
-        w.writerow(["名称", "状态码", "响应时间(ms)", "状态",
+        # 表头：生成时间作为第一列，其余列照常（每行都是9列，兼容CSV预览）
+        w.writerow([f"生成时间: {ts}", "名称", "状态码", "响应时间(ms)", "状态",
                     "类型", "源龄(天)", "更新分档", "备注", "网址"])
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
@@ -424,18 +422,18 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            # 网址列置末
-            w.writerow([name, status, elapsed, state, url_type, age_str, tier, note, url])
+            # 数据行：第一列留空（生成时间只出现在表头），网址置末
+            w.writerow(["", name, status, elapsed, state, url_type, age_str, tier, note, url])
 
         # 僵尸源汇总块
-        w.writerow([])
-        w.writerow(["僵尸源清单", "", "", "", "", "", "", f"共{len(_stale_urls)}个", ""])
+        w.writerow(["", "", "", "", "", "", "", "", "", ""])
+        w.writerow(["", "僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
                 days, desc = get_source_age._cache.get(s, (None, ""))
-                w.writerow(["", "", "", "僵尸源", "", age_label(days), tier_of(days), desc, s])
+                w.writerow(["", "", "", "僵尸源", "", age_label(days), tier_of(days), desc, "", s])
         else:
-            w.writerow(["", "", "", "本次无>90天且不通的源", "", "", "", "", ""])
+            w.writerow(["", "", "", "本次无>90天且不通的源", "", "", "", "", "", ""])
 
     # ── 总结 ──
     print(f"\n{'='*60}")
