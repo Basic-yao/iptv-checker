@@ -1,7 +1,7 @@
-# 生成时间(北京时间): 2026-09-23 19:59:17
+# 生成时间(北京时间): 2026-09-23 20:13:58
 # 可用源合计: 94 个
 
-# ---- 🆕 一周内（≤7天）（16个） ----
+# ---- 🆕 一周内（≤7天）（15个） ----
 http://1.94.31.214/live/live9/dgtv.txt
 http://1.94.31.214/live/live9/dgtv2026.php
 http://wangziduoqing.com/yuan/zb.txt
@@ -15,7 +15,6 @@ https://live.iptv-free.com/iptv/categories/general.m3u
 https://live.iptv-free.com/iptv/categories/movies.m3u
 https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
 https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
-https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
 https://supprise0901.github.io/TVBox_live/live.txt
 
@@ -28,7 +27,7 @@ https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
 http://47.94.6.170/TV/tv.m3u
 https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
 
-# ---- 🧓 超三个月（>90天）（73个） ----
+# ---- 🧓 超三个月（>90天）（74个） ----
 http://117.72.68.25:9230/latest.txt
 http://tv123.vvvv.ee/tv.m3u
 http://west.shaonv.me/tvbox/live.txt
@@ -60,6 +59,7 @@ https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.t
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
 https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u
 https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
 https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u
