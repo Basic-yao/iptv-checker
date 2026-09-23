@@ -1,151 +1,150 @@
 ﻿状态,延迟ms,错误,分档,源龄,类别,描述,是否僵尸,时间,URL
-✅,640,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://1.94.31.214/live/live9/dgtv.txt
-✅,1257,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://1.94.31.214/live/live9/dgtv2026.php
-✅,729,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://117.72.68.25:9230/latest.txt
-✅,457,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://47.94.6.170/TV/tv.m3u
-❌,771,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,http://tv123.vvvv.ee/tv.m3u
-✅,730,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://wangziduoqing.com/yuan/zb.txt
-❌,4205,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,http://west.shaonv.me/tvbox/live.txt
-✅,1118,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://www.52top.com.cn:678/downloads/migu.txt
-✅,742,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,http://yimolan.serv00.net/zb/live.php
-✅,1091,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://aptv.pro/all.m3u
-✅,3818,,🧓 超三个月（>90天）,🧓881天,old,🧓881天,否,2026-09-23 20:30:34,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
-✅,1006,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
-❌,291,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://ds65.tv1288.xyz
-✅,7376,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
-✅,7221,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/hw2837/iptv/raw/master/iptv
-✅,7244,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/hzxs800274/iptv/raw/master/live/TV
-✅,7318,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
-✅,9176,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
-✅,7201,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/lwr851/live/raw/master/iptv.m3u
-✅,7110,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
-✅,7487,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
-✅,7452,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
-✅,746,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
-✅,789,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://ilook.epg.one/5CM5SY98BF24PL/2
-✅,928,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://iptv-org.github.io/iptv/countries/cn.m3u
-✅,937,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://iptv-org.github.io/iptv/countries/hk.m3u
-✅,876,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://iptv-org.github.io/iptv/countries/tw.m3u
-✅,976,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://iptv-org.github.io/iptv/index.m3u
-✅,972,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://iptv-org.github.io/iptv/languages/zho.m3u
-❌,623,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://iptv.445569.xyz/live.m3u
-❌,552,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://iptv.zsdc.eu.org/home/iptv.m3u8
-❌,751,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
-❌,750,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
-❌,708,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
-❌,748,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u
-❌,538,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u
-❌,583,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u
-❌,567,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u
-❌,632,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u
-❌,665,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u
-❌,475,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u
-❌,241,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u
-❌,520,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u
-❌,696,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u
-❌,733,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u
-❌,722,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u
-❌,447,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u
-❌,404,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u
-❌,516,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u
-❌,574,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
-❌,570,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
-❌,621,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
-❌,434,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
-❌,272,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.iptv-free.com/iptv/categories/general.m3u
-❌,265,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.iptv-free.com/iptv/categories/movies.m3u
-❌,1459,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.zbds.top/tv/iptv4.txt
-❌,1576,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://live.zhoujie218.top/tv/iptv4.txt
-✅,1058,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u
-✅,496,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
-✅,754,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
-✅,580,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
-✅,487,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u
-✅,668,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
-✅,632,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
-✅,433,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
-✅,309,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
-✅,435,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt
-✅,427,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
-✅,504,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
-✅,553,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
-✅,621,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
-✅,530,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
-✅,477,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
-✅,468,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
-✅,721,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u
-✅,626,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
-✅,905,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u
-✅,492,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u
-✅,749,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
-✅,401,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u
-✅,336,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
-✅,643,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt
-✅,597,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
-✅,581,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
-❌,325,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
-❌,318,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
-❌,302,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
-✅,546,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
-✅,550,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
-✅,485,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
-✅,418,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt
-✅,607,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u
-✅,601,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
-✅,539,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
-✅,352,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
-✅,619,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
-✅,399,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt
-✅,497,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
-✅,469,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
-✅,389,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u
-✅,544,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
-✅,468,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
-✅,517,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
-✅,341,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt
-✅,504,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
-✅,464,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
-✅,391,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt
-✅,479,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt
-✅,559,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u
-✅,492,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
-✅,477,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt
-✅,457,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u
-✅,523,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
-✅,318,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
-✅,403,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
-✅,947,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:30:34,https://supprise0901.github.io/TVBox_live/live.txt
-❌,356,HTTP Error 403: Forbidden,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:30:34,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
-❌,8546,The read operation timed out,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:30:34,https://xn--6orr3pi6g9uu.top/zb/zb.txt
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,http://tv123.vvvv.ee/tv.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,http://west.shaonv.me/tvbox/live.txt
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://ds65.tv1288.xyz
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://iptv.445569.xyz/live.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://iptv.zsdc.eu.org/home/iptv.m3u8
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.iptv-free.com/iptv/categories/general.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.iptv-free.com/iptv/categories/movies.m3u
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.zbds.top/tv/iptv4.txt
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://live.zhoujie218.top/tv/iptv4.txt
-,,,僵尸源,,🧓180天,old,,2026-09-23 20:30:34,https://xn--6orr3pi6g9uu.top/zb/zb.txt
+✅,926,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://1.94.31.214/live/live9/dgtv.txt
+✅,1463,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://1.94.31.214/live/live9/dgtv2026.php
+✅,918,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://117.72.68.25:9230/latest.txt
+✅,604,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://47.94.6.170/TV/tv.m3u
+❌,709,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,http://tv123.vvvv.ee/tv.m3u
+✅,982,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://wangziduoqing.com/yuan/zb.txt
+❌,5121,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,http://west.shaonv.me/tvbox/live.txt
+✅,1248,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://www.52top.com.cn:678/downloads/migu.txt
+✅,542,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,http://yimolan.serv00.net/zb/live.php
+✅,1321,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://aptv.pro/all.m3u
+✅,2309,,🧓 超三个月（>90天）,🧓881天,old,🧓881天,否,2026-09-23 20:34:21,https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
+✅,741,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
+❌,365,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://ds65.tv1288.xyz
+✅,7251,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
+✅,8786,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/hw2837/iptv/raw/master/iptv
+✅,7666,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/hzxs800274/iptv/raw/master/live/TV
+✅,7760,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
+✅,6424,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
+✅,7961,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/lwr851/live/raw/master/iptv.m3u
+✅,7788,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
+✅,8223,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
+✅,7196,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
+✅,726,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
+✅,625,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://ilook.epg.one/5CM5SY98BF24PL/2
+✅,731,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://iptv-org.github.io/iptv/countries/cn.m3u
+✅,695,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://iptv-org.github.io/iptv/countries/hk.m3u
+✅,862,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://iptv-org.github.io/iptv/countries/tw.m3u
+✅,891,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://iptv-org.github.io/iptv/index.m3u
+✅,780,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://iptv-org.github.io/iptv/languages/zho.m3u
+❌,265,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://iptv.445569.xyz/live.m3u
+❌,602,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://iptv.zsdc.eu.org/home/iptv.m3u8
+❌,417,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
+❌,396,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
+❌,248,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
+❌,495,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u
+❌,543,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u
+❌,461,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u
+❌,528,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u
+❌,655,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u
+❌,427,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u
+❌,615,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u
+❌,664,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u
+❌,596,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u
+❌,575,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u
+❌,212,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u
+❌,620,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u
+❌,589,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u
+❌,533,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u
+❌,604,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u
+❌,459,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
+❌,350,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
+❌,597,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
+❌,530,'ascii' codec can't encode characters in position ,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
+❌,568,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.iptv-free.com/iptv/categories/general.m3u
+❌,367,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.iptv-free.com/iptv/categories/movies.m3u
+❌,2476,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.zbds.top/tv/iptv4.txt
+❌,2442,HTTP Error 403: Forbidden,🧓 超三个月（>90天）,🧓180天,old,🧓180天,是,2026-09-23 20:34:21,https://live.zhoujie218.top/tv/iptv4.txt
+✅,924,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/0610840119/iptv-api/refs/heads/master/output/xp_result.m3u
+✅,754,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Basic-yao/TVBox/refs/heads/main/live.m3u
+✅,151,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
+✅,567,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/live.m3u
+✅,615,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/DataShare-duo/IPTV-Source/refs/heads/main/movie_live.m3u
+✅,419,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+✅,548,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u
+✅,531,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u
+✅,406,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+✅,383,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt
+✅,426,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
+✅,339,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
+✅,403,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv4/result.m3u
+✅,416,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/ipv6/result.m3u
+✅,407,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/XinMan939/iptv-api/refs/heads/master/output/log/subscribe/http_wangziduoqing.com_yuan_zb.txt.txt
+✅,332,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
+✅,351,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
+✅,436,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/alantang1977/cluntop/refs/heads/main/lib/iptv.m3u
+✅,554,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/alantang1977/iptv_api/refs/heads/main/output/live_ipv4.m3u
+✅,498,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/cyh92/iptv-api-cctv/refs/heads/master/output/cctv.m3u
+✅,642,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/cyh92/iptv-api-weishi/refs/heads/master/output/weishi.m3u
+✅,415,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/dongqwe55/zby/refs/heads/main/kk.txt
+✅,582,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u
+✅,521,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit
+✅,551,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt
+✅,461,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
+✅,428,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u
+❌,397,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
+❌,379,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
+❌,334,'ascii' codec can't encode characters in position ,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
+✅,494,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
+✅,464,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
+✅,435,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
+✅,399,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt
+✅,482,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/kimwang1978/collect-txt/refs/heads/main/bbxx365.m3u
+✅,433,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
+✅,384,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
+✅,344,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
+✅,419,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
+✅,404,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt
+✅,609,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
+✅,434,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
+✅,395,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u
+✅,559,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
+✅,384,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
+✅,426,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
+✅,346,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt
+✅,392,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
+✅,308,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/wwb521/live/refs/heads/main/tv.m3u
+✅,378,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/xiongjian83/TvBox/refs/heads/main/live.txt
+✅,416,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/live.txt
+✅,416,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/result.m3u
+✅,397,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/yyyr-otz/iptv-api/refs/heads/master/output/user_result.m3u
+✅,414,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5%E8%A7%86%E7%9B%B4%E6%92%AD.txt
+✅,338,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u
+✅,401,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
+✅,401,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
+✅,369,,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
+✅,1096,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://supprise0901.github.io/TVBox_live/live.txt
+❌,383,HTTP Error 403: Forbidden,🆕 一周内（≤7天）,🆕1天,new,🆕1天,否,2026-09-23 20:34:21,https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
+✅,1013,,🧓 超三个月（>90天）,🧓180天,old,🧓180天,否,2026-09-23 20:34:21,https://xn--6orr3pi6g9uu.top/zb/zb.txt
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,http://tv123.vvvv.ee/tv.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,http://west.shaonv.me/tvbox/live.txt
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://ds65.tv1288.xyz
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://iptv.445569.xyz/live.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://iptv.zsdc.eu.org/home/iptv.m3u8
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/卫视频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/地方频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/央视频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/戏曲频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/数字频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/游戏频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/电影频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/直播中国.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/纪录频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/综艺频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/解说频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv4/categories/音乐频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/体育频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/儿童频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/其他频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.iptv-free.com/iptv/categories/general.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.iptv-free.com/iptv/categories/movies.m3u
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.zbds.top/tv/iptv4.txt
+,,,僵尸源,,🧓180天,old,,2026-09-23 20:34:21,https://live.zhoujie218.top/tv/iptv4.txt

@@ -1,5 +1,5 @@
-# 生成时间: 2026-09-23 20:30:34
-# 僵尸源（>90天且不通）32个
+# 生成时间: 2026-09-23 20:34:21
+# 僵尸源（>90天且不通）31个
 
 http://tv123.vvvv.ee/tv.m3u  # 🧓180天
 http://west.shaonv.me/tvbox/live.txt  # 🧓180天
@@ -32,4 +32,3 @@ https://live.iptv-free.com/iptv/categories/general.m3u  # 🧓180天
 https://live.iptv-free.com/iptv/categories/movies.m3u  # 🧓180天
 https://live.zbds.top/tv/iptv4.txt  # 🧓180天
 https://live.zhoujie218.top/tv/iptv4.txt  # 🧓180天
-https://xn--6orr3pi6g9uu.top/zb/zb.txt  # 🧓180天

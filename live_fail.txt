@@ -1,4 +1,4 @@
-# 生成时间: 2026-09-23 20:30:34
+# 生成时间: 2026-09-23 20:34:21
 # 失败源（字母序）
 
 http://tv123.vvvv.ee/tv.m3u
@@ -36,4 +36,3 @@ https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
 https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
-https://xn--6orr3pi6g9uu.top/zb/zb.txt
