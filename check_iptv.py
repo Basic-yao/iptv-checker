@@ -4,7 +4,7 @@
 IPTV 检查器（四档分档 + 真实源龄 + 分组裸 URL 输出）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
-输出：每个列表文件开头带生成时间；live_ok.txt 按四档分组，每组裸 URL
+输出：每个列表文件开头带【北京时间】生成时间；live_ok.txt 按四档分组，每组裸 URL
 """
 
 import os
@@ -33,6 +33,9 @@ TIER_OLD = "old"
 TIMEOUT = 20
 THREADS = 10
 
+# 北京时间 UTC+8
+BJT = timezone(timedelta(hours=8))
+
 _lock = threading.Lock()
 _results = []
 _by_tier = {TIER_NEW: [], TIER_MONTH: [], TIER_3MONTH: [], TIER_OLD: []}
@@ -40,7 +43,6 @@ _age_cache = {}
 _fail_raw = []
 _stale_urls = set()
 
-# 分组标题
 TIER_TITLE = {
     TIER_NEW:    "🆕 一周内（≤7天）",
     TIER_MONTH:  "📅 一个月内（≤30天）",
@@ -80,9 +82,10 @@ def age_label(days):
     return f"🧓{days}天(>三月)"
 
 def gen_time():
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    """固定北京时间 (UTC+8)"""
+    return datetime.now(BJT).strftime("%Y-%m-%d %H:%M:%S")
 
-# ── 源龄获取（Last-Modified / GitHub API） ───────
+# ── 源龄获取 ────────────────────────────────────
 def fetch_age(url):
     if url in _age_cache:
         return _age_cache[url]
@@ -115,7 +118,7 @@ def fetch_age(url):
     _age_cache[url] = (days, desc)
     return days, desc
 
-# ── 检测核心（OK 判定不变） ─────────────────────
+# ── 检测核心 ────────────────────────────────────
 def check_one(line):
     raw = line.strip()
     if not raw or raw.startswith("#"):
@@ -180,7 +183,7 @@ def main():
     THREADS = args.threads
 
     ts = gen_time()
-    print(f"🕒 开始检测（{ts}）")
+    print(f"🕒 开始检测（北京时间 {ts}）")
     print(f"线程: {THREADS} | 超时: {TIMEOUT}s")
     print(f"分档: ≤7天 / ≤30天 / ≤90天 / >90天")
 
@@ -214,9 +217,9 @@ def main():
 
     total_ok = sum(1 for r in _results if r[3])
 
-    # ── live_ok.txt（分组 + 裸 URL，带生成时间） ──
+    # ── live_ok.txt ──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 生成时间(北京时间): {ts}\n")
         f.write(f"# 可用源合计: {total_ok} 个\n\n")
         any_written = False
         for t in TIER_ORDER:
@@ -231,20 +234,20 @@ def main():
         if not any_written:
             f.write("# 无可用源\n")
 
-    # ── live_ok.m3u（带生成时间） ──
+    # ── live_ok.m3u ──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 生成时间(北京时间): {ts}\n")
         f.write("#EXTM3U\n")
         for r in _results:
             if r[3]:
                 name = r[1] if r[1] else r[2].split("/")[-1]
                 f.write(f"#EXTINF:-1,{name}\n{r[2]}\n")
 
-    # ── 分档单文件（带生成时间 + 源龄标注） ──
+    # ── 分档单文件 ──
     for t, fn in [(TIER_NEW, "live_recent.txt"), (TIER_MONTH, "live_month.txt"),
                   (TIER_3MONTH, "live_3month.txt"), (TIER_OLD, "live_old.txt")]:
         with open(fn, "w", encoding="utf-8") as f:
-            f.write(f"# 生成时间: {ts}\n")
+            f.write(f"# 生成时间(北京时间): {ts}\n")
             f.write(f"# {TIER_TITLE[t]}（{len(set(_by_tier[t]))}个）\n\n")
             for u in sorted(set(_by_tier[t])):
                 days, desc = _age_cache.get(u, (None, ""))
@@ -252,18 +255,18 @@ def main():
 
     # ── 失败 / 僵尸 ──
     with open("live_fail.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 生成时间(北京时间): {ts}\n")
         for u in sorted(set(_fail_raw)):
             f.write(u + "\n")
 
     with open("live_stale.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 生成时间(北京时间): {ts}\n")
         f.write(f"# 僵尸源（>90天且不通）{len(_stale_urls)}个\n\n")
         for u in sorted(_stale_urls):
             days, _ = _age_cache.get(u, (None, ""))
             f.write(f"{u}  # {age_label(days)}\n")
 
-    # ── CSV 报告（11列） ──
+    # ── CSV 报告 ──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as cf:
         w = csv.writer(cf)
         w.writerow(["名称", "URL", "状态", "延迟ms", "错误", "分档", "源龄", "类别", "描述", "是否僵尸", "时间"])
@@ -284,7 +287,7 @@ def main():
 
     # ── 总结 ──
     print(f"\n{'='*60}")
-    print(f"✅ 全部完成 | {ts}")
+    print(f"✅ 全部完成 | 北京时间 {ts}")
     print(f"{'='*60}")
     print(f"   live_ok.txt     ← {total_ok} 条（四档分组，裸 URL）")
     print(f"   live_ok.m3u     ← {total_ok} 条")
