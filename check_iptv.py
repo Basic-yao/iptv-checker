@@ -1,323 +1,417 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源自动检测脚本
-功能：检测 live.txt 中的 URL 可用性，按源龄分档，生成报告
+IPTV 检查器（四档分档 + 真实源龄 + 原OK判定不变）
+分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
+源龄：远程URL用Last-Modified/GitHub API；取不到标未知
+live_ok.txt = 纯URL，按四档归类，无尾注
+live_report.csv = 生成时间首行首列 / 更新时间只到日期 / 网址置末 / 严格9列
 """
-
 import os
+import re
 import sys
 import csv
 import time
 import json
-import math
 import socket
-import argparse
 import threading
-import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import argparse
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
+from urllib.parse import urlparse, urlunparse
 
 import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
+from requests.exceptions import RequestException, Timeout, ConnectionError
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ═══════════════════════════════════════════════
 # 全局配置
 # ═══════════════════════════════════════════════
-TIMEOUT = 20
 THREADS = 10
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
-HEADERS = {"User-Agent": USER_AGENT}
-
+TIMEOUT = 20
+STALE_DAYS = 90
 RECENT_DAYS = 7
 MONTH_DAYS = 30
 THREE_MONTH_DAYS = 90
-STALE_DAYS = 90
 
-TIER_NEW = "new"
-TIER_MONTH = "month"
-TIER_3MONTH = "3month"
-TIER_OLD = "old"
-TIER_UNKNOWN = "unknown"
+USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+              "AppleWebKit/537.36 (KHTML, like Gecko) "
+              "Chrome/120.0 Safari/537.36")
+HEADERS = {"User-Agent": USER_AGENT}
+
+TIER_NEW = "🆕一周内"
+TIER_MONTH = "📅一个月内"
+TIER_3MONTH = "📆三个月内"
+TIER_OLD = "🧓超三个月"
+TIER_UNKNOWN = "❓未知"
+
+CST8 = timezone(timedelta(hours=8))
 
 # ═══════════════════════════════════════════════
 # 工具函数
 # ═══════════════════════════════════════════════
-def now_beijing():
-    """获取北京时间字符串"""
-    return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+def now_cst():
+    return datetime.now(CST8)
 
-def normalize_url(url):
-    """标准化 URL（用于去重）"""
-    url = url.strip().split("#")[0].split("?")[0]
-    if url.endswith("/"):
-        url = url[:-1]
-    return url
+def ts_cst():
+    return now_cst().strftime("%Y-%m-%d %H:%M:%S")
+
+def normalize_url(u):
+    u = u.strip().split("#")[0].strip()
+    try:
+        p = urlparse(u)
+        netloc = p.netloc.lower().replace("www.", "")
+        path = p.path.rstrip("/")
+        return urlunparse((p.scheme.lower(), netloc, path, "", "", ""))
+    except Exception:
+        return u.strip().lower()
 
 def get_domain(url):
-    """提取域名"""
     try:
-        from urllib.parse import urlparse
-        return urlparse(url).netloc or urlparse(url).path.split("/")[0]
+        return urlparse(url).netloc.lower()
     except Exception:
         return url
 
 def is_direct_stream(url):
-    """是否为直链流媒体"""
-    return url.endswith((".m3u8", ".ts", ".m3u"))
-
-def is_github_url(url):
-    """是否为 GitHub/Gitee/GitLab 等代码托管"""
-    return any(x in url for x in ["github.com", "gitee.com", "gitlab.com", "raw.githubusercontent.com"])
+    low = url.lower()
+    return any(k in low for k in [".m3u8", ".ts?", "/live/", "/stream/", "/play/",
+                                   "channel=", "/hls/", "/rtmp/", "/flv", "/dash/"])
 
 def is_web_page(url):
-    """是否为网页"""
-    return not is_direct_stream(url) and not is_github_url(url)
+    low = url.lower()
+    if "github" in low:
+        return False
+    if is_direct_stream(url):
+        return False
+    return any(k in low for k in ["/tv/", "/live/", "/m3u/", "/playlist", ".html",
+                                   "/index", "/list/", "/channels/", "/api/channel", "/epg"])
+
+def is_github_url(url):
+    low = url.lower()
+    return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com"])
+
+# ═══════════════════════════════════════════════
+# 源龄检测（返回 days + 更新日期，只到日期）
+# ═══════════════════════════════════════════════
+def get_source_age(url):
+    norm = normalize_url(url)
+    if hasattr(get_source_age, "_cache"):
+        if norm in get_source_age._cache:
+            return get_source_age._cache[norm]
+    else:
+        get_source_age._cache = {}
+
+    now = now_cst()
+    days = None
+    update_date = ""   # 只到日期，如 2026-09-20
+
+    try:
+        if is_github_url(url):
+            m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
+            if m:
+                owner, repo, branch, path = m.groups()
+                path = path.split("?")[0].split("#")[0]
+                api = f"https://api.github.com/repos/{owner}/{repo}/commits?path={path}&per_page=1"
+                try:
+                    r = requests.get(api, headers=HEADERS, timeout=10)
+                    if r.status_code == 200 and r.json():
+                        dt_str = r.json()[0]["commit"]["committer"]["date"]
+                        dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+                        days = (now - dt.astimezone(CST8)).days
+                        update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
+                        get_source_age._cache[norm] = (days, update_date)
+                        return days, update_date
+                except Exception:
+                    pass
+
+        try:
+            r = requests.head(norm, headers=HEADERS, timeout=10, allow_redirects=True, verify=False)
+            lm = r.headers.get("Last-Modified")
+            if lm:
+                dt = parsedate_to_datetime(lm)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                days = (now - dt.astimezone(CST8)).days
+                update_date = dt.astimezone(CST8).strftime("%Y-%m-%d")
+                get_source_age._cache[norm] = (days, update_date)
+                return days, update_date
+        except Exception:
+            pass
+    except Exception:
+        pass
+
+    update_date = "未知"
+    get_source_age._cache[norm] = (None, update_date)
+    return None, update_date
 
 def tier_of(days):
-    """源龄分档"""
     if days is None:
-        return "🧓超三个月"
+        return TIER_OLD
     if days <= RECENT_DAYS:
-        return "🆕一周内"
+        return TIER_NEW
     if days <= MONTH_DAYS:
-        return "📅一个月内"
+        return TIER_MONTH
     if days <= THREE_MONTH_DAYS:
-        return "📆三个月内"
-    return "🧓超三个月"
+        return TIER_3MONTH
+    return TIER_OLD
 
 def age_label(days):
     if days is None:
         return "未知"
-    return f"{days}天"
+    if days <= RECENT_DAYS:
+        return f"{days}天(一周内)"
+    if days <= MONTH_DAYS:
+        return f"{days}天(一月内)"
+    if days <= THREE_MONTH_DAYS:
+        return f"{days}天(三月内)"
+    return f"{days}天(超三月)"
 
 # ═══════════════════════════════════════════════
-# 源龄获取（带缓存）
-# ═══════════════════════════════════════════════
-get_source_age = lambda url: (None, "未知")
-get_source_age._cache = {}
-
-def fetch_source_age(url):
-    """获取源更新时间（Last-Modified / GitHub 提交时间）"""
-    if url in get_source_age._cache:
-        return get_source_age._cache[url]
-    try:
-        sess = requests.Session()
-        retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
-        sess.mount("http://", HTTPAdapter(max_retries=retries))
-        sess.mount("https://", HTTPAdapter(max_retries=retries))
-        
-        head = sess.head(url, headers=HEADERS, timeout=10, allow_redirects=True)
-        lm = head.headers.get("Last-Modified")
-        if lm:
-            try:
-                dt = datetime.datetime.strptime(lm, "%a, %d %b %Y %H:%M:%S %Z")
-                days = (datetime.datetime.utcnow() - dt).days
-                res = (days, lm)
-                get_source_age._cache[url] = res
-                return res
-            except Exception:
-                pass
-        
-        # GitHub/Gitee 尝试获取提交时间
-        if is_github_url(url):
-            try:
-                api_url = url.replace("raw.githubusercontent.com", "api.github.com/repos").replace("/raw/", "/contents/")
-                api_url = api_url.split("/master/")[0] + "/commits?path=" + "/".join(url.split("/master/")[1:])
-                r = sess.get(api_url, headers=HEADERS, timeout=10)
-                if r.status_code == 200:
-                    data = r.json()
-                    if isinstance(data, list) and data:
-                        commit_date = data[0]["commit"]["author"]["date"]
-                        dt = datetime.datetime.strptime(commit_date, "%Y-%m-%dT%H:%M:%SZ")
-                        days = (datetime.datetime.utcnow() - dt).days
-                        res = (days, commit_date[:16].replace("T", " "))
-                        get_source_age._cache[url] = res
-                        return res
-            except Exception:
-                pass
-        
-        res = (None, "未知")
-        get_source_age._cache[url] = res
-        return res
-    except Exception:
-        res = (None, "未知")
-        get_source_age._cache[url] = res
-        return res
-
-# ═══════════════════════════════════════════════
-# 检测核心
+# 检测核心（三层判定）
 # ═══════════════════════════════════════════════
 def check_url(url):
-    """检测单个 URL"""
-    start = time.time()
     norm = normalize_url(url)
+    if norm in _seen_u:
+        return
+    _seen_u.add(norm)
+    _uniq_urls.append(url)
+
+    start = time.time()
+    status = 0
+    elapsed = 0
+    flag = ""
+
     try:
-        sess = requests.Session()
-        retries = Retry(total=1, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
-        sess.mount("http://", HTTPAdapter(max_retries=retries))
-        sess.mount("https://", HTTPAdapter(max_retries=retries))
-        
-        r = sess.get(url, headers=HEADERS, timeout=TIMEOUT, stream=True, allow_redirects=True)
-        elapsed = int((time.time() - start) * 1000)
-        status = r.status_code
-        
-        # 判断是否可用：状态码 200 或 403（部分源 403 但可用）
-        ok = status in (200, 206) or (status == 403 and is_direct_stream(url))
-        flag = "✅可用" if ok else f"❌{status}"
-        
-        # 获取源龄
-        days, update_time = fetch_source_age(norm)
-        
-        with _lock:
-            _results.append((url, status, elapsed, flag, ok))
-            if ok:
-                _ok_raw.append(url)
-                if days is not None:
-                    if days <= RECENT_DAYS:
-                        _by_tier[TIER_NEW].append(url)
-                    elif days <= MONTH_DAYS:
-                        _by_tier[TIER_MONTH].append(url)
-                    elif days <= THREE_MONTH_DAYS:
-                        _by_tier[TIER_3MONTH].append(url)
-                    else:
-                        _by_tier[TIER_OLD].append(url)
-                        _old_but_alive[norm] = days
+        try:
+            r = requests.head(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False)
+            elapsed = int((time.time() - start) * 1000)
+            status = r.status_code
+            if status in (200, 206, 301, 302):
+                flag = "ok"
+            elif status == 403:
+                if is_github_url(url):
+                    flag = "limited"
+                elif is_web_page(url):
+                    flag = "web_403"
                 else:
-                    _by_tier[TIER_UNKNOWN].append(url)
-                
-                if days is not None and days <= RECENT_DAYS:
-                    _recent_urls.add(norm)
-                if days is not None and days > STALE_DAYS and not ok:
-                    _stale_urls.add(norm)
+                    flag = "fail"
+            elif status == 405:
+                raise RequestException("try_get")
             else:
-                _fail_raw.append(url)
-                if days is not None and days > STALE_DAYS:
-                    _stale_urls.add(norm)
-        
-        return url, status, elapsed, flag, ok
-    except Exception as e:
+                flag = "fail"
+        except RequestException:
+            pass
+
+        if flag in ("", "fail", None):
+            start = time.time()
+            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True, verify=False, stream=True)
+            elapsed = int((time.time() - start) * 1000)
+            r.close()
+            status = r.status_code
+            if status in (200, 206, 301, 302):
+                flag = "ok"
+            elif status == 403:
+                if is_github_url(url):
+                    flag = "limited"
+                elif is_web_page(url):
+                    flag = "web_403"
+                else:
+                    flag = "fail"
+            else:
+                flag = "fail"
+    except Timeout:
         elapsed = int((time.time() - start) * 1000)
-        flag = f"⏱超时" if "timeout" in str(e).lower() else f"❌异常"
-        with _lock:
-            _results.append((url, 0, elapsed, flag, False))
-            _fail_raw.append(url)
-        return url, 0, elapsed, flag, False
+        flag = "timeout"
+    except ConnectionError:
+        elapsed = int((time.time() - start) * 1000)
+        flag = "conn"
+    except Exception:
+        elapsed = int((time.time() - start) * 1000)
+        flag = "err"
+
+    ok = is_usable(status, flag, url)
+    with _lock:
+        _results.append((url, status, elapsed, flag, ok))
+        if ok:
+            _ok_raw.append((url, status, elapsed, flag))
+        else:
+            _fail_raw.append((url, status, elapsed, flag))
+
+def is_usable(status, flag, url=""):
+    if status in (200, 206, 301, 302):
+        return True
+    if status == 403 and flag in ("limited", "web_403"):
+        return True
+    return False
+
+# ═══════════════════════════════════════════════
+# 写文件通用表头
+# ═══════════════════════════════════════════════
+def write_header(f, title):
+    f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
+    f.write(f"# {title}\n\n")
 
 # ═══════════════════════════════════════════════
 # 主流程
 # ═══════════════════════════════════════════════
 def main():
-    global TIMEOUT, THREADS
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--timeout", type=int, default=TIMEOUT)
-    parser.add_argument("--threads", type=int, default=THREADS)
-    args = parser.parse_args()
-    TIMEOUT = args.timeout
+    global THREADS, TIMEOUT
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--threads", type=int, default=THREADS)
+    ap.add_argument("--timeout", type=int, default=TIMEOUT)
+    args = ap.parse_args()
     THREADS = args.threads
+    TIMEOUT = args.timeout
 
-    ts = now_beijing()
-    print(f"\n{'='*60}")
-    print(f"🚀 IPTV 检测开始 | {ts} (北京时间)")
-    print(f"⏱超时: {TIMEOUT}s | 线程: {THREADS}")
-    print(f"{'='*60}")
+    ts = ts_cst()
+    print(f"🕒 开始检测（北京时间 {ts}）")
+    print(f"⚙️ 线程: {THREADS} | 超时: {TIMEOUT}s")
+    print(f"📅 分档: ≤{RECENT_DAYS}天 / ≤{MONTH_DAYS}天 / ≤{THREE_MONTH_DAYS}天 / >{THREE_MONTH_DAYS}天")
 
-    # 读取 live.txt
     if not os.path.exists("live.txt"):
-        print("❌ live.txt 不存在")
-        sys.exit(1)
-    
-    urls = []
-    with open("live.txt", encoding="utf-8") as f:
+        sys.exit("❌ 缺 live.txt")
+
+    raw_lines = []
+    with open("live.txt", "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            if line.startswith("http"):
-                norm = normalize_url(line)
-                if norm not in _seen_u:
-                    _seen_u.add(norm)
-                    urls.append(line)
-                    _uniq_urls.append(norm)
-    
-    print(f"📥 读取 {len(urls)} 个唯一 URL")
+            if line and not line.startswith("#"):
+                raw_lines.append(line)
+    print(f"📥 读取 {len(raw_lines)} 行")
 
-    # 并发检测
+    dedup_map = {}
+    for line in raw_lines:
+        u = normalize_url(line)
+        if u and u.startswith("http"):
+            dedup_map[u] = line
+    print(f"🔗 去重后 {len(dedup_map)} 个唯一源")
+
+    print("🚀 开始检测...")
+    completed = 0
+    total = len(dedup_map)
     with ThreadPoolExecutor(max_workers=THREADS) as ex:
-        futures = [ex.submit(check_url, u) for u in urls]
-        done = 0
-        for fut in as_completed(futures):
-            done += 1
-            try:
-                u, s, e, fl, ok = fut.result()
-                mark = "✅" if ok else "❌"
-                print(f"  {mark} [{done}/{len(urls)}] {get_domain(u)} | {s} | {e}ms | {fl}")
-            except Exception as ex:
-                print(f"  ⚠️ 异常: {ex}")
+        futures = {ex.submit(check_url, url): url for url in dedup_map.values()}
+        for fu in as_completed(futures):
+            completed += 1
+            url = futures[fu]
+            norm = normalize_url(url)
+            ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
+            icon = "✅" if ok else "❌"
+            short = url if len(url) <= 50 else url[:47] + "..."
+            if completed % 50 == 0 or completed == total:
+                print(f"  [{completed}/{total}] {icon} {short}")
 
-    # 写入文件
     total_ok = len(_ok_raw)
-    print(f"\n📊 统计: 可用{total_ok} | 失效{len(_fail_raw)} | 僵尸{len(_stale_urls)}")
+    print(f"\n📊 检测完成: ✅{total_ok} 可用 | ❌{len(_fail_raw)} 不通")
 
-    # live_ok.txt（纯 URL）
+    print("\n🕵️ 开始源龄检测...")
+    age_completed = 0
+    for url in _uniq_urls:
+        norm = normalize_url(url)
+        days, update_date = get_source_age(url)
+        tier = tier_of(days)
+        _by_tier[tier].append(url)
+        is_ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
+        if days is not None and days <= RECENT_DAYS and is_ok:
+            _recent_urls.add(norm)
+        if days is not None and days > STALE_DAYS:
+            if not is_ok:
+                _stale_urls.add(norm)
+            else:
+                _old_but_alive[norm] = days
+        age_completed += 1
+        if age_completed % 30 == 0:
+            print(f"   源龄进度: {age_completed}/{len(_uniq_urls)}")
+
+    print(f"\n📊 分档结果:")
+    for t in [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD, TIER_UNKNOWN]:
+        print(f"   {t}: {len(_by_tier[t])} 个")
+    print(f"   🆕一周内(且可用): {len(_recent_urls)} 个")
+    print(f"   🧟僵尸源(>90天且不通): {len(_stale_urls)} 个")
+
+    if total_ok == 0:
+        print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
+        sys.exit(0)
+
+    print(f"\n💾 写入文件（统一北京时间: {ts}）")
+
+    # ── live_ok.txt（纯URL，按四档归类，无尾注）──
     with open("live_ok.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts} (北京时间) | 可用: {total_ok}\n")
-        for u in _ok_raw:
-            f.write(u + "\n")
+        write_header(f, "可用源总表（按更新分档归类，纯URL）")
+        order = [TIER_NEW, TIER_MONTH, TIER_3MONTH, TIER_OLD]
+        for tier in order:
+            urls_in_tier = sorted(set(_by_tier[tier]), key=get_domain)
+            ok_urls = [u for u in urls_in_tier
+                       if any(normalize_url(r[0]) == normalize_url(u) and r[4] for r in _results)]
+            if not ok_urls:
+                continue
+            f.write(f"# ---- {tier}（{len(ok_urls)}个） ----\n")
+            for u in ok_urls:
+                f.write(f"{u}\n")
+            f.write("\n")
 
-    # live_ok.m3u
+    # ── live_ok.m3u ──
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
-        f.write("#EXTM3U\n")
-        f.write(f"# 生成时间: {ts} (北京时间) | 可用: {total_ok}\n")
-        for u in _ok_raw:
-            name = get_domain(u)
-            f.write(f"#EXTINF:-1,{name}\n{u}\n")
+        write_header(f, "可用源播放列表")
+        f.write("#EXTM3U\n\n")
+        for url, status, elapsed, flag in _ok_raw:
+            broad = get_domain(url)
+            f.write(f'#EXTINF:-1,{broad}\n{url}\n')
 
-    # 分档 txt
-    for fn, key, label in [
-        ("live_week.txt", TIER_NEW, f"🆕一周内({RECENT_DAYS}天)"),
-        ("live_month.txt", TIER_MONTH, "📅一个月内"),
-        ("live_3month.txt", TIER_3MONTH, "📆三个月内"),
-        ("live_old.txt", TIER_OLD, "🧓超三个月"),
-    ]:
-        with open(fn, "w", encoding="utf-8") as f:
-            f.write(f"# 生成时间: {ts} (北京时间) | {label} | 数量: {len(_by_tier[key])}\n")
-            for u in _by_tier[key]:
-                f.write(u + "\n")
+    # ── 分档文件 ──
+    def write_tier_file(fname, tier, label):
+        with open(fname, "w", encoding="utf-8") as f:
+            write_header(f, f"{label}（{len(_by_tier[tier])}个）")
+            for u in sorted(set(_by_tier[tier]), key=get_domain):
+                f.write(f"{u}\n")
 
-    # 僵尸源
-    with open("live_stale.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts} (北京时间) | 🧟僵尸源(>90天且不通) | 数量: {len(_stale_urls)}\n")
-        for s in sorted(_stale_urls):
-            f.write(s + "\n")
+    write_tier_file("live_week.txt", TIER_NEW, "一周内（Week）")
+    write_tier_file("live_month.txt", TIER_MONTH, "一个月内")
+    write_tier_file("live_3month.txt", TIER_3MONTH, "三个月内")
+    write_tier_file("live_old.txt", TIER_OLD, "超三个月")
 
-    # 失效
+    # ── live_fail.txt ──
     with open("live_fail.txt", "w", encoding="utf-8") as f:
-        f.write(f"# 生成时间: {ts} (北京时间) | 失效: {len(_fail_raw)}\n")
-        for u in _fail_raw:
-            f.write(u + "\n")
+        write_header(f, f"真失效源（{len(_fail_raw)}个）")
+        for url, status, elapsed, flag in _fail_raw:
+            f.write(f"{url}\n")
 
-# ── live_report.csv（全9列 | 生成时间首行首列 | 更新时间次行首列 | 网址置末）──
+    # ── live_stale.txt（僵尸源）──
+    with open("live_stale.txt", "w", encoding="utf-8") as f:
+        write_header(f, f"僵尸源 >{STALE_DAYS}天且不通（{len(_stale_urls)}个）")
+        f.write("# 这些源已从 live_ok.txt 剔除，建议人工复查后可删除\n\n")
+        if _stale_urls:
+            for nu in sorted(_stale_urls):
+                days, update_date = get_source_age._cache.get(nu, (None, "未知"))
+                f.write(f"{nu}")
+                if days is not None:
+                    f.write(f"  # 源龄{age_label(days)}")
+                if update_date and update_date != "未知":
+                    f.write(f" | 更新日期:{update_date}")
+                f.write("\n")
+        else:
+            f.write("# （无）本次无>90天且不通的源\n")
+
+    # ── live_report.csv ──
+    # 第1行：生成时间占第1列，后8列空（严格9列）
+    # 第2行：表头（更新时间只到日期，网址置末）
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 第1行：生成时间占第1列，后8列留空（视觉独占，实际9列）
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
-        # 第2行：表头（更新时间在前，网址在末，共9列）
-        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态", "类型", "源龄(天)", "更新分档", "备注", "网址"])
-        
+        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态",
+                    "类型", "源龄(天)", "更新分档", "备注", "网址"])
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
             norm = normalize_url(url)
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            days, desc = get_source_age._cache.get(norm, (None, ""))
-            update_time = desc if desc else "未知"
+            days, update_date = get_source_age._cache.get(norm, (None, "未知"))
             tier = tier_of(days)
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
             age_str = str(days) if days is not None else "未知"
-            
             note_parts = []
             if norm in _recent_urls:
                 note_parts.append(f"🆕{RECENT_DAYS}天内更新")
@@ -328,23 +422,21 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            
-            # 数据行：更新时间 + 8列数据，网址在最后（共9列）
-            w.writerow([update_time, status, elapsed, state, url_type, age_str, tier, note, url])
+            w.writerow([update_date, status, elapsed, state, url_type, age_str, tier, note, url])
 
-        # 僵尸源汇总块（保持9列）
+        # 僵尸源汇总块
         w.writerow(["", "", "", "", "", "", "", "", ""])
         w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
-                days, desc = get_source_age._cache.get(s, (None, "未知"))
-                w.writerow([desc if desc else "未知", "", "", "僵尸源", "", age_label(days), tier_of(days), "僵尸源", s])
+                days, update_date = get_source_age._cache.get(s, (None, "未知"))
+                w.writerow([update_date, "", "", "僵尸源", "", age_label(days), tier_of(days), "僵尸源", s])
         else:
             w.writerow(["本次无>90天且不通的源", "", "", "", "", "", "", "", ""])
 
-    # 总结
+    # ── 总结 ──
     print(f"\n{'='*60}")
-    print(f"✅ 全部完成 | {now_beijing()}")
+    print(f"✅ 全部完成 | {ts}")
     print(f"{'='*60}")
     print(f"   live_ok.txt     ← {total_ok} 条（纯URL，四档归类）")
     print(f"   live_ok.m3u     ← {total_ok} 条")
@@ -354,7 +446,7 @@ def main():
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源（>90天且不通）")
-    print(f"   live_report.csv ← 9列报告（生成时间独占首行 / 更新时间 / 网址置末）")
+    print(f"   live_report.csv ← 9列报告（生成时间首列/更新日期/网址置末）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
