@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-IPTV 直播源检测（最终稳定版 + 源龄检测）
+IPTV 直播源检测（最终稳定版 + 源龄检测 + 24h新近更新标识）
 - 三层判定：直链严判 / GitHub限流保留 / 网页403保留
 - 固定6大类输出
 - 同域名首字排序
 - 防清空 + 强制写文件
 - 生成时间：北京时间（CST8）
-- live_report.csv 为标准8列表格，GitHub预览搜索正常
-- 源龄检测：>90天且不通 → 分离到 live_stale.txt
+- 源龄检测：>90天且不通 → live_stale.txt
+- 24h内更新标识：源龄=0天 → 备注“新近更新<24h”
 """
 
 import sys
@@ -36,7 +36,8 @@ urllib3.disable_warnings()
 # ━━━ 全局配置 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DEFAULT_THREADS = 10
 DEFAULT_TIMEOUT = 20
-STALE_DAYS = 90  # 僵尸源阈值
+STALE_DAYS = 90       # 僵尸源阈值
+RECENT_HOURS = 24     # 新近更新阈值（小时）
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 
 CAT_ORDER = ["国内源", "国际源", "4K高清", "TVBox", "GitHub源", "其他"]
@@ -61,9 +62,8 @@ PREV_OK_FILE = 'live_ok.txt'
 # 北京时间 UTC+8
 CST8 = timezone(timedelta(hours=8))
 
-# 源龄缓存（避免重复请求同一仓库）
+# 源龄缓存
 _age_cache = {}
-_age_lock = None
 
 
 # ━━━ URL 类型判定 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -185,7 +185,6 @@ def parse_file(filepath):
 
 # ━━━ 源龄检测 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def _github_last_commit(url):
-    """通过 commits API 获取文件最后提交时间"""
     m = re.match(r'https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)', url)
     if not m:
         return None
@@ -204,7 +203,6 @@ def _github_last_commit(url):
 
 def get_source_age(url):
     """返回 (源龄天数, 来源描述)。失败返回 (None, 说明)"""
-    global _age_cache
     if url in _age_cache:
         return _age_cache[url]
 
@@ -214,7 +212,11 @@ def get_source_age(url):
             lc = _github_last_commit(url)
             if lc:
                 days = (now - lc).days
-                res = (days, f"GitHub最后提交:{lc.strftime('%Y-%m-%d')}")
+                # 精度补到小时：<24h 但已跨天（如23小时前）也算0天
+                hours = (now - lc).total_seconds() / 3600
+                if hours < RECENT_HOURS:
+                    days = -1  # 特殊标记：24h内
+                res = (days, f"GitHub最后提交:{lc.strftime('%Y-%m-%d %H:%M')}")
                 _age_cache[url] = res
                 return res
 
@@ -227,7 +229,10 @@ def get_source_age(url):
                 if d.tzinfo is None:
                     d = d.replace(tzinfo=timezone.utc)
                 days = (now - d).days
-                res = (days, f"Last-Modified:{d.strftime('%Y-%m-%d')}")
+                hours = (now - d).total_seconds() / 3600
+                if hours < RECENT_HOURS:
+                    days = -1
+                res = (days, f"Last-Modified:{d.strftime('%Y-%m-%d %H:%M')}")
                 _age_cache[url] = res
                 return res
     except Exception as e:
@@ -238,6 +243,19 @@ def get_source_age(url):
     res = (None, "源龄未知")
     _age_cache[url] = res
     return res
+
+
+def age_label(days):
+    """把源龄天数转成可读标签"""
+    if days is None:
+        return "未知"
+    if days == -1:
+        return f"<{RECENT_HOURS}h"
+    if days == 0:
+        return "今天"
+    if days == 1:
+        return "昨天"
+    return f"{days}天"
 
 
 # ━━━ 检测函数（三层判定）━━━━━━━━━━━━━━━━━━━━━━━━
@@ -338,7 +356,8 @@ def main():
     print(f"📂 读取 {args.file} ...")
     print(f"📋 上一次可用源记录: {len(prev_urls)} 条")
     print(f"⚙️ 线程: {DEFAULT_THREADS} | 超时: {DEFAULT_TIMEOUT}s")
-    print(f"📅 僵尸源阈值: >{STALE_DAYS} 天且不通\n")
+    print(f"📅 僵尸源阈值: >{STALE_DAYS} 天且不通")
+    print(f"🆕 新近更新阈值: <{RECENT_HOURS} 小时\n")
 
     entries = parse_file(args.file)
     print(f"   解析到 {len(entries)} 个链接")
@@ -397,7 +416,6 @@ def main():
     new_urls_norm = {u for u in new_urls_norm if u not in {normalize_url(p) for p in prev_urls}}
     print(f"\n✨ 新增源: {len(new_urls_norm)} 条")
 
-    # 去重
     seen_url = {}
     for item in ok_raw:
         u = normalize_url(item[2])
@@ -405,7 +423,6 @@ def main():
             seen_url[u] = item
     ok_url_dedup = list(seen_url.values())
 
-    # 按大类分组 + 排序
     by_broad = {broad: [] for broad in CAT_ORDER}
     seen_ok_final = set()
     for broad, orig_cat, url, status, elapsed, flag in ok_url_dedup:
@@ -419,13 +436,13 @@ def main():
 
     total_ok = len(seen_ok_final)
 
-    # ━━━ 源龄检测（可用源 + 失败源都要看年龄）━━━━
+    # ━━━ 源龄检测 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     print(f"\n🕵️  开始源龄检测...")
-    age_map = {}        # url -> (days, desc)
-    stale_urls = set()  # 僵尸源：>90天 且 不通
-    old_but_alive = {}  # 老但存活：>90天 且 通
+    age_map = {}
+    stale_urls = set()
+    old_but_alive = {}
+    recent_urls = {}   # 24h内更新：norm_u -> 描述
 
-    # 对去重后的可用源 + 所有失败源做年龄检测
     urls_need_age = set(normalize_url(u) for _, _, u, _, _, _ in results)
     age_completed = 0
     with ThreadPoolExecutor(max_workers=DEFAULT_THREADS) as ex:
@@ -440,9 +457,10 @@ def main():
             age_map[u] = (days, desc)
 
             norm_u = normalize_url(u)
-            # 判断是否僵尸源
             is_alive = any(normalize_url(item[2]) == norm_u and is_usable(item[3], item[5], item[2])
                            for item in ok_url_dedup)
+            if days == -1:
+                recent_urls[norm_u] = desc
             if days is not None and days > STALE_DAYS and not is_alive:
                 stale_urls.add(norm_u)
             elif days is not None and days > STALE_DAYS and is_alive:
@@ -452,6 +470,7 @@ def main():
                 print(f"   源龄进度: {age_completed}/{len(urls_need_age)}")
 
     print(f"   📊 源龄完成: {len(age_map)} 个")
+    print(f"   🆕 24h内更新: {len(recent_urls)} 个")
     print(f"   🧟 僵尸源(>{STALE_DAYS}天且不通): {len(stale_urls)} 个")
     print(f"   🧓 老源但存活(>{STALE_DAYS}天): {len(old_but_alive)} 个")
 
@@ -470,29 +489,32 @@ def main():
         print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
         sys.exit(0)
 
-    # ━━━ 强制写文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # live_ok.txt（剔除僵尸源）
+    # ━━━ 写文件 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # live_ok.txt
     with open('live_ok.txt', 'w', encoding='utf-8') as f:
         f.write(f"# 生成时间: {ts}\n")
-        f.write(f"# 总计: {total_ok} 条（已剔除僵尸源 {len(stale_urls)} 个）\n\n")
+        f.write(f"# 总计: {total_ok} 条（剔除僵尸源 {len(stale_urls)} 个）\n")
+        f.write(f"# 新近更新(<{RECENT_HOURS}h): {len(recent_urls)} 个\n\n")
         for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
             if not urls:
                 f.write(f"# ---- {broad} ----\n# (无可用源)\n\n")
                 continue
-            # 过滤僵尸源
             live_urls = [(u, e) for u, e in urls
-                         if normalize_url(u) not in stale_urls]
+                        if normalize_url(u) not in stale_urls]
             if not live_urls:
                 f.write(f"# ---- {broad} ----\n# (全部为僵尸源，已剔除)\n\n")
                 continue
             f.write(f"# ---- {broad} ----\n")
             for url, elapsed in live_urls:
                 norm_u = normalize_url(url)
-                tag = ""
-                if norm_u in old_but_alive:
-                    tag = f"  # 老源{old_but_alive[norm_u]}天"
-                f.write(f"{url}{tag}\n")
+                tags = []
+                if norm_u in recent_urls:
+                    tags.append("24h内更新")
+                elif norm_u in old_but_alive:
+                    tags.append(f"老源{old_but_alive[norm_u]}天")
+                tag_str = f"  # {' '.join(tags)}" if tags else ""
+                f.write(f"{url}{tag_str}\n")
             f.write("\n")
 
     # live_ok.m3u
@@ -501,12 +523,14 @@ def main():
         for broad in CAT_ORDER:
             urls = by_broad.get(broad, [])
             live_urls = [(u, e) for u, e in urls
-                         if normalize_url(u) not in stale_urls]
+                        if normalize_url(u) not in stale_urls]
             for url, elapsed in live_urls:
                 norm_u = normalize_url(url)
                 tvg = broad
-                if norm_u in old_but_alive:
-                    tvg = f"{broad}(老源)"
+                if norm_u in recent_urls:
+                    tvg = f"{broad}(NEW)"
+                elif norm_u in old_but_alive:
+                    tvg = f"{broad}(OLD)"
                 f.write(f'#EXTINF:-1 group-title="{tvg}", {broad} ({elapsed}ms)\n')
                 f.write(f'{url}\n')
             f.write('\n')
@@ -517,7 +541,7 @@ def main():
         for url in skipped:
             f.write(f"{url}\n")
 
-    # live_fail.txt（真失效，不含僵尸源——僵尸源单独放）
+    # live_fail.txt
     fail_raw = [(b, oc, u, s, e, fl) for b, oc, u, s, e, fl in results if not is_usable(s, fl, u)]
     seen_f = {}
     for item in fail_raw:
@@ -536,12 +560,11 @@ def main():
                 f.write(f"{url}  #{status} {flag}\n")
             f.write("\n")
 
-    # live_stale.txt（僵尸源：>90天且不通）
+    # live_stale.txt（僵尸源）
     with open('live_stale.txt', 'w', encoding='utf-8') as f:
         f.write(f"# 生成时间: {ts}\n")
         f.write(f"# 僵尸源: {len(stale_urls)} 个（源龄>{STALE_DAYS}天 且 本次不通）\n")
         f.write(f"# 这些源已从 live_ok.txt 中剔除，建议人工复查后可删除\n\n")
-        # 按源龄从大到小排序
         stale_sorted = sorted(
             [(u, age_map.get(u, (None, ''))[0], age_map.get(u, (None, ''))[1])
              for u in stale_urls],
@@ -550,11 +573,27 @@ def main():
         for u, days, desc in stale_sorted:
             f.write(f"{u}  #{days}天 {desc}\n")
 
-    # ━━━ live_report.csv（10列标准表格）━━━━━━━━━━
+    # live_recent.txt（24h内更新的源）
+    with open('live_recent.txt', 'w', encoding='utf-8') as f:
+        f.write(f"# 生成时间: {ts}\n")
+        f.write(f"# 新近更新: {len(recent_urls)} 个（{RECENT_HOURS}小时内）\n\n")
+        recent_sorted = sorted(
+            recent_urls.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        for u, desc in recent_sorted:
+            # 判断存活状态
+            alive = any(normalize_url(item[2]) == u and is_usable(item[3], item[5], item[2])
+                        for item in ok_url_dedup)
+            state = "✅可用" if alive else "❌不通"
+            f.write(f"{u}  # {desc} | {state}\n")
+
+    # live_report.csv（10列）
     with open('live_report.csv', 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
         w.writerow([f'新增源 (生成:{ts})', '大类', '原始分类', 'URL', '状态码',
-                    '响应时间(ms)', '状态', '类型', '源龄(天)', '备注'])
+                    '响应时间(ms)', '状态', '类型', '源龄', '备注'])
         csv_seen = set()
         for broad, orig_cat, url, status, elapsed, flag in results:
             norm_u = normalize_url(url)
@@ -565,12 +604,14 @@ def main():
             state = "可用" if is_usable(status, flag, url) else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
             days, desc = age_map.get(norm_u, (None, ""))
-            age_str = str(days) if days is not None else "未知"
+            age_str = age_label(days)
             note_parts = []
+            if norm_u in recent_urls:
+                note_parts.append(f"🆕{RECENT_HOURS}h内更新")
             if norm_u in stale_urls:
-                note_parts.append(f"僵尸源>{STALE_DAYS}天")
+                note_parts.append(f"🧟僵尸源>{STALE_DAYS}天")
             elif norm_u in old_but_alive:
-                note_parts.append(f"老源{old_but_alive[norm_u]}天但存活")
+                note_parts.append(f"🧓老源{old_but_alive[norm_u]}天但存活")
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
@@ -582,7 +623,8 @@ def main():
     if skipped:
         print(f"   skipped.txt     ← {len(skipped)} 个")
     print(f"   live_fail.txt   ← {len(seen_f)} 个真失效")
-    print(f"   live_stale.txt  ← {len(stale_urls)} 个僵尸源（>{STALE_DAYS}天且不通）")
+    print(f"   live_stale.txt  ← {len(stale_urls)} 个僵尸源")
+    print(f"   live_recent.txt ← {len(recent_urls)} 个{RECENT_HOURS}h内更新")
     print(f"   live_report.csv ← 检测报告（10列，预览搜索正常）")
 
     sys.exit(0)
