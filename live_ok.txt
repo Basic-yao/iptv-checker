@@ -1,5 +1,6 @@
-# 生成时间: 2026-09-23 17:10:17
-# 总计: 116 条（已剔除僵尸源 0 个）
+# 生成时间: 2026-09-23 17:42:46
+# 总计: 116 条（剔除僵尸源 0 个）
+# 新近更新(<24h): 14 个
 
 # ---- 国内源 ----
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
@@ -26,21 +27,21 @@ https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
 https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
 
 # ---- 国际源 ----
-https://iptv-org.github.io/iptv/countries/cn.m3u
-https://iptv-org.github.io/iptv/countries/hk.m3u
-https://iptv-org.github.io/iptv/countries/tw.m3u
-https://iptv-org.github.io/iptv/index.m3u
-https://iptv-org.github.io/iptv/languages/zho.m3u
+https://iptv-org.github.io/iptv/countries/cn.m3u  # 24h内更新
+https://iptv-org.github.io/iptv/countries/hk.m3u  # 24h内更新
+https://iptv-org.github.io/iptv/countries/tw.m3u  # 24h内更新
+https://iptv-org.github.io/iptv/index.m3u  # 24h内更新
+https://iptv-org.github.io/iptv/languages/zho.m3u  # 24h内更新
 
 # ---- 4K高清 ----
-http://1.94.31.214/live/live9/dgtv.txt
-http://1.94.31.214/live/live9/dgtv2026.php
+http://1.94.31.214/live/live9/dgtv.txt  # 24h内更新
+http://1.94.31.214/live/live9/dgtv2026.php  # 24h内更新
 http://117.72.68.25:9230/latest.txt  # 老源325天
 https://live.zbds.top/tv/iptv4.txt
-http://www.52top.com.cn:678/downloads/migu.txt
+http://www.52top.com.cn:678/downloads/migu.txt  # 24h内更新
 
 # ---- TVBox ----
-https://supprise0901.github.io/TVBox_live/live.txt
+https://supprise0901.github.io/TVBox_live/live.txt  # 24h内更新
 http://west.shaonv.me/tvbox/live.txt  # 老源923天
 
 # ---- GitHub源 ----
@@ -61,12 +62,12 @@ https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt  # 老源674
 https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u  # 老源262天
 https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u  # 老源262天
 https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/cnTV_AutoUpdate.m3u8
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u  # 老源312天
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u  # 老源313天
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u  # 老源1304天
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8  # 老源1304天
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u  # 老源1304天
 https://raw.githubusercontent.com/jack2713/my/refs/heads/main/TMP/TMP.txt
-https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
+https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt  # 24h内更新
 https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt  # 老源789天
 https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt
 https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
@@ -83,7 +84,7 @@ https://raw.githubusercontent.com/skddyj/iptv/refs/heads/main/IPTV.m3u
 https://raw.githubusercontent.com/Supprise0901/TVBox_live/refs/heads/main/live.txt
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u
 https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u
-https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
+https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt  # 24h内更新
 https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u
 https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt
 https://raw.githubusercontent.com/wudongdefeng/groceries/refs/heads/main/collect_tv.m3u
@@ -107,7 +108,7 @@ https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
 # ---- 其他 ----
 http://47.94.6.170/TV/tv.m3u
 https://aptv.pro/all.m3u
-https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt  # 老源880天
+https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt  # 老源881天
 https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
 https://gitee.com/hw2837/iptv/raw/master/iptv
 https://gitee.com/hzxs800274/iptv/raw/master/live/TV
@@ -121,11 +122,11 @@ https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
 https://ilook.epg.one/5CM5SY98BF24PL/2
 https://iptv.445569.xyz/live.m3u
 https://iptv.zsdc.eu.org/home/iptv.m3u8
-https://live.iptv-free.com/iptv/categories/general.m3u
-https://live.iptv-free.com/iptv/categories/movies.m3u
+https://live.iptv-free.com/iptv/categories/general.m3u  # 24h内更新
+https://live.iptv-free.com/iptv/categories/movies.m3u  # 24h内更新
 https://live.zhoujie218.top/tv/iptv4.txt
 http://tv123.vvvv.ee/tv.m3u
-http://wangziduoqing.com/yuan/zb.txt
+http://wangziduoqing.com/yuan/zb.txt  # 24h内更新
 https://xn--6orr3pi6g9uu.top/zb/zb.txt  # 老源172天
 http://yimolan.serv00.net/zb/live.php
 
