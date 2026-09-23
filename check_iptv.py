@@ -5,7 +5,7 @@ IPTV 检查器（四档分档 + 真实源龄 + 原OK判定不变）
 分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
 源龄：远程URL用Last-Modified/GitHub API；取不到标未知
 live_ok.txt = 纯URL，按四档归类，无尾注
-live_report.csv = 生成时间首行 / 无大类 / 网址列置末
+live_report.csv = 生成时间首列 / 名称列=更新时间 / 网址置末 / 每行列数一致
 """
 import os
 import re
@@ -103,7 +103,7 @@ def get_source_age(url):
 
     now = now_cst()
     days = None
-    desc = ""
+    update_time = ""   # 获取到的具体更新时间字符串
 
     try:
         if is_github_url(url):
@@ -118,9 +118,9 @@ def get_source_age(url):
                         dt_str = r.json()[0]["commit"]["committer"]["date"]
                         dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
                         days = (now - dt.astimezone(CST8)).days
-                        desc = f"GitHub最后提交:{dt_str[:10]}"
-                        get_source_age._cache[norm] = (days, desc)
-                        return days, desc
+                        update_time = dt.astimezone(CST8).strftime("%Y-%m-%d %H:%M")
+                        get_source_age._cache[norm] = (days, update_time)
+                        return days, update_time
                 except Exception:
                     pass
 
@@ -132,17 +132,17 @@ def get_source_age(url):
                 if dt.tzinfo is None:
                     dt = dt.replace(tzinfo=timezone.utc)
                 days = (now - dt.astimezone(CST8)).days
-                desc = f"Last-Modified:{lm[:16]}"
-                get_source_age._cache[norm] = (days, desc)
-                return days, desc
+                update_time = dt.astimezone(CST8).strftime("%Y-%m-%d %H:%M")
+                get_source_age._cache[norm] = (days, update_time)
+                return days, update_time
         except Exception:
             pass
     except Exception:
         pass
 
-    desc = "源龄未知"
-    get_source_age._cache[norm] = (None, desc)
-    return None, desc
+    update_time = "未知"
+    get_source_age._cache[norm] = (None, update_time)
+    return None, update_time
 
 def tier_of(days):
     if days is None:
@@ -305,12 +305,11 @@ def main():
     total_ok = len(_ok_raw)
     print(f"\n📊 检测完成: ✅{total_ok} 可用 | ❌{len(_fail_raw)} 不通")
 
-    # ── 源龄 + 分档 ──
     print("\n🕵️ 开始源龄检测...")
     age_completed = 0
     for url in _uniq_urls:
         norm = normalize_url(url)
-        days, desc = get_source_age(url)
+        days, update_time = get_source_age(url)
         tier = tier_of(days)
         _by_tier[tier].append(url)
         is_ok = any(normalize_url(r[0]) == norm and r[4] for r in _results)
@@ -360,7 +359,7 @@ def main():
             broad = get_domain(url)
             f.write(f'#EXTINF:-1,{broad}\n{url}\n')
 
-    # ── 分档文件（纯URL + 统一表头）──
+    # ── 分档文件 ──
     def write_tier_file(fname, tier, label):
         with open(fname, "w", encoding="utf-8") as f:
             write_header(f, f"{label}（{len(_by_tier[tier])}个）")
@@ -384,21 +383,23 @@ def main():
         f.write("# 这些源已从 live_ok.txt 剔除，建议人工复查后可删除\n\n")
         if _stale_urls:
             for nu in sorted(_stale_urls):
-                days, desc = get_source_age._cache.get(nu, (None, ""))
+                days, update_time = get_source_age._cache.get(nu, (None, "未知"))
                 f.write(f"{nu}")
                 if days is not None:
                     f.write(f"  # 源龄{age_label(days)}")
-                if desc and desc != "源龄未知":
-                    f.write(f" | {desc}")
+                if update_time and update_time != "未知":
+                    f.write(f" | 更新时间:{update_time}")
                 f.write("\n")
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-# ── live_report.csv（生成时间并入首列表头，每行列数一致）──
+    # ── live_report.csv ──
+    # 表头首列 = 生成时间，数据行首列留空 → 视觉上生成时间独占左上角
+    # 名称列 → 获取到的更新时间
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 表头：生成时间作为第一列，其余列照常（每行都是9列，兼容CSV预览）
-        w.writerow([f"生成时间: {ts}", "名称", "状态码", "响应时间(ms)", "状态",
+        # 表头（共10列，首列为"生成时间"）
+        w.writerow(["生成时间", "更新时间", "状态码", "响应时间(ms)", "状态",
                     "类型", "源龄(天)", "更新分档", "备注", "网址"])
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
@@ -406,8 +407,7 @@ def main():
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            name = get_domain(url)
-            days, desc = get_source_age._cache.get(norm, (None, ""))
+            days, update_time = get_source_age._cache.get(norm, (None, "未知"))
             tier = tier_of(days)
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
@@ -422,16 +422,16 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
-            # 数据行：第一列留空（生成时间只出现在表头），网址置末
-            w.writerow(["", name, status, elapsed, state, url_type, age_str, tier, note, url])
+            # 数据行：首列留空（生成时间只在表头首列），网址置末
+            w.writerow(["", update_time, status, elapsed, state, url_type, age_str, tier, note, url])
 
         # 僵尸源汇总块
         w.writerow(["", "", "", "", "", "", "", "", "", ""])
         w.writerow(["", "僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
-                days, desc = get_source_age._cache.get(s, (None, ""))
-                w.writerow(["", "", "", "僵尸源", "", age_label(days), tier_of(days), desc, "", s])
+                days, update_time = get_source_age._cache.get(s, (None, "未知"))
+                w.writerow(["", update_time, "", "僵尸源", "", age_label(days), tier_of(days), "", "", s])
         else:
             w.writerow(["", "", "", "本次无>90天且不通的源", "", "", "", "", "", ""])
 
@@ -447,7 +447,7 @@ def main():
     print(f"   live_3month.txt ← {len(_by_tier[TIER_3MONTH])} 个 📆三个月内")
     print(f"   live_old.txt    ← {len(_by_tier[TIER_OLD])} 个 🧓超三个月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源（>90天且不通）")
-    print(f"   live_report.csv ← 9列报告（生成时间首行/网址置末/无大类）")
+    print(f"   live_report.csv ← 10列报告（生成时间首列/更新时间/网址置末）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
