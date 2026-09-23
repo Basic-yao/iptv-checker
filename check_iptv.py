@@ -297,26 +297,27 @@ def main():
         for u in _fail_raw:
             f.write(u + "\n")
 
-    # ── live_report.csv（生成时间独占首行 + 更新时间列 + 网址置末）──
+# ── live_report.csv（全9列 | 生成时间首行首列 | 更新时间次行首列 | 网址置末）──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        # 第1行：生成时间（仅1列，GitHub预览不报列数不一致）
-        w.writerow([f"生成时间: {ts}"])
-        # 第2行：表头（无"名称/大类"，更新时间在前，网址在末）
-        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态",
-                    "类型", "源龄(天)", "更新分档", "备注", "网址"])
+        # 第1行：生成时间占第1列，后8列留空（视觉独占，实际9列）
+        w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
+        # 第2行：表头（更新时间在前，网址在末，共9列）
+        w.writerow(["更新时间", "状态码", "响应时间(ms)", "状态", "类型", "源龄(天)", "更新分档", "备注", "网址"])
+        
         csv_seen = set()
         for url, status, elapsed, flag, ok in _results:
             norm = normalize_url(url)
             if norm in csv_seen:
                 continue
             csv_seen.add(norm)
-            days, desc = get_source_age._cache.get(norm, (None, "未知"))
+            days, desc = get_source_age._cache.get(norm, (None, ""))
             update_time = desc if desc else "未知"
             tier = tier_of(days)
             state = "✅可用" if ok else flag
             url_type = "直链" if is_direct_stream(url) else ("GitHub" if is_github_url(url) else ("网页" if is_web_page(url) else "其他"))
             age_str = str(days) if days is not None else "未知"
+            
             note_parts = []
             if norm in _recent_urls:
                 note_parts.append(f"🆕{RECENT_DAYS}天内更新")
@@ -327,11 +328,13 @@ def main():
             if days is None:
                 note_parts.append("源龄未知")
             note = " | ".join(note_parts)
+            
+            # 数据行：更新时间 + 8列数据，网址在最后（共9列）
             w.writerow([update_time, status, elapsed, state, url_type, age_str, tier, note, url])
 
-        # 僵尸源汇总块
-        w.writerow([])
-        w.writerow(["僵尸源清单", "", "", "", "", "", "", f"共{len(_stale_urls)}个", ""])
+        # 僵尸源汇总块（保持9列）
+        w.writerow(["", "", "", "", "", "", "", "", ""])
+        w.writerow(["僵尸源清单", "", "", "", "", "", f"共{len(_stale_urls)}个", "", ""])
         if _stale_urls:
             for s in sorted(_stale_urls):
                 days, desc = get_source_age._cache.get(s, (None, "未知"))
