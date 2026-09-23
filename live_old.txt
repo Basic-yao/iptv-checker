@@ -1,2 +1,18 @@
-# 生成时间: 2026-09-23 18:15:13
-# 🧓超三个月 共 0 条（超三个月全部源）
+# 生成时间: 2026-09-23 18:28:50
+# 🧓超三个月: 15 个（超三个月全部源）
+
+http://117.72.68.25:9230/latest.txt  # 🧓超三个月 | 源龄325天(超三月) | Last-Modified:Sat, 01 Nov 2025 | ✅可用
+https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt  # 🧓超三个月 | 源龄881天(超三月) | Last-Modified:Thu, 25 Apr 2024 | ✅可用
+https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u  # 🧓超三个月 | 源龄630天(超三月) | GitHub最后提交:2024-12-31 | ✅可用
+https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt  # 🧓超三个月 | 源龄674天(超三月) | GitHub最后提交:2024-11-17 | ✅可用
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u  # 🧓超三个月 | 源龄262天(超三月) | GitHub最后提交:2026-01-04 | ✅可用
+https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u  # 🧓超三个月 | 源龄262天(超三月) | GitHub最后提交:2026-01-04 | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%9B%BD%E5%86%85%E7%94%B5%E8%A7%86%E5%8F%B0202509.m3u  # 🧓超三个月 | 源龄313天(超三月) | GitHub最后提交:2025-11-14 | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u  # 🧓超三个月 | 源龄1304天(超三月) | GitHub最后提交:2023-02-27 | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8  # 🧓超三个月 | 源龄1304天(超三月) | GitHub最后提交:2023-02-27 | ✅可用
+https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u  # 🧓超三个月 | 源龄1304天(超三月) | GitHub最后提交:2023-02-27 | ✅可用
+https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt  # 🧓超三个月 | 源龄789天(超三月) | GitHub最后提交:2024-07-25 | ✅可用
+https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt  # 🧓超三个月 | 源龄437天(超三月) | GitHub最后提交:2025-07-12 | ✅可用
+https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt  # 🧓超三个月 | 源龄308天(超三月) | GitHub最后提交:2025-11-19 | ✅可用
+http://west.shaonv.me/tvbox/live.txt  # 🧓超三个月 | 源龄923天(超三月) | Last-Modified:Wed, 13 Mar 2024 | ✅可用
+https://xn--6orr3pi6g9uu.top/zb/zb.txt  # 🧓超三个月 | 源龄172天(超三月) | Last-Modified:Fri, 03 Apr 2026 | ✅可用

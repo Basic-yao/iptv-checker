@@ -1,2 +1,5 @@
-# 生成时间: 2026-09-23 18:15:13
-# 📆三个月内 共 0 条
+# 生成时间: 2026-09-23 18:28:50
+# 📆三个月内: 2 个
+
+http://47.94.6.170/TV/tv.m3u  # 📆三个月内 | 源龄74天(三月内) | Last-Modified:Fri, 10 Jul 2026 | ✅可用
+https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u  # 📆三个月内 | 源龄37天(三月内) | GitHub最后提交:2026-08-16 | ✅可用
