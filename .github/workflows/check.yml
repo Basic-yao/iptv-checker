@@ -28,12 +28,7 @@ jobs:
       - name: 安装依赖
         run: pip install requests
 
-      - name: 显示输入统计
-        run: |
-          echo "📥 live.txt 行数: $(wc -l < live.txt)"
-          echo "🔗 URL 数量: $(grep -c '^https\?://' live.txt || echo 0)"
-
-      - name: 运行检查器（四档分档版）
+      - name: 运行检查器
         run: python check_iptv.py --threads 10 --timeout 20
 
       - name: 提交结果
@@ -44,6 +39,6 @@ jobs:
           git add -f live_ok.txt live_ok.m3u \
                      live_recent.txt live_month.txt live_3month.txt \
                      live_old.txt live_stale.txt \
-                     live_fail.txt live_report.csv skipped.txt
+                     live_fail.txt live_report.csv
           git commit --allow-empty -m "自动更新 IPTV 检查结果 [skip ci]" || true
           git push
