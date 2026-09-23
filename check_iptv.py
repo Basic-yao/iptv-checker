@@ -4,7 +4,8 @@
 IPTV 检查器（四档分档 + 真实源龄 + 分组裸 URL 输出）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 分档：🆕一周内(≤7天) | 📅一个月内(≤30天) | 📆三个月内(≤90天) | 🧓超三个月(>90天)
-输出：每个列表文件开头带【北京时间】生成时间；live_ok.txt 按四档分组，每组裸 URL
+输出：每个列表文件开头带【北京时间】生成时间
+      CSV 报告：无名称列，URL 在最后一列
 """
 
 import os
@@ -33,7 +34,6 @@ TIER_OLD = "old"
 TIMEOUT = 20
 THREADS = 10
 
-# 北京时间 UTC+8
 BJT = timezone(timedelta(hours=8))
 
 _lock = threading.Lock()
@@ -82,7 +82,6 @@ def age_label(days):
     return f"🧓{days}天(>三月)"
 
 def gen_time():
-    """固定北京时间 (UTC+8)"""
     return datetime.now(BJT).strftime("%Y-%m-%d %H:%M:%S")
 
 # ── 源龄获取 ────────────────────────────────────
@@ -266,24 +265,24 @@ def main():
             days, _ = _age_cache.get(u, (None, ""))
             f.write(f"{u}  # {age_label(days)}\n")
 
-    # ── CSV 报告 ──
+    # ── CSV 报告（无名称列，URL 在最后一列） ──
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as cf:
         w = csv.writer(cf)
-        w.writerow(["名称", "URL", "状态", "延迟ms", "错误", "分档", "源龄", "类别", "描述", "是否僵尸", "时间"])
+        w.writerow(["状态", "延迟ms", "错误", "分档", "源龄", "类别", "描述", "是否僵尸", "时间", "URL"])
         for r in _results:
             url_n, name, url, ok, lat, err, days, tier, desc = r
             is_stale = "是" if (not ok and days and days > 90) else "否"
             w.writerow([
-                name if name else url.split("/")[-1],
-                url, "✅" if ok else "❌", lat or "", err,
+                "✅" if ok else "❌", lat or "", err,
                 TIER_TITLE[tier], age_label(days), tier, desc, is_stale, ts,
+                url,
             ])
         if _stale_urls:
             for s in sorted(_stale_urls):
                 days, desc = _age_cache.get(s, (None, ""))
-                w.writerow(["", "", s, "", "", "僵尸源", "", age_label(days), tier_of(days), desc, ts])
+                w.writerow(["", "", "", "僵尸源", "", age_label(days), tier_of(days), desc, ts, s])
         else:
-            w.writerow(["", "", "（无）", "", "", "本次无>90天且不通的源", "", "", "", "", ts])
+            w.writerow(["", "", "", "本次无>90天且不通的源", "", "", "", "", ts, "（无）"])
 
     # ── 总结 ──
     print(f"\n{'='*60}")
@@ -297,7 +296,7 @@ def main():
     print(f"   live_3month.txt ← {len(set(_by_tier[TIER_3MONTH]))} 个 📆三月内")
     print(f"   live_old.txt    ← {len(set(_by_tier[TIER_OLD]))} 个 🧓超三月")
     print(f"   live_stale.txt  ← {len(_stale_urls)} 个 🧟僵尸源")
-    print(f"   live_report.csv ← 报告")
+    print(f"   live_report.csv ← 报告（URL 在末列）")
     print(f"{'='*60}")
 
     for fn, minn in [("live_ok.txt", 1), ("live_fail.txt", 0), ("live_report.csv", 1)]:
