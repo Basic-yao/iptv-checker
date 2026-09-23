@@ -1,11 +1,5 @@
-# 生成时间: 2026-09-23 20:34:21
-# 失败源（字母序）
-
-http://tv123.vvvv.ee/tv.m3u
-http://west.shaonv.me/tvbox/live.txt
+https://aptv.pro/all.m3u
 https://ds65.tv1288.xyz
-https://iptv.445569.xyz/live.m3u
-https://iptv.zsdc.eu.org/home/iptv.m3u8
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
 https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
 https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
@@ -28,11 +22,3 @@ https://live.hacks.tools/tv/ipv6/categories/卫视频道.m3u
 https://live.hacks.tools/tv/ipv6/categories/地方频道.m3u
 https://live.hacks.tools/tv/ipv6/categories/央视频道.m3u
 https://live.hacks.tools/tv/ipv6/categories/电影频道.m3u
-https://live.iptv-free.com/iptv/categories/general.m3u
-https://live.iptv-free.com/iptv/categories/movies.m3u
-https://live.zbds.top/tv/iptv4.txt
-https://live.zhoujie218.top/tv/iptv4.txt
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/台湾香港澳门2023.m3u
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国内电视台2023.m3u8
-https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
-https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
