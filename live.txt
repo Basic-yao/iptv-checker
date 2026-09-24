@@ -1,3 +1,6 @@
+https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
+https://taoiptv.com/lives/44025.txt?token=f5ff16cbe41a1829
+https://raw.githubusercontent.com/mzky/checklist/refs/heads/master/itvlist.m3u
 https://raw.githubusercontent.com/fingersc/iptv-api/refs/heads/master/output/user_result.m3u
 https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
 https://raw.githubusercontent.com/xisohi/CHINA-IPTV/refs/heads/main/TV/live.txt
