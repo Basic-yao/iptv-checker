@@ -1,5 +1,5 @@
-# 生成时间(北京时间): 2026-09-24 16:06:30
-# 超三个月（19个）
+# 生成时间(北京时间): 2026-09-24 16:15:32
+# 超三个月（18个）
 
 http://117.72.68.25:9230/latest.txt
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
@@ -16,7 +16,6 @@ https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
 https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
 https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
-https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
 https://taoiptv.com/lives/44025.txt?token=f5ff16cbe41a1829
 http://west.shaonv.me/tvbox/live.txt
 https://xn--6orr3pi6g9uu.top/zb/zb.txt
