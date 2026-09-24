@@ -1,3 +1,7 @@
+https://live.hacks.tools/tv/ipv4/categories/taiwan.m3u
+https://live.hacks.tools/tv/ipv4/categories/macau.m3u
+https://live.hacks.tools/tv/ipv4/categories/hong_kong.m3u
+https://live.hacks.tools/iptv/languages/singapore.m3u
 https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
 https://taoiptv.com/lives/44025.txt?token=f5ff16cbe41a1829
 https://raw.githubusercontent.com/mzky/checklist/refs/heads/master/itvlist.m3u
