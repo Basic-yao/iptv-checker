@@ -1,5 +1,5 @@
-# 生成时间(北京时间): 2026-09-24 12:22:22
-# 可用总数: 121
+# 生成时间(北京时间): 2026-09-24 15:29:34
+# 可用总数: 123
 
 # ---- 🆕一周内（20个） ----
 http://1.94.31.214/live/live9/dgtv.txt
@@ -23,19 +23,21 @@ https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://wangziduoqing.com/yuan/zb.txt
 
-# ---- 📅一个月内（3个） ----
+# ---- 📅一个月内（4个） ----
 https://aptv.pro/all.m3u
 https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
 https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
 
 # ---- 📆三个月内（2个） ----
 http://47.94.6.170/TV/tv.m3u
 https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
 
-# ---- 🧓超三个月（16个） ----
+# ---- 🧓超三个月（18个） ----
 http://117.72.68.25:9230/latest.txt
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
 https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
+https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
 https://gitee.com/tushaoyong/live/raw/master/%E6%8E%A5%E5%8F%A3/IPV6.txt
 https://raw.githubusercontent.com/BurningC4/Chinese-IPTV/master/TV-IPV4.m3u
 https://raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt
@@ -47,13 +49,13 @@ https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/国
 https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/轮播_华数.黑莓.NewTV.SiTV.CIBN.m3u
 https://raw.githubusercontent.com/junge3333/juds6/main/yszb1.txt
 https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
+https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
+https://taoiptv.com/lives/44025.txt?token=f5ff16cbe41a1829
 http://west.shaonv.me/tvbox/live.txt
-https://xn--6orr3pi6g9uu.top/zb/zb.txt
 
 # ---- ❓未知(含仅活跃)（82个） ----
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
 https://ds65.tv1288.xyz
-https://gitee.com/king12985/tv/raw/master/lives/zhizhu/20180818china.txt
 https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
 https://ilook.epg.one/5CM5SY98BF24PL/2
 https://iptv.445569.xyz/live.m3u
@@ -105,6 +107,7 @@ https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/us
 https://raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/hotel.txt
 https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/yylunbo.m3u
 https://raw.githubusercontent.com/mytv-android/iptv-api/refs/heads/master/output/result.m3u
+https://raw.githubusercontent.com/mzky/checklist/refs/heads/master/itvlist.m3u
 https://raw.githubusercontent.com/n3rddd/CTVLive/refs/heads/main/live.txt
 https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt
 https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt
@@ -128,9 +131,9 @@ https://raw.githubusercontent.com/zheng197600/tvbox/refs/heads/main/tv/%E7%94%B5
 https://raw.githubusercontent.com/zhi35/iptv/refs/heads/master/iptv.m3u
 https://raw.githubusercontent.com/zqhtym/zqhtym.github.io/refs/heads/main/output/LU.m3u
 https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m3u
-https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
 http://tv123.vvvv.ee/tv.m3u
 https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
 http://www.52top.com.cn:678/downloads/migu.txt
+https://xn--6orr3pi6g9uu.top/zb/zb.txt
 http://yimolan.serv00.net/zb/live.php
 
