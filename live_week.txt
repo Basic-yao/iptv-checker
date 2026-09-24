@@ -1,5 +1,5 @@
-# 生成时间(北京时间): 2026-09-23 23:48:27
-# 一周内（Week）（19个）
+# 生成时间(北京时间): 2026-09-24 12:22:22
+# 一周内（Week）（20个）
 
 http://1.94.31.214/live/live9/dgtv.txt
 http://1.94.31.214/live/live9/dgtv2026.php
@@ -18,5 +18,6 @@ https://live.iptv-free.com/iptv/categories/movies.m3u
 https://raw.githubusercontent.com/jn950/live/main/tv/pllive.txt
 https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt
 https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u
+https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://wangziduoqing.com/yuan/zb.txt
