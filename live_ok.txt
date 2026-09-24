@@ -1,10 +1,9 @@
-# 生成时间(北京时间): 2026-09-24 15:29:34
-# 可用总数: 123
+# 生成时间(北京时间): 2026-09-24 16:00:44
+# 可用总数: 126
 
-# ---- 🆕一周内（20个） ----
+# ---- 🆕一周内（19个） ----
 http://1.94.31.214/live/live9/dgtv.txt
 http://1.94.31.214/live/live9/dgtv2026.php
-https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
 https://gitee.com/hw2837/iptv/raw/master/iptv
 https://gitee.com/hzxs800274/iptv/raw/master/live/TV
 https://gitee.com/lwr851/live/raw/master/iptv.m3u
@@ -23,9 +22,8 @@ https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u
 https://supprise0901.github.io/TVBox_live/live.txt
 http://wangziduoqing.com/yuan/zb.txt
 
-# ---- 📅一个月内（4个） ----
+# ---- 📅一个月内（3个） ----
 https://aptv.pro/all.m3u
-https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
 https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
 https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
 
@@ -33,7 +31,7 @@ https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u
 http://47.94.6.170/TV/tv.m3u
 https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
 
-# ---- 🧓超三个月（18个） ----
+# ---- 🧓超三个月（19个） ----
 http://117.72.68.25:9230/latest.txt
 https://cc-im-kefu-cos.7moor-fs2.com/im/2768a390-5474-11ea-afc9-7b323e3e16c0/d4fe44c5-107c-4511-af02-aa08fb10dff7/2024-04-25/2024-04-25_17:22:21/1714036941087/98644330/wexiptv.txt
 https://gitee.com/king12985/tv/raw/master/lives/20180818.txt
@@ -52,14 +50,21 @@ https://raw.githubusercontent.com/maitel2020/iptv-self-use/main/iptv.txt
 https://raw.githubusercontent.com/zzmaze/iptv/main/itvlist.txt
 https://taoiptv.com/lives/44025.txt?token=f5ff16cbe41a1829
 http://west.shaonv.me/tvbox/live.txt
+https://xn--6orr3pi6g9uu.top/zb/zb.txt
 
-# ---- ❓未知(含仅活跃)（82个） ----
+# ---- ❓未知(含仅活跃)（87个） ----
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
 https://ds65.tv1288.xyz
+https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
+https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u
 https://gitlab.com/p2v5/wangtv/-/raw/main/lunbo.txt
 https://ilook.epg.one/5CM5SY98BF24PL/2
 https://iptv.445569.xyz/live.m3u
 https://iptv.zsdc.eu.org/home/iptv.m3u8
+https://live.hacks.tools/iptv/languages/singapore.m3u
+https://live.hacks.tools/tv/ipv4/categories/hong_kong.m3u
+https://live.hacks.tools/tv/ipv4/categories/macau.m3u
+https://live.hacks.tools/tv/ipv4/categories/taiwan.m3u
 https://live.hacks.tools/tv/ipv4/categories/体育频道.m3u
 https://live.hacks.tools/tv/ipv4/categories/儿童频道.m3u
 https://live.hacks.tools/tv/ipv4/categories/其他频道.m3u
@@ -134,6 +139,5 @@ https://raw.githubusercontent.com/zwc456baby/iptv_alive/refs/heads/master/live.m
 http://tv123.vvvv.ee/tv.m3u
 https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt
 http://www.52top.com.cn:678/downloads/migu.txt
-https://xn--6orr3pi6g9uu.top/zb/zb.txt
 http://yimolan.serv00.net/zb/live.php
 
