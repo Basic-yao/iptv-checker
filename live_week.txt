@@ -1,8 +1,9 @@
-# 生成时间(北京时间): 2026-09-24 16:00:44
-# 一周内（Week）（19个）
+# 生成时间(北京时间): 2026-09-24 16:06:30
+# 一周内（Week）（20个）
 
 http://1.94.31.214/live/live9/dgtv.txt
 http://1.94.31.214/live/live9/dgtv2026.php
+https://gitee.com/g1753462733/zb/raw/main/itvlist.txt
 https://gitee.com/hw2837/iptv/raw/master/iptv
 https://gitee.com/hzxs800274/iptv/raw/master/live/TV
 https://gitee.com/lwr851/live/raw/master/iptv.m3u
