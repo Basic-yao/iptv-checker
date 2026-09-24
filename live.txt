@@ -1,4 +1,9 @@
-
+https://raw.githubusercontent.com/fingersc/iptv-api/refs/heads/master/output/user_result.m3u
+https://raw.githubusercontent.com/liuchuang0321/K-TV/refs/heads/master/output/user_result.m3u
+https://raw.githubusercontent.com/xisohi/CHINA-IPTV/refs/heads/main/TV/live.txt
+https://raw.githubusercontent.com/Free-TV/IPTV/refs/heads/master/playlist.m3u8
+https://raw.githubusercontent.com/akiralereal/iptv/refs/heads/main/from-the-web/from-the-web.m3u
+https://raw.githubusercontent.com/akiralereal/iptv/refs/heads/main/IPTV.m3u
 https://iptv.445569.xyz/live.m3u
 # ---- 国内源 ----
 http://47.94.6.170/TV/tv.m3u
