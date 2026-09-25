@@ -1,7 +1,8 @@
-# 生成时间(北京时间): 2026-09-24 16:15:32
-# 真失效源（4个）
+# 生成时间(北京时间): 2026-09-25 23:36:38
+# 真失效源（5个）
 
 https://live.hacks.tools/iptv/languages/singapore.m3u
 https://live.hacks.tools/iptv/languages/jpn.m3u
+https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u
 https://ds65.tv1288.xyz
 https://codeberg.org/zxj/xyh/raw/branch/main/live.txt
