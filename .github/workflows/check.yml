@@ -3,7 +3,7 @@ name: IPTV Check
 on:
   push:
     paths:
-      - 'live.txt'
+      - 'sources.txt'
       - 'check_iptv.py'
       - '.github/workflows/check.yml'
   workflow_dispatch:
@@ -40,6 +40,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f live_ok.txt live_ok.m3u live_fail.txt live_week.txt live_month.txt live_3month.txt live_old.txt live_stale.txt live_report.csv
+          git add -f sources.txt live_ok.txt live_ok.m3u live_fail.txt live_week.txt live_month.txt live_3month.txt live_old.txt live_stale.txt live_report.csv source_age_cache.json
           git commit --allow-empty -m "🔄 自动更新检测结果 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')"
           git push
