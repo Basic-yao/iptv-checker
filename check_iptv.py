@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 IPTV 直播源自动检测脚本
-功能：检测 live.txt 中的 URL 可用性，按源龄分档，生成报告
+源列表：sources.txt（每行一个 URL）
 源龄获取：GitHub/Gitee API → JsDelivr → HEAD Last-Modified → URL日期 → 本地git log → 未知
           HEAD Date 仅标记为"今日活跃"，不计入更新分档
 缓存：source_age_cache.json 持久化
@@ -29,6 +29,7 @@ from urllib3.util.retry import Retry
 # ═══════════════════════════════════════════════
 # 全局配置
 # ═══════════════════════════════════════════════
+SOURCE_FILE = "sources.txt"   # 源列表文件
 TIMEOUT = 20
 THREADS = 10
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
@@ -60,7 +61,6 @@ else:
     _age_cache = {}
 
 def save_cache():
-    """退出前保存缓存到磁盘"""
     try:
         with open(CACHE_FILE, "w", encoding="utf-8") as f:
             json.dump(_age_cache, f, ensure_ascii=False)
@@ -111,7 +111,6 @@ def is_github_url(url):
     return any(k in low for k in ["raw.githubusercontent.com", "githubusercontent.com", "github.com", "gitee.com", "gitlab.com"])
 
 def tier_of(days):
-    """days=None → 未知档（不强行归入超三月）"""
     if days is None:
         return TIER_UNKNOWN
     if days <= RECENT_DAYS:
@@ -134,13 +133,12 @@ def age_label(days):
     return f"{days}天(超三月)"
 
 # ═══════════════════════════════════════════════
-# 源龄获取（增强版：Date头降级为活跃标记，不污染分档）
+# 源龄获取（Date头降级为活跃标记）
 # 缓存格式：{"url": {"days": int|None, "date": str, "source": str, "active_today": bool}}
 # ═══════════════════════════════════════════════
 _github_api_cache = {}
 
 def extract_repo_path(url):
-    """提取 GitHub/Gitee raw/blob 信息"""
     norm = normalize_url(url)
     m = re.match(r"https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)", norm)
     if m:
@@ -184,15 +182,12 @@ def get_git_commit_date(platform, owner, repo, branch, path):
     return None
 
 def fetch_source_age(url):
-    """返回 (days, update_date_str)"""
     norm = normalize_url(url)
 
-    # 0) 内存缓存
     if norm in _age_cache:
         cached = _age_cache[norm]
         if isinstance(cached, dict):
             return cached.get("days"), cached.get("date", "未知")
-        # 旧格式兼容
         if isinstance(cached, list) and len(cached) == 2:
             return cached[0], cached[1]
         return None, "未知"
@@ -203,7 +198,6 @@ def fetch_source_age(url):
     source_tag = ""
 
     try:
-        # 1) Git 平台（GitHub/Gitee raw/blob）→ 高置信度
         info = extract_repo_path(url)
         if info:
             plat, (owner, repo, branch, path) = info
@@ -231,7 +225,7 @@ def fetch_source_age(url):
                 except Exception:
                     pass
 
-        # 2) HEAD 请求 → Last-Modified（高置信度）
+        # HEAD Last-Modified
         try:
             sess = requests.Session()
             retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
@@ -252,7 +246,7 @@ def fetch_source_age(url):
         except Exception:
             pass
 
-        # 3) URL 路径中的日期特征（中置信度）
+        # URL 日期特征
         m1 = re.search(r"(\d{4})-(\d{2})-(\d{2})", norm)
         if m1:
             try:
@@ -279,7 +273,7 @@ def fetch_source_age(url):
             except Exception:
                 pass
 
-        # 4) 本地 git log（高置信度，本仓库文件）
+        # 本地 git log
         try:
             local_path = norm.replace("file://", "")
             if os.path.exists(local_path):
@@ -295,7 +289,7 @@ def fetch_source_age(url):
         except Exception:
             pass
 
-        # 5) HEAD Date 响应头 → 仅标记"今日活跃"，不计入分档（关键改动）
+        # HEAD Date → 仅活跃，不计入分档
         try:
             sess = requests.Session()
             retries = Retry(total=1, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
@@ -304,7 +298,6 @@ def fetch_source_age(url):
             head = sess.head(norm, headers=HEADERS, timeout=4, allow_redirects=True, verify=False)
             dm = head.headers.get("Date")
             if dm:
-                # 仅记录"今日活跃"，days=None → 归入未知档
                 dt = parsedate_to_datetime(dm)
                 if dt.tzinfo is None:
                     dt = dt.replace(tzinfo=datetime.timezone.utc)
@@ -319,12 +312,11 @@ def fetch_source_age(url):
     except Exception:
         pass
 
-    # 全部失败 → 未知
     _age_cache[norm] = {"days": None, "date": "未知", "source": "none", "active_today": False}
     return None, "未知"
 
 # ═══════════════════════════════════════════════
-# 检测核心（三层判定）
+# 检测核心
 # ═══════════════════════════════════════════════
 def check_url(url):
     norm = normalize_url(url)
@@ -435,12 +427,12 @@ def main():
     print(f"⏱超时: {TIMEOUT}s | 线程: {THREADS}")
     print(f"{'='*60}")
 
-    if not os.path.exists("live.txt"):
-        print("❌ live.txt 不存在")
+    if not os.path.exists(SOURCE_FILE):
+        print(f"❌ {SOURCE_FILE} 不存在")
         sys.exit(1)
 
     raw_lines = []
-    with open("live.txt", "r", encoding="utf-8") as f:
+    with open(SOURCE_FILE, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if line and not line.startswith("#"):
@@ -472,10 +464,10 @@ def main():
     total_ok = len(_ok_raw)
     print(f"\n📊 检测完成: ✅{total_ok} 可用 | ❌{len(_fail_raw)} 不通")
 
-    print("\n🕵️ 开始源龄检测（Date头降级为活跃标记，不污染分档）...")
+    print("\n🕵️ 开始源龄检测（Date头降级为活跃标记）...")
     age_completed = 0
     unknown_count = 0
-    date_only_count = 0  # 仅Date头标记的（不计入分档）
+    date_only_count = 0
     for url in _uniq_urls:
         norm = normalize_url(url)
         days, update_date = fetch_source_age(url)
@@ -507,13 +499,13 @@ def main():
     print(f"   ❓源龄未知(含仅活跃): {unknown_count} 个 (其中仅Date活跃:{date_only_count}个)")
 
     if total_ok == 0:
-        print("⚠️ 可用源为 0！保留旧 live_ok.txt，不覆盖。")
+        print("⚠️ 可用源为 0！保留旧文件，不覆盖。")
         save_cache()
         sys.exit(0)
 
     print(f"\n💾 写入文件（统一北京时间: {ts}）")
 
-    # ── live_ok.txt（四分组固定顺序 | 组内按字母排序）──
+    # live_ok.txt
     with open("live_ok.txt", "w", encoding="utf-8") as f:
         f.write(f"# 生成时间(北京时间): {ts_cst()}\n")
         f.write(f"# 可用总数: {total_ok}\n\n")
@@ -537,7 +529,7 @@ def main():
                 f.write(f"{u}\n")
             f.write("\n")
 
-    # ── live_ok.m3u（EXTINF名字=响应时间ms | 按响应时间从小到大排序）──
+    # live_ok.m3u
     with open("live_ok.m3u", "w", encoding="utf-8") as f:
         write_header(f, "可用源播放列表")
         f.write("#EXTM3U\n\n")
@@ -561,7 +553,7 @@ def main():
                 name = f"{int(rt)}ms"
             f.write(f"#EXTINF:-1,{name}\n{url}\n")
 
-    # ── 分档文件 ──
+    # 分档文件
     def write_tier_file(fname, tier, label):
         with open(fname, "w", encoding="utf-8") as f:
             write_header(f, f"{label}（{len(_by_tier[tier])}个）")
@@ -573,16 +565,16 @@ def main():
     write_tier_file("live_3month.txt", TIER_3MONTH, "三个月内")
     write_tier_file("live_old.txt", TIER_OLD, "超三个月")
 
-    # ── live_fail.txt ──
+    # live_fail.txt
     with open("live_fail.txt", "w", encoding="utf-8") as f:
         write_header(f, f"真失效源（{len(_fail_raw)}个）")
         for url, status, elapsed, flag in _fail_raw:
             f.write(f"{url}\n")
 
-    # ── live_stale.txt（僵尸源）──
+    # live_stale.txt
     with open("live_stale.txt", "w", encoding="utf-8") as f:
         write_header(f, f"僵尸源 >{STALE_DAYS}天且不通（{len(_stale_urls)}个）")
-        f.write("# 这些源已从 live_ok.txt 剔除，建议人工复查后可删除\n\n")
+        f.write("# 这些源建议人工复查后可删除\n\n")
         if _stale_urls:
             for nu in sorted(_stale_urls):
                 cached = _age_cache.get(nu, {"days": None, "date": "未知"})
@@ -600,7 +592,7 @@ def main():
         else:
             f.write("# （无）本次无>90天且不通的源\n")
 
-    # ── live_report.csv ──
+    # live_report.csv
     with open("live_report.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
         w.writerow([f"生成时间: {ts}", "", "", "", "", "", "", "", ""])
@@ -662,10 +654,8 @@ def main():
         else:
             w.writerow(["本次无>90天且不通的源", "", "", "", "", "", "", "", ""])
 
-    # ── 保存缓存 ──
     save_cache()
 
-    # ── 总结 ──
     print(f"\n{'='*60}")
     print(f"✅ 全部完成 | {ts}")
     print(f"{'='*60}")
